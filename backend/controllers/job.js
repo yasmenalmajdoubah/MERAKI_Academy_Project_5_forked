@@ -24,4 +24,38 @@ const createNewJob = (req, res) => {
     });
 };
 
-module.exports = { createNewJob };
+/* ===================================== */
+
+const getJobsByInstitustionId = (req, res) => {
+  const { institution_user_id } = req.params;
+  const placeholder = [institution_user_id, 0];
+  const query = `SELECT * FROM jobs WHERE institution_user_id=$1 AND is_deleted=$2`;
+
+  pool
+    .query(query, placeholder)
+    .then((result) => {
+      if (result.rows.length) {
+        return res.status(200).json({
+          success: true,
+          message: `All Jobs for the Institution: ${institution_user_id}`,
+          jobs: result.rows,
+        });
+      }
+
+      return res.status(200).json({
+        success: false,
+        message: `The Institution: ${institution_user_id} has no Jobs`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+/* ===================================== */
+
+module.exports = { createNewJob, getJobsByInstitustionId };
