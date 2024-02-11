@@ -51,6 +51,8 @@ const register = async (req, res) => {
       });
   };
   
+=======
+  
   const login = (req, res) => {
     const password = req.body.password;
     const email = req.body.email;
@@ -71,9 +73,8 @@ const register = async (req, res) => {
                 phoneNumber:result.rows[0].phoneNumber,
                 jobName:result.rows[0].jobName,
                 field_id:result.rows[0].field_id
-
               };
-              const options = { expiresIn: "1d" };
+              const options = { expiresIn: "2d" };
               const secret = process.env.SECRET;
               const token = jwt.sign(payload, secret, options);
               if (token) {
