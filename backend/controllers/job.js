@@ -1,7 +1,7 @@
 const { pool } = require("../models/db");
 
 const createNewJob = (req, res) => {
-  const institution_user_id = req.token.userId;
+  const institution_user_id = req.token.user_id;
   const { title, discription } = req.body;
   const placeholder = [institution_user_id, title, discription];
   const query = `INSERT INTO jobs (institution_user_id, title, discription) VALUES ($1,$2 ,$3) RETURNING *`;
@@ -59,7 +59,7 @@ const getJobsByInstitustionId = (req, res) => {
 /* ===================================== */
 
 const createNewJobUser = (req, res) => {
-  const user_user_id = req.token.userId;
+  const user_user_id = req.token.user_id;
   const { job_id } = req.body;
   const placeholder = [user_user_id, job_id];
   const query = `INSERT INTO job_user (user_user_id, job_id) VALUES ($1, $2) RETURNING *`;
