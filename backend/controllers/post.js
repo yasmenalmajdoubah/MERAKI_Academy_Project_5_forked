@@ -107,9 +107,32 @@ const updatePostById = (req, res) => {
       });
     });
 };
+
+const deletePostById=(req,res)=>{
+    const {post_id}=req.params
+    const placeholders=[post_id]
+    const query=`UPDATE posts SET is_deleted=1 WHERE post_id=$1 RETURNING *;`
+    pool.query(query,placeholders).then((result)=>{
+        if (result.rowCount !== 0) {
+            res.status(200).json({
+              success: true,
+              message: `posts with post_id: ${post_id} deleted successfully`,
+            });
+          } else {
+            throw new Error("Error happened while deleting post");
+          }
+    }).catch((err)=>{
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            err: err.message
+          });
+    })
+}
 module.exports = {
   createNewPost,
   getPostsByUser,
   getPostsByField,
-  updatePostById
+  updatePostById,
+  deletePostById
 };
