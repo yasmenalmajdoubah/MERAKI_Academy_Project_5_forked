@@ -1,4 +1,4 @@
-const pool = require("../models/db");
+const {pool} = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const register = async (req, res) => {
@@ -71,10 +71,10 @@ const login = (req, res) => {
   const email = req.body.email;
   const query = `SELECT * FROM users WHERE email = $1`;
   const placeholders = [email.toLowerCase()];
-  pool
-    .query(query, placeholders)
+  pool.query(`SELECT * FROM users WHERE email = $1`, [email.toLowerCase()])
     .then((result) => {
       if (result.rows.length) {
+
         bcrypt.compare(password, result.rows[0].password, (err, response) => {
           if (err) res.json(err);
           if (response) {
@@ -110,6 +110,7 @@ const login = (req, res) => {
       } else throw Error;
     })
     .catch((err) => {
+      console.log('err', err.message)
       res.status(403).json({
         success: false,
         message:

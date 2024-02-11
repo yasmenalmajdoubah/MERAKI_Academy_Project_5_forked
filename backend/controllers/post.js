@@ -2,7 +2,7 @@ const { pool } = require("../models/db");
 
 const createNewPost = (req, res) => {
   const { title, body, image, field_id } = req.body;
-  const user_id = req.token.user_id;
+  const user_id = req.token.userId;
   const placeholders = [title, body, image, field_id, user_id];
   const query = `INSERT INTO posts (title, body, image,field_id,user_id) VALUES ($1, $2,$3,$4,$5) RETURNING *`;
   pool
@@ -48,6 +48,11 @@ const getPostsByUser = (req, res) => {
           });
     });
 };
+
+
+
+
+
 module.exports = {
   createNewPost,
   getPostsByUser
