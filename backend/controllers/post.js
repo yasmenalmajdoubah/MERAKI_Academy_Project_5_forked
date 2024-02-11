@@ -41,19 +41,40 @@ const getPostsByUser = (req, res) => {
           });
     })
     .catch((err) => {
-        res.status(500).json({
-            success: false,
-            message: "Server error",
-            err: err.message,
-          });
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message
+      });
     });
 };
 
-
-
-
+const getPostsByField = (req, res) => {
+  const field_id = req.token.field_id;
+  const query = `SELECT * FROM posts WHERE field_id=$1`;
+  const placeholders = field_id;
+  pool.query(query, placeholders).then((result) => {
+    result.rows.length
+      ? res.status(200).json({
+          success: true,
+          message: `All posts for the field: ${field_id}`,
+          posts: result.rows,
+        })
+      : res.status(404).json({
+          success: false,
+          message: `The field: ${field_id} has no posts`,
+        });
+  }).catch((err)=>{
+    res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message
+    })
+  })
+};
 
 module.exports = {
   createNewPost,
-  getPostsByUser
+  getPostsByUser,
+  getPostsByField
 };
