@@ -25,7 +25,7 @@ const createNewPost = (req, res) => {
 const getPostsByUser = (req, res) => {
   const user_id = req.query.user;
   const placeholders = [user_id];
-  const query = `SELECT * FROM posts where user_id=$1`;
+  const query = `SELECT * FROM posts where user_id=$1 AND is_deleted=0`;
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -44,37 +44,72 @@ const getPostsByUser = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err.message
+        err: err.message,
       });
     });
 };
 
 const getPostsByField = (req, res) => {
   const field_id = req.token.field_id;
-  const query = `SELECT * FROM posts WHERE field_id=$1`;
+  const query = `SELECT * FROM posts WHERE field_id=1 AND is_deleted=0`;
   const placeholders = field_id;
-  pool.query(query, placeholders).then((result) => {
-    result.rows.length
-      ? res.status(200).json({
-          success: true,
-          message: `All posts for the field: ${field_id}`,
-          posts: result.rows,
-        })
-      : res.status(404).json({
-          success: false,
-          message: `The field: ${field_id} has no posts`,
-        });
-  }).catch((err)=>{
-    res.status(500).json({
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      result.rows.length
+        ? res.status(200).json({
+            success: true,
+            message: `All posts for the field: ${field_id}`,
+            posts: result.rows,
+          })
+        : res.status(404).json({
+            success: false,
+            message: `The field: ${field_id} has no posts`,
+          });
+    })
+    .catch((err) => {
+      res.status(500).json({
         success: false,
         message: "Server error",
-        err: err.message
-    })
-  })
+        err: err.message,
+      });
+    });
 };
 
+const updatePostById = (req, res) => {
+  const { title, body, image, field_id } = req.body;
+  const { post_id } = req.params;
+  const placeholders = [title, body, image, field_id, post_id];
+  const query = `UPDATE posts
+    SET title = COALESCE($1,title), body=COALESCE($2,body), image=COALESCE($3,image), field_id=COALESCE($4,field_id)
+    WHERE post_id=$5 RETURNING *;`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+        if (result.rows.length !== 0) {
+            res.status(200).json({
+                success: true,
+                message: `Post with post_id: ${post_id} updated successfully`,
+                post: result.rows[0],
+              });
+          } 
+            else {
+              throw new Error("Error happened while updating post");
+    
+            }
+     
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewPost,
   getPostsByUser,
-  getPostsByField
+  getPostsByField,
+  updatePostById
 };
