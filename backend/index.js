@@ -9,8 +9,17 @@ app.use(express.json());
 app.use(cors());
 
 // ===== Routers ==========
+const roleRouter = require("./route/role");
+
+//=== Routers Endpoints ===
+app.use("/roles", roleRouter);
 
 //=========================
+
+// * this for any wrong path
+app.use("*", (req, res) => {
+  res.status(404).json("No content on this URL");
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
