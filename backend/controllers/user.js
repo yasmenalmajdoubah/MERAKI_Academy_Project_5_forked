@@ -116,10 +116,40 @@ const login = (req, res) => {
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
       });
-    });
-};
+  };
+           
+  const getAllUsersByField = (req, res) => {
+    const id = req.params.id;
+    const query = `SELECT user_id,firstName,lastName FROM users  WHERE field_id=$1 ;`;
+    const placeholders = [id];
+  
+    pool
+      .query(query, placeholders)
+      .then((result) => {
+        if (result.rows.length !== 0) {
+          res.status(200).json({
+            success: true,
+            message: `The users with Field: ${id}`,
+            result: result.rows,
+          });
+        } else {
+          throw new Error("Error happened while getting users");
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  };
+ 
+  module.exports = {
+    register,
+   login,
+   getAllUsersByField
+  };
+ 
 
-module.exports = {
-  register,
-  login,
-};
+
