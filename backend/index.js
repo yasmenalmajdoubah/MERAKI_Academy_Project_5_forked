@@ -14,6 +14,9 @@ const roleRouter = require("./route/role");
 //=== Routers Endpoints ===
 app.use("/roles", roleRouter);
 
+const usersRouter = require("./route/user");
+
+app.use("/users", usersRouter);
 //=========================
 
 // * this for any wrong path
