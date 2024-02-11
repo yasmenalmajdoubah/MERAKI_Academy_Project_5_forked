@@ -1,4 +1,4 @@
-const pool = require("../models/db");
+const { pool } = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const register = async (req, res) => {
@@ -31,7 +31,7 @@ const register = async (req, res) => {
         CV,
         phoneNumber,
         field_id,
-        role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`;
+        role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`;
   const placeholders = [
     firstName,
     lastName,
@@ -53,13 +53,14 @@ const register = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Account created successfully",
+        result: result.rows,
       });
     })
     .catch((err) => {
       res.status(409).json({
         success: false,
         message: "The email already exists",
-        err,
+        err: err.message,
       });
     });
 };
@@ -68,9 +69,9 @@ const register = async (req, res) => {
 
 const login = (req, res) => {
   const password = req.body.password;
-  const email = req.body.email;
-  const query = `SELECT * FROM users WHERE email = $1`;
-  const placeholders = [email.toLowerCase()];
+  const email = req.body.email.toLowerCase();
+  const query = `SELECT * FROM users WHERE email=$1`;
+  const placeholders = [email];
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -79,7 +80,7 @@ const login = (req, res) => {
           if (err) res.json(err);
           if (response) {
             const payload = {
-              userId: result.rows[0].id,
+              userId: result.rows[0].user_id,
               country: result.rows[0].country,
               role: result.rows[0].role_id,
               CV: result.rows[0].CV,
@@ -95,7 +96,7 @@ const login = (req, res) => {
                 token,
                 success: true,
                 message: `Valid login credentials`,
-                userId: result.rows[0].id,
+                userId: result.rows[0].user_id,
               });
             } else {
               throw Error;

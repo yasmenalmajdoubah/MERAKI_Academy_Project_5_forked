@@ -16,10 +16,10 @@ pool
     console.log(err);
   });
 
-
-  const createTable = () => {
-    pool
-      .query(`
+const createTable = () => {
+  pool
+    .query(
+      `
       CREATE TABLE roles (
         role_id SERIAL NOT NULL,
         role VARCHAR(255),
@@ -144,18 +144,15 @@ pool
     
     
       `
-      )
-      .then((result) => {
-        console.log("result", result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  
-  //createTable();
+    )
+    .then((result) => {
+      console.log("result", result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
+//createTable();
 
-
-
- module.exports = { pool };
+module.exports = { pool };

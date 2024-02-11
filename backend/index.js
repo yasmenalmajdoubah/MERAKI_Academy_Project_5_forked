@@ -11,10 +11,12 @@ app.use(cors());
 // ========== Routers ==============
 const rolesRouter = require("./route/role");
 const usersRouter = require("./route/user");
+const jobsRouter = require("./route/job");
 
 //========== Routers Endpoints =============
 app.use("/roles", rolesRouter);
 app.use("/users", usersRouter);
+app.use("/jobs", jobsRouter);
 
 //=========================
 // * this for any wrong path
