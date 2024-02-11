@@ -58,4 +58,28 @@ const getJobsByInstitustionId = (req, res) => {
 
 /* ===================================== */
 
-module.exports = { createNewJob, getJobsByInstitustionId };
+const createNewJobUser = (req, res) => {
+  const user_user_id = req.token.userId;
+  const { job_id } = req.body;
+  const placeholder = [user_user_id, job_id];
+  const query = `INSERT INTO job_user (user_user_id, job_id) VALUES ($1, $2) RETURNING *`;
+
+  pool
+    .query(query, placeholder)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "Job_User created successfully",
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+module.exports = { createNewJob, getJobsByInstitustionId, createNewJobUser };
