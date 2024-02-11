@@ -9,10 +9,10 @@ app.use(express.json());
 app.use(cors());
 
 // ===== Routers ==========
-const roleRouter = require("./route/role");
+const rolesRouter = require("./route/role");
 
 //=== Routers Endpoints ===
-app.use("/roles", roleRouter);
+app.use("/roles", rolesRouter);
 
 //=========================
 

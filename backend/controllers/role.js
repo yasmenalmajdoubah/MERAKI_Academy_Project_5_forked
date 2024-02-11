@@ -48,4 +48,31 @@ const createNewPermissions = (req, res) => {
     });
 };
 
-module.exports = { createNewRole, createNewPermissions };
+/* ========================================== */
+
+/* ========================================== */
+
+const createNewField = (req, res) => {
+  const { field } = req.body;
+  const placeholders = [field];
+  const query = `INSERT INTO field (field) VALUES ($1) RETURNING *`;
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "Field created successfully",
+        Field: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: err.message,
+      });
+    });
+};
+
+module.exports = { createNewRole, createNewPermissions, createNewField };
