@@ -177,6 +177,28 @@ const getLikesByPost = (req, res) => {
       });
     });
 };
+
+const deleteLike = (req, res) => {
+  const { like_id } = req.params;
+  const placeholders = [like_id];
+  const query = `DELETE FROM likes WHERE like_id=$1 RETURNING* ;
+    `;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        massage: `like with like_id: ${like_id} deleted successfully`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewPost,
   getPostsByUser,
@@ -184,5 +206,6 @@ module.exports = {
   updatePostById,
   deletePostById,
   addLike,
-  getLikesByPost
+  getLikesByPost,
+  deleteLike
 };
