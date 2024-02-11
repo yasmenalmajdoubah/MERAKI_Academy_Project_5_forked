@@ -50,14 +50,14 @@ const register = async (req, res) => {
         });
       });
   };
-  /*
+  
   const login = (req, res) => {
     const password = req.body.password;
     const email = req.body.email;
     const query = `SELECT * FROM users WHERE email = $1`;
-    const data = [email.toLowerCase()];
+    const placeholders = [email.toLowerCase()];
     pool
-      .query(query, data)
+      .query(query, placeholders)
       .then((result) => {
         if (result.rows.length) {
           bcrypt.compare(password, result.rows[0].password, (err, response) => {
@@ -67,6 +67,11 @@ const register = async (req, res) => {
                 userId: result.rows[0].id,
                 country: result.rows[0].country,
                 role: result.rows[0].role_id,
+                CV:result.rows[0].CV,
+                phoneNumber:result.rows[0].phoneNumber,
+                jobName:result.rows[0].jobName,
+                field_id:result.rows[0].field_id
+
               };
               const options = { expiresIn: "1d" };
               const secret = process.env.SECRET;
@@ -99,9 +104,9 @@ const register = async (req, res) => {
         });
       });
   };
-  */
+ 
   module.exports = {
     register,
-   
+   login
   };
   
