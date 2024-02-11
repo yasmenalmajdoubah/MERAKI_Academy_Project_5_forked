@@ -118,7 +118,7 @@ const login = (req, res) => {
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
       });
-  };
+    })}
   // ===========================
            
   const getAllUsersByField = (req, res) => {
@@ -178,7 +178,4 @@ const login = (req, res) => {
    login,
    createNewFollow,
    getAllUsersByField
-  };
- 
-
-
+  }
