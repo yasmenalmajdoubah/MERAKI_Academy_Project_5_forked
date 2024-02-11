@@ -10,6 +10,9 @@ app.use(cors());
 
 // ===== Routers ==========
 
+const usersRouter = require("./route/user");
+
+app.use("/users", usersRouter);
 //=========================
 
 const PORT = process.env.PORT || 5000;
