@@ -2,7 +2,7 @@ const { pool } = require("../models/db");
 
 const createNewPost = (req, res) => {
   const { title, body, image, field_id } = req.body;
-  const user_id = req.token.userId;
+  const user_id = req.token.user_id;
   const placeholders = [title, body, image, field_id, user_id];
   const query = `INSERT INTO posts (title, body, image,field_id,user_id) VALUES ($1, $2,$3,$4,$5) RETURNING *`;
   pool
@@ -132,7 +132,7 @@ const deletePostById = (req, res) => {
 
 const addLike = (req, res) => {
   const { post_id } = req.params;
-  const user_id = req.token.userId;
+  const user_id = req.token.user_id;
   const placeholders = [user_id, post_id];
   const query = `INSERT INTO likes(user_id,post_id) VALUES ($1, $2) RETURNING *;`;
   pool

@@ -80,7 +80,7 @@ const login = (req, res) => {
           if (err) res.json(err);
           if (response) {
             const payload = {
-              userId: result.rows[0].user_id,
+              user_id: result.rows[0].user_id,
               country: result.rows[0].country,
               role: result.rows[0].role_id,
               CV: result.rows[0].CV,
@@ -96,7 +96,7 @@ const login = (req, res) => {
                 token,
                 success: true,
                 message: `Valid login credentials`,
-                userId: result.rows[0].user_id,
+                user_id: result.rows[0].user_id,
               });
             } else {
               throw Error;
@@ -152,7 +152,7 @@ const login = (req, res) => {
   
   const createNewFollow = (req, res) => {
     const {followed_user_id} = req.body
-    const following_user_id = req.token.userId;
+    const following_user_id = req.token.user_id;
     const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2)`;
     const placeholders = [followed_user_id,following_user_id];
     pool
