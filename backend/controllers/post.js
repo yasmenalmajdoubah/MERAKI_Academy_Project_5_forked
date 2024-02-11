@@ -152,11 +152,60 @@ const addLike = (req, res) => {
       });
     });
 };
+
+const getLikesByPost = (req, res) => {
+  const { post_id } = req.params;
+  const placeholders = [post_id];
+  const query = `SELECT likes.like_id, likes.post_id, users.firstName, users.lastName, users.user_id 
+    FROM users
+   LEFT JOIN likes
+   ON likes.user_id=users.user_id where likes.post_id=$1`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `All likes for post: ${post_id}`,
+        likes: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+const deleteLike = (req, res) => {
+  const { like_id } = req.params;
+  const placeholders = [like_id];
+  const query = `DELETE FROM likes WHERE like_id=$1 RETURNING* ;
+    `;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        massage: `like with like_id: ${like_id} deleted successfully`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewPost,
   getPostsByUser,
   getPostsByField,
   updatePostById,
   deletePostById,
-  addLike
+  addLike,
+  getLikesByPost,
+  deleteLike
 };
