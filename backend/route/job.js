@@ -5,6 +5,7 @@ const {
   createNewJob,
   getJobsByInstitustionId,
   createNewJobUser,
+  getAllUsersOfJobId,
 } = require("../controllers/job");
 
 const authentication = require("../middlewares/authentication");
@@ -17,5 +18,8 @@ jobsRouter.get("/:institution_user_id", getJobsByInstitustionId);
 
 // http://localhost:5000/jobs/job_user
 jobsRouter.post("/job_user", authentication, createNewJobUser);
+
+// http://localhost:5000/jobs/allUsers/:job_id
+jobsRouter.get("/allUsers/:job_id", getAllUsersOfJobId);
 
 module.exports = jobsRouter;
