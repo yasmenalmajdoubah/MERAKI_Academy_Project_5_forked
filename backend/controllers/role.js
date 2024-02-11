@@ -50,6 +50,29 @@ const createNewPermissions = (req, res) => {
 
 /* ========================================== */
 
+const createNewRolePermissions = (req, res) => {
+  const { role_id, permission_id } = req.body;
+  const placeholders = [role_id, permission_id];
+  const query = `INSERT INTO role_permissions (role_id, permission_id) VALUES ($1, $2) RETURNING *`;
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "Role_Permission created successfully",
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: err.message,
+      });
+    });
+};
+
 /* ========================================== */
 
 const createNewField = (req, res) => {
@@ -75,4 +98,9 @@ const createNewField = (req, res) => {
     });
 };
 
-module.exports = { createNewRole, createNewPermissions, createNewField };
+module.exports = {
+  createNewRole,
+  createNewPermissions,
+  createNewRolePermissions,
+  createNewField,
+};
