@@ -1,12 +1,10 @@
 const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 require("./models/db");
 const app = express();
-const cors = require("cors")
-require("dotenv").config()
-
-app.use(express.json())
+app.use(express.json());
 app.use(cors());
-
 
 // ===== Routers ==========
 
