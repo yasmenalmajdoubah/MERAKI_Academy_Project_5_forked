@@ -50,7 +50,9 @@ const register = async (req, res) => {
         });
       });
   };
- /*
+  
+=======
+  
   const login = (req, res) => {
     const password = req.body.password;
     const email = req.body.email;
@@ -67,10 +69,10 @@ const register = async (req, res) => {
                 userId: result.rows[0].id,
                 country: result.rows[0].country,
                 role: result.rows[0].role_id,
-                about :result.rows[0].about,
-      CV:result.rows[0].CV,
-      phoneNumber:result.rows[0].phoneNumber,
-      field_id:result.rows[0].field_id
+                CV:result.rows[0].CV,
+                phoneNumber:result.rows[0].phoneNumber,
+                jobName:result.rows[0].jobName,
+                field_id:result.rows[0].field_id
               };
               const options = { expiresIn: "2d" };
               const secret = process.env.SECRET;
@@ -103,10 +105,9 @@ const register = async (req, res) => {
         });
       });
   };
-  */
+ 
   module.exports = {
     register,
-    //login
-   
+   login
   };
   
