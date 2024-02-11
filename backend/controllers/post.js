@@ -86,18 +86,63 @@ const updatePostById = (req, res) => {
   pool
     .query(query, placeholders)
     .then((result) => {
-        if (result.rows.length !== 0) {
-            res.status(200).json({
-                success: true,
-                message: `Post with post_id: ${post_id} updated successfully`,
-                post: result.rows[0],
-              });
-          } 
-            else {
-              throw new Error("Error happened while updating post");
-    
-            }
-     
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `Post with post_id: ${post_id} updated successfully`,
+          post: result.rows[0],
+        });
+      } else {
+        throw new Error("Error happened while updating post");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+const deletePostById = (req, res) => {
+  const { post_id } = req.params;
+  const placeholders = [post_id];
+  const query = `UPDATE posts SET is_deleted=1 WHERE post_id=$1 RETURNING *;`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rowCount !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `posts with post_id: ${post_id} deleted successfully`,
+        });
+      } else {
+        throw new Error("Error happened while deleting post");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+const addLike = (req, res) => {
+  const { post_id } = req.params;
+  const user_id = req.token.userId;
+  const placeholders = [user_id, post_id];
+  const query = `INSERT INTO likes(user_id,post_id) VALUES ($1, $2) RETURNING *;`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "like created successfully",
+        results: result.rows[0],
+      });
     })
     .catch((err) => {
       res.status(500).json({
@@ -111,5 +156,7 @@ module.exports = {
   createNewPost,
   getPostsByUser,
   getPostsByField,
-  updatePostById
+  updatePostById,
+  deletePostById,
+  addLike
 };
