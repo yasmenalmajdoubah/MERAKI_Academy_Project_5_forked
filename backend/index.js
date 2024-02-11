@@ -8,17 +8,15 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ===== Routers ==========
+// ========== Routers ==============
 const rolesRouter = require("./route/role");
-
-//=== Routers Endpoints ===
-app.use("/roles", rolesRouter);
-
 const usersRouter = require("./route/user");
 
+//========== Routers Endpoints =============
+app.use("/roles", rolesRouter);
 app.use("/users", usersRouter);
-//=========================
 
+//=========================
 // * this for any wrong path
 app.use("*", (req, res) => {
   res.status(404).json("No content on this URL");
