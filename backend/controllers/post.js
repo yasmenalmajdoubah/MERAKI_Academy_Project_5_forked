@@ -22,7 +22,33 @@ const createNewPost = (req, res) => {
       });
     });
 };
-
-module.exports={
-    createNewPost
-}
+const getPostsByUser = (req, res) => {
+  const user_id = req.query.user;
+  const placeholders = [user_id];
+  const query = `SELECT * FROM posts where user_id=$1`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      result.rows.length
+        ? res.status(200).json({
+            success: true,
+            message: `All posts for the user: ${user_id}`,
+            posts: result.rows,
+          })
+        : res.status(404).json({
+            success: false,
+            message: `The user: ${user_id} has no posts`,
+          });
+    })
+    .catch((err) => {
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            err: err.message,
+          });
+    });
+};
+module.exports = {
+  createNewPost,
+  getPostsByUser
+};
