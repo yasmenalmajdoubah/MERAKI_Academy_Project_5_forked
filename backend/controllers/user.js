@@ -116,7 +116,7 @@ const login = (req, res) => {
         success: false,
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
-        err,
+        err: err.message
       });
     });
 };
@@ -145,7 +145,7 @@ const getAllUsersByField = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
@@ -170,7 +170,7 @@ const createNewFollow = (req, res) => {
       res.status(404).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
@@ -197,7 +197,7 @@ const unFollow = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
@@ -230,7 +230,7 @@ const getAllFollowersByUserId = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
@@ -259,7 +259,7 @@ const getUserById = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
