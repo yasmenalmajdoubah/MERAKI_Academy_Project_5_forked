@@ -73,8 +73,31 @@ const updateCommentById = (req, res) => {
       });
     });
 };
+const deleteCommentById = (req, res) => {
+  const { comment_id } = req.parmas;
+  const placeholders = [comment_id];
+  const query = `DELETE FROM comments WHERE comment_id=$1 RETURNING* ;`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        massage: `comment with id: ${comment_id} deleted `,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+
 module.exports = {
   createNewComment,
   getCommentsByPost,
-  updateCommentById
+  updateCommentById,
+  deleteCommentById
 };
