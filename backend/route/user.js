@@ -8,6 +8,7 @@ const {
   getAllFollowersByUserId,
   getUserById,
   unFollow,
+  ,getUsersByInstitustion
   createNewInstitutionUser,
 } = require("../controllers/user");
 
@@ -28,6 +29,8 @@ usersRouter.get("/:id", getUserById);
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
 usersRouter.delete("/follows/:id", unFollow);
+
+usersRouter.get("/institustion/:id", getUsersByInstitustion);
 
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
