@@ -28,7 +28,7 @@ usersRouter.get("/:id", getUserById);
 
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
-usersRouter.delete("/follows/:id", unFollow);
+usersRouter.delete("/follows/:follow_id", unFollow);
 
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
 
