@@ -1,7 +1,18 @@
 const express = require("express");
 
+const {
+  register,
+  login,
+  createNewFollow,
+  getAllUsersByField,
+  getAllFollowersByUserId,
+  getUserById,
+  unFollow,
+  ,getUsersByInstitustion
+  createNewInstitutionUser,
+} = require("../controllers/user");
 
-const { register ,login,createNewFollow ,getAllUsersByField,getAllFollowersByUserId ,getUserById,unFollow,getUsersByInstitustion} = require("../controllers/user");
+const authentication = require("../middlewares/authentication");
 
 const usersRouter = express.Router();
 
@@ -18,7 +29,9 @@ usersRouter.get("/:id", getUserById);
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
 usersRouter.delete("/follows/:id", unFollow);
+
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
 
+usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
 module.exports = usersRouter;

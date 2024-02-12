@@ -1,6 +1,7 @@
 const { pool } = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+
 const register = async (req, res) => {
   const {
     firstName,
@@ -116,11 +117,11 @@ const login = (req, res) => {
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
-      });       
+      });
+    });
+};
 
-      }); }
-
-// ===========================
+/* ============================================= */
 
 const getAllUsersByField = (req, res) => {
   const id = req.params.id;
@@ -149,7 +150,7 @@ const getAllUsersByField = (req, res) => {
     });
 };
 
-// =============================
+/* ============================================= */
 
 const createNewFollow = (req, res) => {
   const { followed_user_id } = req.body;
@@ -172,9 +173,10 @@ const createNewFollow = (req, res) => {
         err: err,
       });
     });
-  };
-// ================
-    
+};
+
+/* ============================================= */
+
 const unFollow = (req, res) => {
   const id = req.params.id;
   const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
@@ -199,6 +201,9 @@ const unFollow = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
+
 const getAllFollowersByUserId = (req, res) => {
   const id = req.params.id;
   const query = `SELECT users.firstName, users.lastName, users.user_id 
@@ -229,6 +234,9 @@ const getAllFollowersByUserId = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
+
 const getUserById = (req, res) => {
   const id = req.params.id;
   const query = `SELECT firstName,lastName,email,CV FROM users WHERE user.id=$1`;
@@ -255,15 +263,17 @@ const getUserById = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
+
 const getUsersByInstitustion = (req, res) => {
   const id = req.params.id;
-  
   const query = `SELECT users.firstName,users.lastName,users.email FROM users LEFT JOIN institution_user
   ON institution_user.institution_id=users.user_id 
   WHERE institution_user.institution_user_id=$1`;
   const placeholders = [id];
 
-  pool
+ pool
     .query(query, placeholders)
     .then((result) => {
       if (result.rows.length !== 0) {
@@ -280,7 +290,35 @@ const getUsersByInstitustion = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
+      });
+    });
+};
+      });
+    });
+};
+/* ============================================= */
+
+const createNewInstitutionUser = (req, res) => {
+  const user_id = req.token.user_id;
+  const { institution_id, dateOfWork, workDiscription } = req.body;
+  const placeholders = [institution_id, user_id, dateOfWork, workDiscription];
+  const query = `INSERT INTO institution_user (institution_id, user_id, dateOfWork, workDiscription) VALUES ($1,$2,$3,$4) RETURNING *`;
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `Created successfully`,
+        result: result.rows,
+      });
+     })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
       });
     });
 };
@@ -293,8 +331,9 @@ module.exports = {
   getUserById,
   getAllFollowersByUserId,
   unFollow,
-  getUsersByInstitustion
-}
+  createNewInstitutionUser,
+    getUsersByInstitustion
+};
 
 
 
