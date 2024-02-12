@@ -256,6 +256,7 @@ const getUserById = (req, res) => {
     });
 };
 
+
 module.exports = {
   register,
   login,
@@ -265,3 +266,6 @@ module.exports = {
   getAllFollowersByUserId,
   unFollow
 }
+
+
+
