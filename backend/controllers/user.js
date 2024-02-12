@@ -116,9 +116,8 @@ const login = (req, res) => {
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
-      });
-    });
-};
+      });       
+
 // ===========================
 
 const getAllUsersByField = (req, res) => {
@@ -171,6 +170,63 @@ const createNewFollow = (req, res) => {
         err: err,
       });
     });
+  };
+// ================
+    
+};
+const unFollow = (req, res) => {
+  const id = req.params.id;
+  const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
+  const placeholders = [id];
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rowCount !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `follower with id: ${id} deleted successfully`,
+        });
+      } else {
+        throw new Error("Error happened while deleting article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+const getAllFollowersByUserId = (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT users.firstName, users.lastName, users.user_id 
+  FROM users
+ LEFT JOIN  follows
+ ON follows.user_id=users.user_id 
+  WHERE followed_user_id=$1 ;`;
+  const placeholders = [id];
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `The follows for user with id = ${id}`,
+          result: result.rows,
+        });
+      } else {
+        throw new Error("Error happened while getting follows");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
 };
 const getUserById = (req, res) => {
   const id = req.params.id;
@@ -200,10 +256,17 @@ const getUserById = (req, res) => {
 };
 
 
+
+
+
+
 module.exports = {
   register,
   login,
   createNewFollow,
   getAllUsersByField,
   getUserById
+  getAllFollowersByUserId,
+  unFollow
 };
+
