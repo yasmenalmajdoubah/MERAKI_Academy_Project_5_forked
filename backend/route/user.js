@@ -8,7 +8,7 @@ const {
   getAllFollowersByUserId,
   getUserById,
   unFollow,
-  ,getUsersByInstitustion
+  getUsersByInstitustion,
   createNewInstitutionUser,
 } = require("../controllers/user");
 

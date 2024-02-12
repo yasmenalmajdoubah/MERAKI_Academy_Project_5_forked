@@ -273,7 +273,7 @@ const getUsersByInstitustion = (req, res) => {
   WHERE institution_user.institution_user_id=$1`;
   const placeholders = [id];
 
- pool
+  pool
     .query(query, placeholders)
     .then((result) => {
       if (result.rows.length !== 0) {
@@ -294,9 +294,7 @@ const getUsersByInstitustion = (req, res) => {
       });
     });
 };
-      });
-    });
-};
+
 /* ============================================= */
 
 const createNewInstitutionUser = (req, res) => {
@@ -313,7 +311,7 @@ const createNewInstitutionUser = (req, res) => {
         message: `Created successfully`,
         result: result.rows,
       });
-     })
+    })
     .catch((err) => {
       res.status(500).json({
         success: false,
@@ -322,6 +320,8 @@ const createNewInstitutionUser = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
 
 module.exports = {
   register,
@@ -332,8 +332,5 @@ module.exports = {
   getAllFollowersByUserId,
   unFollow,
   createNewInstitutionUser,
-    getUsersByInstitustion
+  getUsersByInstitustion,
 };
-
-
-
