@@ -46,7 +46,58 @@ const getCommentsByPost = (req, res) => {
       });
     });
 };
+const updateCommentById = (req, res) => {
+  const { comment_id } = req.parmas;
+  const { comment } = req.body;
+  const placeholders = [comment, comment_id];
+  const query = `UPDATE comments SET comment=$1 WHERE comment_id=$2 RETURNING *;
+    `;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `comment with comment_id: ${comment_id} updated successfully`,
+          post: result.rows[0],
+        });
+      } else {
+        throw new Error("Error happened while updating comment");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+const deleteCommentById = (req, res) => {
+  const { comment_id } = req.parmas;
+  const placeholders = [comment_id];
+  const query = `DELETE FROM comments WHERE comment_id=$1 RETURNING* ;`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        massage: `comment with id: ${comment_id} deleted `,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+
 module.exports = {
   createNewComment,
-  getCommentsByPost
+  getCommentsByPost,
+  updateCommentById,
+  deleteCommentById
 };
