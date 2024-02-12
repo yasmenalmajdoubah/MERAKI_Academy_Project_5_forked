@@ -42,7 +42,7 @@ const getJobsByInstitustionId = (req, res) => {
         });
       }
 
-      return res.status(200).json({
+      return res.status(404).json({
         success: false,
         message: `The Institution: ${institution_user_id} has no Jobs`,
       });
@@ -82,4 +82,41 @@ const createNewJobUser = (req, res) => {
     });
 };
 
-module.exports = { createNewJob, getJobsByInstitustionId, createNewJobUser };
+/* ========================================= */
+
+const getAllUsersOfJobId = (req, res) => {
+  const { job_id } = req.params;
+  const placeholder = [job_id];
+  const query = `SELECT firstname, lastname, profileimage, jobname, cv, phonenumber,  title, jobs.job_id FROM job_user INNER JOIN users ON job_user.user_user_id=users.user_id INNER JOIN jobs ON job_user.job_id=jobs.job_id WHERE job_user.job_id=$1`;
+
+  pool
+    .query(query, placeholder)
+    .then((result) => {
+      if (result.rows.length) {
+        return res.status(200).json({
+          success: true,
+          message: `All Users from the Job: ${job_id}`,
+          users: result.rows,
+        });
+      }
+
+      return res.status(404).json({
+        success: false,
+        message: `This Job: ${job_id} has no Users`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+module.exports = {
+  createNewJob,
+  getJobsByInstitustionId,
+  createNewJobUser,
+  getAllUsersOfJobId,
+};

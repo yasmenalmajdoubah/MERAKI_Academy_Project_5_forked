@@ -111,51 +111,50 @@ const login = (req, res) => {
       } else throw Error;
     })
     .catch((err) => {
-      console.log('err', err.message)
       res.status(403).json({
         success: false,
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
-      });
-    })}
-  // ===========================
-           
-  const getAllUsersByField = (req, res) => {
-    const id = req.params.id;
-    const query = `SELECT user_id,firstName,lastName FROM users  WHERE field_id=$1 ;`;
-    const placeholders = [id];
-  
-    pool
-      .query(query, placeholders)
-      .then((result) => {
-        if (result.rows.length !== 0) {
-          res.status(200).json({
-            success: true,
-            message: `The users with Field: ${id}`,
-            result: result.rows,
-          });
-        } else {
-          throw new Error("Error happened while getting users");
-        }
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
+      });       
+
+// ===========================
+
+const getAllUsersByField = (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT user_id,firstName,lastName FROM users  WHERE field_id=$1 ;`;
+  const placeholders = [id];
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `The users with Field: ${id}`,
+          result: result.rows,
         });
+      } else {
+        throw new Error("Error happened while getting users");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
       });
-  };
- 
-  // =============================
-  
-  const createNewFollow = (req, res) => {
-    const {followed_user_id} = req.body
-    const following_user_id = req.token.user_id;
-    const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2)`;
-    const placeholders = [followed_user_id,following_user_id];
-    pool
+    });
+};
+
+// =============================
+
+const createNewFollow = (req, res) => {
+  const { followed_user_id } = req.body;
+  const following_user_id = req.token.user_id;
+  const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2)`;
+  const placeholders = [followed_user_id, following_user_id];
+  pool
     .query(query, data)
     .then((result) => {
       res.status(201).json({
@@ -172,10 +171,38 @@ const login = (req, res) => {
       });
     });
   };
+// ================
+    
+};
+const unFollow = (req, res) => {
+  const id = req.params.id;
+  const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
+  const placeholders = [id];
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rowCount !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `follower with id: ${id} deleted successfully`,
+        });
+      } else {
+        throw new Error("Error happened while deleting article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
 
-  module.exports = {
-    register,
-   login,
-   createNewFollow,
-   getAllUsersByField
-  }
+module.exports = {
+  register,
+  login,
+  createNewFollow,
+  getAllUsersByField,
+  unFollow
+};
