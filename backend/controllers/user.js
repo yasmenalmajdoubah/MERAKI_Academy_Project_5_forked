@@ -138,14 +138,16 @@ const getAllUsersByField = (req, res) => {
           result: result.rows,
         });
       } else {
-        throw new Error("Error happened while getting users");
+        throw new Error("NO users at this fields ");
       }
     })
     .catch((err) => {
+      console.log('err', err)
+
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message
       });
     });
 };
@@ -154,11 +156,12 @@ const getAllUsersByField = (req, res) => {
 
 const createNewFollow = (req, res) => {
   const { followed_user_id } = req.body;
+  console.log('req.token', req.token)
   const following_user_id = req.token.user_id;
-  const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2)`;
+  const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2) RETURNING* ;`;
   const placeholders = [followed_user_id, following_user_id];
   pool
-    .query(query, data)
+    .query(query, placeholders)
     .then((result) => {
       res.status(201).json({
         success: true,
@@ -206,8 +209,8 @@ const getAllFollowersByUserId = (req, res) => {
   const query = `SELECT users.firstName, users.lastName, users.user_id 
   FROM users
  LEFT JOIN  follows
- ON follows.user_id=users.user_id 
-  WHERE followed_user_id=$1 ;`;
+ ON follows.followed_user_id=users.user_id 
+  WHERE follows.followed_user_id=$1 ;`;
   const placeholders = [id];
 
   pool
@@ -236,7 +239,7 @@ const getAllFollowersByUserId = (req, res) => {
 
 const getUserById = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT firstName,lastName,email,CV FROM users WHERE user.id=$1`;
+  const query = `SELECT firstName,lastName,email,CV FROM users WHERE user_id=$1`;
   const placeholders = [id];
 
   pool
@@ -256,7 +259,7 @@ const getUserById = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
