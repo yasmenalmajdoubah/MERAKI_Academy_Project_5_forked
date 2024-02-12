@@ -46,7 +46,35 @@ const getCommentsByPost = (req, res) => {
       });
     });
 };
+const updateCommentById = (req, res) => {
+  const { comment_id } = req.parmas;
+  const { comment } = req.body;
+  const placeholders = [comment, comment_id];
+  const query = `UPDATE comments SET comment=$1 WHERE comment_id=$2 RETURNING *;
+    `;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `comment with comment_id: ${comment_id} updated successfully`,
+          post: result.rows[0],
+        });
+      } else {
+        throw new Error("Error happened while updating comment");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewComment,
-  getCommentsByPost
+  getCommentsByPost,
+  updateCommentById
 };
