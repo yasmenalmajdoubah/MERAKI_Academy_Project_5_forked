@@ -15,16 +15,19 @@ const {
 const authentication = require("../middlewares/authentication");
 
 const usersRouter = express.Router();
-
+//http://localhost:5000/users/register
 usersRouter.post("/register", register);
-
+//http://localhost:5000/users/login
 usersRouter.post("/login", login);
 
-usersRouter.post("/follows", createNewFollow);
+//http://localhost:5000/users/follows
+usersRouter.post("/follows",authentication, createNewFollow);
 
-usersRouter.get("/search_2/:id", getAllUsersByField);
+http://localhost:5000/users/search_2/2
+usersRouter.get("/search_2/:id",authentication, getAllUsersByField);
 
-usersRouter.get("/:id", getUserById);
+http://localhost:5000/users/search_1/5
+usersRouter.get("/search_1/:id", getUserById);
 
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
@@ -35,3 +38,28 @@ usersRouter.get("/institustion/:id", getUsersByInstitustion);
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
 module.exports = usersRouter;
+
+
+/* 
+REJESTIR
+{
+    "firstName":"hamza",
+  "lastName":"aqel",
+  "email":"Hamza22@gmail.com",
+  "password":"123456",
+  "country":"amman",
+  "jobName":"teacher",
+  "about":"full stack dev.",
+  "phoneNumber":"0788128991",
+  "role_id":1,
+  "field_id":1
+
+} */
+
+/* 
+login
+{
+    "email":"Hamza22@gmail.com",
+    "password":"123456"
+}
+ */
