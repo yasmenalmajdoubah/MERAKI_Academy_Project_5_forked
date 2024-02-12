@@ -118,6 +118,8 @@ const login = (req, res) => {
         err,
       });       
 
+      }); }
+
 // ===========================
 
 const getAllUsersByField = (req, res) => {
@@ -173,7 +175,6 @@ const createNewFollow = (req, res) => {
   };
 // ================
     
-};
 const unFollow = (req, res) => {
   const id = req.params.id;
   const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
@@ -256,17 +257,15 @@ const getUserById = (req, res) => {
 };
 
 
-
-
-
-
 module.exports = {
   register,
   login,
   createNewFollow,
   getAllUsersByField,
-  getUserById
+  getUserById,
   getAllFollowersByUserId,
   unFollow
-};
+}
+
+
 
