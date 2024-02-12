@@ -116,7 +116,7 @@ const login = (req, res) => {
         success: false,
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
-        err,
+        err: err.message
       });
     });
 };
@@ -138,7 +138,7 @@ const getAllUsersByField = (req, res) => {
           result: result.rows,
         });
       } else {
-        throw new Error("NO users at this fields ");
+        throw new Error(`No users on Field: ${id}`);
       }
     })
     .catch((err) => {
@@ -147,7 +147,7 @@ const getAllUsersByField = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err.message
+        err: err.message,
       });
     });
 };
@@ -173,7 +173,7 @@ const createNewFollow = (req, res) => {
       res.status(404).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
@@ -181,17 +181,20 @@ const createNewFollow = (req, res) => {
 /* ============================================= */
 
 const unFollow = (req, res) => {
-  const { follow_id } = req.params;
-  const placeholders = [follow_id];
-  const query = `DELETE FROM follows WHERE follow_id=$1 RETURNING* ;
-    `;
+  const id = req.params.id;
+  const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
+  const placeholders = [id];
   pool
     .query(query, placeholders)
     .then((result) => {
-      res.status(200).json({
-        success: true,
-        massage: `like with follow_id: ${follow_id} deleted successfully`,
-      });
+      if (result.rowCount !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `follower with id: ${id} deleted successfully`,
+        });
+      } else {
+        throw new Error("Error happened while deleting article");
+      }
     })
     .catch((err) => {
       res.status(500).json({
@@ -230,7 +233,7 @@ const getAllFollowersByUserId = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Server error",
-        err: err,
+        err: err.message,
       });
     });
 };
@@ -320,8 +323,6 @@ const createNewInstitutionUser = (req, res) => {
       });
     });
 };
-
-/* ============================================= */
 
 module.exports = {
   register,

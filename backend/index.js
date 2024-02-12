@@ -15,12 +15,14 @@ const usersRouter = require("./route/user");
 const postRouter=require("./route/post");
 const jobsRouter = require("./route/job");
 const commentRouter=require("./route/comment")
+
 //========== Routers Endpoints =============
 app.use("/roles", rolesRouter);
 app.use("/users", usersRouter);
 app.use("/posts",postRouter);
 app.use("/jobs", jobsRouter);
 app.use("/comments",commentRouter)
+
 //=========================
 // * this for any wrong path
 app.use("*", (req, res) => {
