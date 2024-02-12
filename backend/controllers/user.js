@@ -116,9 +116,8 @@ const login = (req, res) => {
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
-      });
-    });
-};
+      });       
+
 // ===========================
 
 const getAllUsersByField = (req, res) => {
@@ -171,6 +170,33 @@ const createNewFollow = (req, res) => {
         err: err,
       });
     });
+  };
+// ================
+    
+};
+const unFollow = (req, res) => {
+  const id = req.params.id;
+  const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
+  const placeholders = [id];
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      if (result.rowCount !== 0) {
+        res.status(200).json({
+          success: true,
+          message: `follower with id: ${id} deleted successfully`,
+        });
+      } else {
+        throw new Error("Error happened while deleting article");
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
 };
 const getAllFollowersByUserId = (req, res) => {
   const id = req.params.id;
@@ -212,6 +238,7 @@ module.exports = {
   login,
   createNewFollow,
   getAllUsersByField,
-  createNewFollow,
-  getAllFollowersByUserId
+  getAllFollowersByUserId,
+  unFollow
 };
+
