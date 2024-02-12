@@ -50,8 +50,7 @@ const register = async (req, res) => {
         });
       });
   };
-  
-=======
+
   
   const login = (req, res) => {
     const password = req.body.password;
@@ -106,8 +105,33 @@ const register = async (req, res) => {
       });
   };
  
+  const createNewFollow = (req, res) => {
+    const {followed_user_id} = req.body
+    const following_user_id = req.token.userId;
+    const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2)`;
+    const placeholders = [followed_user_id,following_user_id];
+    pool
+    .query(query, data)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "Followed successfully",
+        result: result.rows[0],
+      });
+    })
+    .catch((err) => {
+      res.status(404).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+        
+  };
+
   module.exports = {
     register,
-   login
+   login,
+   createNewFollow
   };
   
