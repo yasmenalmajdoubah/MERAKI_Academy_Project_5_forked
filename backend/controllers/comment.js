@@ -22,6 +22,31 @@ const createNewComment = (req, res) => {
       });
     });
 };
-module.exports={
-    createNewComment
-}
+
+const getCommentsByPost = (req, res) => {
+  const { post_id } = req.parmas;
+  const placeholders = [post_id];
+  const query = `SELECT users.FirstName, users.LastName, comments.comment, comments.comment_id  FROM users LEFT JOIN comments ON 
+    comments.user_id=users.user_id WHERE comments.post_id=$1 AND comments.is_deleted=0
+   `;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `All comments for post: ${post_id}`,
+        comments: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+module.exports = {
+  createNewComment,
+  getCommentsByPost
+};
