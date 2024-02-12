@@ -116,9 +116,8 @@ const login = (req, res) => {
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
         err,
-      });
-    });
-};
+      });       
+
 // ===========================
 
 const getAllUsersByField = (req, res) => {
@@ -171,6 +170,9 @@ const createNewFollow = (req, res) => {
         err: err,
       });
     });
+  };
+// ================
+    
 };
 const unFollow = (req, res) => {
   const id = req.params.id;
