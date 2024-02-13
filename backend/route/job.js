@@ -23,3 +23,10 @@ jobsRouter.post("/job_user", authentication, createNewJobUser);
 jobsRouter.get("/allUsers/:job_id", getAllUsersOfJobId);
 
 module.exports = jobsRouter;
+
+/*
+create job
+{ "title": "full stack web developer",
+ "discription":"node,css,html,js" 
+ }
+*/
