@@ -4,7 +4,8 @@ const createNewPost = (req, res) => {
   const { title, body, image, field_id } = req.body;
   const user_id = req.token.user_id;
   const placeholders = [title, body, image, field_id, user_id];
-  const query = `INSERT INTO posts (title, body, image,field_id,user_id) VALUES ($1, $2,$3,$4,$5) RETURNING *`;
+  const query = `INSERT INTO posts (title, body, image, field_id, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -22,10 +23,13 @@ const createNewPost = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
+
 const getPostsByUser = (req, res) => {
   const user_id = req.query.user;
   const placeholders = [user_id];
-  const query = `SELECT * FROM posts where user_id=$1 AND is_deleted=0`;
+  const query = `SELECT * FROM posts where user_id=$1 AND is_deleted=0 ORDER BY created_at DESC;`;
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -49,10 +53,12 @@ const getPostsByUser = (req, res) => {
     });
 };
 
+/* ============================================= */
+
 const getPostsByField = (req, res) => {
   const field_id = req.token.field_id;
-  const query = `SELECT * FROM posts WHERE field_id=1 AND is_deleted=0`;
-  const placeholders = field_id;
+  const query = `SELECT * FROM posts WHERE field_id=$1 AND is_deleted=0 ORDER BY created_at DESC`;
+  const placeholders = [field_id];
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -75,6 +81,8 @@ const getPostsByField = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
 
 const updatePostById = (req, res) => {
   const { title, body, image, field_id } = req.body;
@@ -105,6 +113,8 @@ const updatePostById = (req, res) => {
     });
 };
 
+/* ============================================= */
+
 const deletePostById = (req, res) => {
   const { post_id } = req.params;
   const placeholders = [post_id];
@@ -115,10 +125,10 @@ const deletePostById = (req, res) => {
       if (result.rowCount !== 0) {
         res.status(200).json({
           success: true,
-          message: `posts with post_id: ${post_id} deleted successfully`,
+          message: `Post with post_id: ${post_id} deleted successfully`,
         });
       } else {
-        throw new Error("Error happened while deleting post");
+        throw new Error(`No post with post_is: ${post_id}`);
       }
     })
     .catch((err) => {
@@ -130,11 +140,13 @@ const deletePostById = (req, res) => {
     });
 };
 
+/* ============================================= */
+
 const addLike = (req, res) => {
-  const { post_id } = req.params;
+  const { post_id } = req.body;
   const user_id = req.token.user_id;
   const placeholders = [user_id, post_id];
-  const query = `INSERT INTO likes(user_id,post_id) VALUES ($1, $2) RETURNING *;`;
+  const query = `INSERT INTO likes (user_id,post_id) VALUES ($1, $2) RETURNING *;`;
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -153,6 +165,8 @@ const addLike = (req, res) => {
     });
 };
 
+/* ============================================= */
+
 const getLikesByPost = (req, res) => {
   const { post_id } = req.params;
   const placeholders = [post_id];
@@ -160,6 +174,7 @@ const getLikesByPost = (req, res) => {
     FROM users
    LEFT JOIN likes
    ON likes.user_id=users.user_id where likes.post_id=$1`;
+
   pool
     .query(query, placeholders)
     .then((result) => {
@@ -177,6 +192,8 @@ const getLikesByPost = (req, res) => {
       });
     });
 };
+
+/* ============================================= */
 
 const deleteLike = (req, res) => {
   const { like_id } = req.params;
@@ -200,8 +217,7 @@ const deleteLike = (req, res) => {
     });
 };
 
-
-
+/* ============================================= */
 
 module.exports = {
   createNewPost,
@@ -211,5 +227,5 @@ module.exports = {
   deletePostById,
   addLike,
   getLikesByPost,
-  deleteLike
+  deleteLike,
 };

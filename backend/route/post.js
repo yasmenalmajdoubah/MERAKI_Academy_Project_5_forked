@@ -1,18 +1,47 @@
-const express=require("express")
-const { createNewPost, getPostsByUser, getPostsByField, updatePostById, deletePostById, addLike, getLikesByPost, deleteLike } = require("../controllers/post")
-const authentication=require("../middlewares/authentication")
-const authorization=require("../middlewares/authorization")
-const postRouter=express.Router()
+const express = require("express");
+const postRouter = express.Router();
 
+const {
+  createNewPost,
+  getPostsByUser,
+  getPostsByField,
+  updatePostById,
+  deletePostById,
+  addLike,
+  getLikesByPost,
+  deleteLike,
+} = require("../controllers/post");
 
+const authentication = require("../middlewares/authentication");
+const authorization = require("../middlewares/authorization");
 
-postRouter.post("/create",authentication,authorization("CREATE_POST"),createNewPost)
-postRouter.get("/post/search_1",authentication,getPostsByUser)
-postRouter.get("/post/search_2",authentication,getPostsByField)
-postRouter.put("/post/:post_id",authentication,updatePostById)
-postRouter.delete("/post/:post_id",authentication,deletePostById)
-postRouter.post("/likes/:post_id",authentication,addLike)
-postRouter.get("/likes/:post_id",authentication,getLikesByPost)
-postRouter.delete("/likes/:like_id",authentication,deleteLike)
+// http://localhost:5000/posts/create
+postRouter.post(
+  "/create",
+  authentication,
+  authorization("CREATE_POST"),
+  createNewPost
+);
 
-module.exports=postRouter
+// http://localhost:5000/posts/search_1?user=4
+postRouter.get("/search_1", getPostsByUser);
+
+// http://localhost:5000/posts/search_2
+postRouter.get("/search_2", authentication, getPostsByField);
+
+// http://localhost:5000/posts/update/3
+postRouter.put("/update/:post_id", updatePostById);
+
+// http://localhost:5000/posts/delete/3
+postRouter.delete("/delete/:post_id", deletePostById);
+
+// http://localhost:5000/posts/addLike
+postRouter.post("/addLike", authentication, addLike);
+
+// http://localhost:5000/posts/getLikes/1
+postRouter.get("/getLikes/:post_id", getLikesByPost);
+
+// http://localhost:5000/posts/removeLike/7
+postRouter.delete("/removeLike/:like_id", deleteLike);
+
+module.exports = postRouter;
