@@ -1,4 +1,5 @@
 const express = require("express");
+const usersRouter = express.Router();
 
 const {
   register,
@@ -14,39 +15,34 @@ const {
 
 const authentication = require("../middlewares/authentication");
 
-const usersRouter = express.Router();
-//http://localhost:5000/users/register
+// http://localhost:5000/users/register
 usersRouter.post("/register", register);
-//http://localhost:5000/users/login
+
+// http://localhost:5000/users/login
 usersRouter.post("/login", login);
 
-//http://localhost:5000/users/follows
-usersRouter.post("/follows",authentication, createNewFollow);
+// http://localhost:5000/users/follows
+usersRouter.post("/follows", authentication, createNewFollow);
 
-//http://localhost:5000/users/search_2/2
-usersRouter.get("/search_2/:id",authentication, getAllUsersByField);
+// http://localhost:5000/users/search_2/2
+usersRouter.get("/search_2/:id", authentication, getAllUsersByField);
 
-//http://localhost:5000/users/search_1/5
+// http://localhost:5000/users/search_1/5
 usersRouter.get("/search_1/:id", getUserById);
-//http://localhost:5000/users/follows/1
+
+// http://localhost:5000/users/follows/1
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
-//http://localhost:5000/users/follows/1
-
+// http://localhost:5000/users/follows/1
 usersRouter.delete("/follows/:follow_id", unFollow);
 
-
-//http://localhost:5000/users/institustion/1
-
+// http://localhost:5000/users/institustion/1
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
 
-
-http://localhost:5000/users/institution_user
-
+// http://localhost:5000/users/institution_user
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
 module.exports = usersRouter;
-
 
 /* 
 REJESTIR
