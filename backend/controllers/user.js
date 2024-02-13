@@ -181,20 +181,17 @@ const createNewFollow = (req, res) => {
 /* ============================================= */
 
 const unFollow = (req, res) => {
-  const id = req.params.id;
-  const query = `UPDATE follows SET is_deleted=1 WHERE followed_user_id=$1;`;
-  const placeholders = [id];
+  const { follow_id } = req.params;
+  const placeholders = [follow_id];
+  const query = `DELETE FROM follows WHERE follow_id=$1 RETURNING* ;
+    `;
   pool
     .query(query, placeholders)
     .then((result) => {
-      if (result.rowCount !== 0) {
-        res.status(200).json({
-          success: true,
-          message: `follower with id: ${id} deleted successfully`,
-        });
-      } else {
-        throw new Error("Error happened while deleting article");
-      }
+      res.status(200).json({
+        success: true,
+        massage: `follows with follows_id: ${follow_id} deleted successfully`,
+      });
     })
     .catch((err) => {
       res.status(500).json({

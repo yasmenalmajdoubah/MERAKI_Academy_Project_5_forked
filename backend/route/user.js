@@ -23,17 +23,25 @@ usersRouter.post("/login", login);
 //http://localhost:5000/users/follows
 usersRouter.post("/follows",authentication, createNewFollow);
 
-http://localhost:5000/users/search_2/2
+//http://localhost:5000/users/search_2/2
 usersRouter.get("/search_2/:id",authentication, getAllUsersByField);
 
-http://localhost:5000/users/search_1/5
+//http://localhost:5000/users/search_1/5
 usersRouter.get("/search_1/:id", getUserById);
-
+//http://localhost:5000/users/follows/1
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
+
+//http://localhost:5000/users/follows/1
 
 usersRouter.delete("/follows/:follow_id", unFollow);
 
+
+//http://localhost:5000/users/institustion/1
+
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
+
+
+http://localhost:5000/users/institution_user
 
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
@@ -61,5 +69,11 @@ login
 {
     "email":"Hamza22@gmail.com",
     "password":"123456"
+}
+NewInstitutionUser
+{
+    "institution_id":1,
+     "dateOfWork": "16/11/2020", 
+     "workDiscription":"full stack developer with different lang"
 }
  */
