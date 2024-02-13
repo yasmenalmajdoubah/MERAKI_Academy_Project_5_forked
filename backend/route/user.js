@@ -1,7 +1,7 @@
 const express = require("express");
 
 
-const { register ,login,createNewFollow ,getAllUsersByField,getAllFollowersByUserId ,getUserById,unFollow} = require("../controllers/user");
+const { register ,login,createNewFollow ,getAllUsersByField,getAllFollowersByUserId ,getUserById,unFollow,getUsersByInstitustion} = require("../controllers/user");
 
 const usersRouter = express.Router();
 
@@ -18,5 +18,7 @@ usersRouter.get("/:id", getUserById);
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
 usersRouter.delete("/follows/:id", unFollow);
+usersRouter.get("/institustion/:id", getUsersByInstitustion);
+
 
 module.exports = usersRouter;
