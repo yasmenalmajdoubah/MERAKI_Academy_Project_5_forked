@@ -33,7 +33,7 @@ usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
 //http://localhost:5000/users/follows/1
 
-usersRouter.delete("/follows/:follow_id", unFollow);
+usersRouter.delete("/follows/:follow_id",authentication,unFollow);
 
 
 //http://localhost:5000/users/institustion/1
