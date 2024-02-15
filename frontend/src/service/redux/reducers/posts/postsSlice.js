@@ -4,57 +4,79 @@ const postsSlice = createSlice({
   name: "posts",
 
   initialState: {
-    posts: []
+    posts: [],
   },
 
   reducers: {
+    //*  get all posts
+    allPost: (state, action) => {
+      state.posts = action.payload;
+    },
+    //* add new post to posts array
     addPost: (state, action) => {
       state.posts.push(action.payload);
     },
-  },
-
-  updatePost: (state, action) => {
-    state.posts = state.posts.map((elem, i) => {
-      if (elem.id === action.payload.id) {
-        elem.title = action.payload.title;
-        elem.body = action.payload.body;
-        
-      }
-      return elem;
-    });
-  },
-
-  deletePost: (state, action) => {
-    state.posts = state.posts.filter((elem, i) => {
-      return elem.id !== action.payload;
-    });
-  },
-  allPost: (state, action) => {
-    state.posts = action.payload;
-  },
-
-
-  allComments : (state , action)=>{
-
-    state.posts=state.posts.map((elem,i)=>{
-        if(elem.id===action.payload.post_id){
-            state.posts[post_id].comment=(action.payload.comments)
+    //* update post
+    updatePost: (state, action) => {
+      state.posts = state.posts.map((elem, i) => {
+        if (elem.id === action.payload.id) {
+          elem.title = action.payload.title;
+          elem.body = action.payload.body;
         }
-        return elem
-       })
-            } ,
+        return elem;
+      });
+    },
+    //* delete post
+    deletePost: (state, action) => {
+      state.posts = state.posts.filter((elem, i) => {
+        return elem.id !== action.payload;
+      });
+    },
 
-            addComment: (state, action) => {
-              state.posts = state.posts.map((elem, i) => {
-                if (elem.id === action.payload.post_id) {
-                  elem.comments.push(action.payload.newCommet);
-                }
-                return elem;
-              });}
+    //* get all comments
+    allComments: (state, action) => {
+      state.posts = state.posts.map((elem, i) => {
+        if (elem.id === action.payload.post_id) {
+          state.posts[post_id].comment = action.payload.comments;
+        }
+        return elem;
+      });
+    },
+    //* add new comment to comments
+    addComment: (state, action) => {
+      state.posts = state.posts.map((elem, i) => {
+        if (elem.id === action.payload.post_id) {
+          elem.comments.push(action.payload.newCommet);
+        }
+        return elem;
+      });
+    },
+    //* delete comment
+    deleteComment: (state, action) => {
+      // code here
+    },
+
+    //* get all likes of post
+    allLikes: (state, action) => {
+      // code here
+    },
+    //* to add like to post
+    addLike: (state, action) => {
+      // code here
+    },
+    removeLike: (state, action) => {
+      //code here
+    },
+  },
 });
 
 export const {
-  addPost,updatePost,deletePost,allPost,allComments,addComment
+  addPost,
+  updatePost,
+  deletePost,
+  allPost,
+  allComments,
+  addComment,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
