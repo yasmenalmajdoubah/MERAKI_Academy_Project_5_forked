@@ -4,14 +4,16 @@ import { Outlet } from "react-router-dom";
 
 const Main = () => {
   return (
-    <dev>
-      <header>
-        <NavBar />
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </dev>
+    <div>
+      <div className="flex-col">
+        <header>
+          <NavBar />
+        </header>
+        <main className="">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   );
 };
 
