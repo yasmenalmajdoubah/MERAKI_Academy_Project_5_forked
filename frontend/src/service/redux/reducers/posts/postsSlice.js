@@ -4,16 +4,18 @@ const postsSlice = createSlice({
   name: "posts",
 
   initialState: {
-    // from Trello
+    posts: []
   },
 
   reducers: {
-    // same as Trello
+    addPost: (state, action) => {
+      state.posts.push(action.payload);
+    },
   },
 });
 
 export const {
-  /* name of reducers above */
+  addPost
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
