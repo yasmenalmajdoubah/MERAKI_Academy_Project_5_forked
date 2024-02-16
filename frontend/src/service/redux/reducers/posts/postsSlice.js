@@ -39,7 +39,7 @@ const postsSlice = createSlice({
     allComments: (state, action) => {
       state.posts = state.posts.map((elem, i) => {
         if (elem.id === action.payload.post_id) {
-          state.posts[post_id].comment = action.payload.comments;
+          // state.posts[post_id].comment = action.payload.comments;
         }
         return elem;
       });
