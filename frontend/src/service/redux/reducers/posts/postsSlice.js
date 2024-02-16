@@ -33,10 +33,22 @@ const postsSlice = createSlice({
     state.posts = action.payload;
   },
 
+
+  allComments : (state , action)=>{
+
+    state.posts=state.posts.map((elem,i)=>{
+        if(elem.id===action.payload.post_id){
+            state.posts[post_id].comment=(action.payload.comments)
+        }
+        return elem
+       })
+            } ,
+
+
 });
 
 export const {
-  addPost,updatePost,deletePost,allPost
+  addPost,updatePost,deletePost,allPost,allComments
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
