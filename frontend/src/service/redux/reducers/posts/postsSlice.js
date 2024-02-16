@@ -29,12 +29,14 @@ const postsSlice = createSlice({
       return elem.id !== action.payload;
     });
   },
-
+  allPost: (state, action) => {
+    state.posts = action.payload;
+  },
 
 });
 
 export const {
-  addPost,updatePost,deletePost
+  addPost,updatePost,deletePost,allPost
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
