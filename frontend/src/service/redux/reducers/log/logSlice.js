@@ -6,6 +6,7 @@ const logSlice = createSlice({
   initialState: {
     token: localStorage.getItem("token") || "",
     userId: localStorage.getItem("userId") || "",
+    
   },
 
   reducers: {

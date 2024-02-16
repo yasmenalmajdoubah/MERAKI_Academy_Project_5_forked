@@ -5,9 +5,11 @@ const postsSlice = createSlice({
 
   initialState: {
     posts: [],
+    postURL:""
   },
 
-  reducers: {
+  reducers:
+   {
     //*  get all posts
     allPost: (state, action) => {
       state.posts = action.payload;
@@ -67,6 +69,9 @@ const postsSlice = createSlice({
     removeLike: (state, action) => {
       //code here
     },
+    setPostURL: (state, action) => {
+      state.postURL=action.payload
+    },
   },
 });
 
@@ -77,6 +82,7 @@ export const {
   allPost,
   allComments,
   addComment,
+  setPostURL
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
