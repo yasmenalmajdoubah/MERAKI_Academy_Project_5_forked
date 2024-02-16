@@ -9,7 +9,7 @@ const Main = () => {
         <header>
           <NavBar />
         </header>
-        <main className="">
+        <main>
           <Outlet />
         </main>
       </div>

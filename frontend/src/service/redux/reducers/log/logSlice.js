@@ -6,23 +6,29 @@ const logSlice = createSlice({
   initialState: {
     token: localStorage.getItem("token") || "",
     userId: localStorage.getItem("userId") || "",
-    
   },
 
   reducers: {
     setLogin: (state, action) => {
+
    //   (state.token = action.payload),
+
         localStorage.setItem("token", action.payload);
     },
 
     setUserId: (state, action) => {
+
      // (state.userId = action.payload),
         localStorage.setItem("userId", action.payload);
     },
 
     setLogout: (state) => {
      // (state.token = ""), (state.userId = ""), localStorage.clear();
+     
+      localStorage.setItem("userId", action.payload);
     },
+
+   
   },
 });
 
