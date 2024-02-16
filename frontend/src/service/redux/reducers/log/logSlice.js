@@ -10,7 +10,6 @@ const logSlice = createSlice({
 
   reducers: {
     setLogin: (state, action) => {
-
    //   (state.token = action.payload),
 
         localStorage.setItem("token", action.payload);
@@ -22,10 +21,11 @@ const logSlice = createSlice({
         localStorage.setItem("userId", action.payload);
     },
 
+    
     setLogout: (state) => {
-     // (state.token = ""), (state.userId = ""), localStorage.clear();
-     
-      localStorage.setItem("userId", action.payload);
+
+      // (state.token = ""), (state.userId = ""), localStorage.clear();
+
     },
 
    
