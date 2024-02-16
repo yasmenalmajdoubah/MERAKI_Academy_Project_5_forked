@@ -94,10 +94,11 @@ const login = (req, res) => {
             const token = jwt.sign(payload, secret, options);
             if (token) {
               return res.status(200).json({
-                token,
+                token:token,
                 success: true,
                 message: `Valid login credentials`,
                 user_id: result.rows[0].user_id,
+                
               });
             } else {
               throw Error;
