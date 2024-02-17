@@ -1,6 +1,6 @@
-import React from 'react'
+import React ,{  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin, setUserId, setLogout } from "../redux/reducers/log";
+import { setLogin, setUserId, setLogout } from "../../service/redux/reducers/log";
 const Login = () => {
 
   const dispatch = useDispatch();
@@ -13,7 +13,9 @@ const Login = () => {
     }
    })
 
-
+   const [email, setEmail] = useState("");
+   const [message, setMessage] = useState("");
+   const [password, setPassword] = useState("");
 
 
 
