@@ -1,10 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import { setLogout } from "../../service/redux/reducers/log/logSlice";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const state = useSelector((state) => {
@@ -48,6 +49,7 @@ const NavBar = () => {
           <p
             onClick={() => {
               dispatch(setLogout());
+              navigate("/");
             }}
           >
             Logout

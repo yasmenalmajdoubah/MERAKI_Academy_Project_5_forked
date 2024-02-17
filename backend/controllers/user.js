@@ -94,11 +94,10 @@ const login = (req, res) => {
             const token = jwt.sign(payload, secret, options);
             if (token) {
               return res.status(200).json({
-                token:token,
+                token: token,
                 success: true,
                 message: `Valid login credentials`,
                 user_id: result.rows[0].user_id,
-                
               });
             } else {
               throw Error;
@@ -117,7 +116,7 @@ const login = (req, res) => {
         success: false,
         message:
           "The email doesn’t exist or the password you’ve entered is incorrect",
-        err: err.message
+        err: err.message,
       });
     });
 };
@@ -143,7 +142,7 @@ const getAllUsersByField = (req, res) => {
       }
     })
     .catch((err) => {
-      console.log('err', err)
+      console.log("err", err);
 
       res.status(500).json({
         success: false,
@@ -157,7 +156,7 @@ const getAllUsersByField = (req, res) => {
 
 const createNewFollow = (req, res) => {
   const { followed_user_id } = req.body;
-  console.log('req.token', req.token)
+  console.log("req.token", req.token);
   const following_user_id = req.token.user_id;
   const query = `INSERT INTO follows (followed_user_id,following_user_id) VALUES ($1,$2) RETURNING* ;`;
   const placeholders = [followed_user_id, following_user_id];
@@ -240,7 +239,7 @@ const getAllFollowersByUserId = (req, res) => {
 
 const getUserById = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT firstName,lastName,email,CV FROM users WHERE user_id=$1`;
+  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about FROM users WHERE user_id=$1`;
   const placeholders = [id];
 
   pool
@@ -249,8 +248,8 @@ const getUserById = (req, res) => {
       if (result.rows.length !== 0) {
         res.status(200).json({
           success: true,
-          message: `The article with id: ${id}`,
-          result: result.rows,
+          message: `The User with id: ${id}`,
+          result: result.rows[0],
         });
       } else {
         throw new Error("Error happened while getting user");
