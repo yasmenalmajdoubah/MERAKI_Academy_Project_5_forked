@@ -4,16 +4,16 @@ const profileSlice = createSlice({
   name: "profile",
 
   initialState: {
-    // from Trello
+    userInfo: {},
   },
 
   reducers: {
-    // same as Trello
+    setUserInfo: (state, action) => {
+      state.userInfo = action.payload;
+    },
   },
 });
 
-export const {
-  /* name of reducers above */
-} = profileSlice.actions;
+export const { setUserInfo } = profileSlice.actions;
 
 export default profileSlice.reducer;

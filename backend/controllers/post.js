@@ -26,6 +26,26 @@ const createNewPost = (req, res) => {
 
 /* ============================================= */
 
+const getPostsMyFollows = (req, res) => {
+  const user_id = req.token.user_id;
+  const placeholders = [user_id];
+  const query = `SELECT followed_user_id FROM follows WHERE following_user_id=$1`;
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      console.log(result.rows);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+/* =========================================== */
+
 const getPostsByUser = (req, res) => {
   const user_id = req.query.user;
   const placeholders = [user_id];
@@ -221,6 +241,7 @@ const deleteLike = (req, res) => {
 
 module.exports = {
   createNewPost,
+  getPostsMyFollows,
   getPostsByUser,
   getPostsByField,
   updatePostById,
