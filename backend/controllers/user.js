@@ -88,6 +88,7 @@ const login = (req, res) => {
               phoneNumber: result.rows[0].phoneNumber,
               jobName: result.rows[0].jobName,
               field_id: result.rows[0].field_id,
+              
             };
             const options = { expiresIn: "2d" };
             const secret = process.env.SECRET;
@@ -98,6 +99,7 @@ const login = (req, res) => {
                 success: true,
                 message: `Valid login credentials`,
                 user_id: result.rows[0].user_id,
+
               });
             } else {
               throw Error;
