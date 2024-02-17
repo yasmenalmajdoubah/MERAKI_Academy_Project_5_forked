@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
+import { setLogout } from "../../service/redux/reducers/log/logSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -13,8 +14,12 @@ const NavBar = () => {
   });
 
   // ==========================================
-  const userPosts = (userId) => {
-    dispatch(setPostURL(`http://localhost:5000/posts/search_1?user=${userId}`));
+  const userPosts = () => {
+    dispatch(
+      setPostURL(
+        `http://localhost:5000/posts/search_1?user=${state.userIduserId}`
+      )
+    );
   };
   // ==========================================
   const fieldPosts = () => {
@@ -30,14 +35,23 @@ const NavBar = () => {
           <button>search</button>
         </div>
         <div className="flex-1 w-64 space-x-6 ">
-          <NavLink to="/" onClick={fieldPosts() /* check it */}>
-            Home
-          </NavLink>
-          <NavLink to="/profile" onClick={userPosts(state.userId)}>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/profile" onClick={userPosts}>
             Profile
           </NavLink>
-          <NavLink to="/global">Global</NavLink>
+          <NavLink to="/global" onClick={fieldPosts}>
+            Global
+          </NavLink>
           <NavLink to="/discover">Discover</NavLink>
+        </div>
+        <div>
+          <p
+            onClick={() => {
+              dispatch(setLogout());
+            }}
+          >
+            Logout
+          </p>
         </div>
       </div>
     </div>
