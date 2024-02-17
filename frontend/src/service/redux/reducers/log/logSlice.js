@@ -12,8 +12,6 @@ const logSlice = createSlice({
     setLogin: (state, action) => {
    //   (state.token = action.payload),
 
-      
-
         localStorage.setItem("token", action.payload);
     },
 
@@ -25,8 +23,12 @@ const logSlice = createSlice({
 
     
     setLogout: (state) => {
+
       // (state.token = ""), (state.userId = ""), localStorage.clear();
+
     },
+
+   
   },
 });
 
