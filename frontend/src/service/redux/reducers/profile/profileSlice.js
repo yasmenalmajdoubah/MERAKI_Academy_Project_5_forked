@@ -4,23 +4,18 @@ const profileSlice = createSlice({
   name: "profile",
 
   initialState: {
-    profileImage: "",
-    covorImage: "",
-    about: "",
-    job: "",
+
+    userInfo: {},
   },
 
   reducers: {
-    setProfileImage: (state, action) => {},
-    setCoverImage: (state, action) => {},
-    setAbout: (state, action) => {},
-    setJob: (state, action) => {},
-    updateprofileImage: (state, action) => {},
-    updateCoverImage: (state, action) => {},
+    setUserInfo: (state, action) => {
+      state.userInfo = action.payload;
+    },
   },
 });
 
-export const { setProfileImage, setCoverImage, setAbout, setJob } =
-  profileSlice.actions;
+export const { setUserInfo } = profileSlice.actions;
+
 
 export default profileSlice.reducer;
