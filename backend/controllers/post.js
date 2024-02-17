@@ -26,14 +26,31 @@ const createNewPost = (req, res) => {
 
 /* ============================================= */
 
-const getPostsMyFollows = (req, res) => {
+/* const getPostsMyFollows = (req, res) => {
   const user_id = req.token.user_id;
+  const ids = [];
   const placeholders = [user_id];
   const query = `SELECT followed_user_id FROM follows WHERE following_user_id=$1`;
+  const placeholder = ids.join("");
+  console.log(placeholder);
+  const que = `SELECT * FROM posts WHERE user_id IN ${ids.join(",")}`;
+
   pool
     .query(query, placeholders)
     .then((result) => {
-      console.log(result.rows);
+      result.rows.map((elem, i) => {
+        ids.push(elem.followed_user_id);
+      });
+      console.log(ids.join(","));
+
+      pool
+        .query(que)
+        .then((result) => {
+          res.send(result.rows);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       res.status(500).json({
@@ -42,7 +59,7 @@ const getPostsMyFollows = (req, res) => {
         err: err.message,
       });
     });
-};
+}; */
 
 /* =========================================== */
 
@@ -241,7 +258,7 @@ const deleteLike = (req, res) => {
 
 module.exports = {
   createNewPost,
-  getPostsMyFollows,
+ /*  getPostsMyFollows */
   getPostsByUser,
   getPostsByField,
   updatePostById,
