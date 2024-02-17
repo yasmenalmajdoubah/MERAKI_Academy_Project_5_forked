@@ -4,11 +4,11 @@ import HomeMain from "./HomeMain";
 
 function Home() {
   return (
-    <div className="flex w-4/5">
-      <div className="flex-non w-64">
+    <div className="flex justify-center bg-neutral-200">
+      <div className="flex-none w-80">
         <HomeSide/>
       </div>
-      <div className="flex-1"> 
+      <div className="flex-none"> 
         <HomeMain/>
       </div>
     </div>

@@ -3,7 +3,7 @@ const postRouter = express.Router();
 
 const {
   createNewPost,
-  getPostsMyFollows,
+  /*   getPostsMyFollows, */
   getPostsByUser,
   getPostsByField,
   updatePostById,
@@ -24,8 +24,8 @@ postRouter.post(
   createNewPost
 );
 
-// http://localhost:5000/posts/followsPosts
-postRouter.get("/followsPosts",authentication, getPostsMyFollows);
+/* // http://localhost:5000/posts/followsPosts
+postRouter.get("/followsPosts",authentication, getPostsMyFollows); */
 
 // http://localhost:5000/posts/search_1?user=4
 postRouter.get("/search_1", authentication, getPostsByUser);
