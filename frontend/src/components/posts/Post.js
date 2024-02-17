@@ -8,30 +8,26 @@ export const Post = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => {
     return {
+      token: state.log.token,
       postURL: state.posts.postURL,
     };
   });
-  //  ===============================
-  useEffect(
-    () => {
-      axios
-        .get(`${state.postURL}`, {
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-        })
-        .then((result) => {
-          dispatch(allPost(result.data.posts));
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    },
-    [
-      /* state.postURL */
-    ]
-  );
+  // ===============================
+  useEffect(() => {
+    axios
+      .get(`${state.postURL}`, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        dispatch(allPost(result.data.posts));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   // ================================
-  return <div></div>;
+  return <div></div>
 };
