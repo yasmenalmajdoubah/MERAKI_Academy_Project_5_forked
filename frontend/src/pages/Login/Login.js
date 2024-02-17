@@ -5,7 +5,6 @@ import {
   setUserId,
 } from "../../service/redux/reducers/log/logSlice";
 import axios from "axios";
-import {setProfileImage,setCoverImage,setAbout,setJob} from "../../service/redux/reducers/profile/profileSlice"
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -32,7 +31,6 @@ const Login = () => {
         console.log('result.data.user.profileimage', result.data)
         dispatch(setLogin(result.data.token));
         dispatch(setUserId(result.data.user_id));
-        dispatch(setProfileImage(result.data.user.profileimage))
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
