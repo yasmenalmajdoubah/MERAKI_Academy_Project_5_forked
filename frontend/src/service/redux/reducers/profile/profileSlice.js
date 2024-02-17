@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const profileSlice = createSlice({
   name: "profile",
-
   initialState: {
-
     userInfo: {},
   },
 
@@ -16,6 +14,5 @@ const profileSlice = createSlice({
 });
 
 export const { setUserInfo } = profileSlice.actions;
-
 
 export default profileSlice.reducer;
