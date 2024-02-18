@@ -1,5 +1,6 @@
 import React from "react";
 import Post from "./Post";
+
 const HomeMain = () => {
   return (
     <div className="flex-row">
@@ -10,6 +11,7 @@ const HomeMain = () => {
       <div>
         <Post />
       </div>
+      <Post/>
     </div>
   );
 };
