@@ -77,7 +77,7 @@ const createComment = async (post_id) => {
       }
     );
     if (result.data.success) {
-      const comments = result.data.result;
+      const newCommet = result.data.result
       dispatch(addComment({ newCommet, post_id }))
     getCommentsByPost(post_id);
     } 
@@ -167,25 +167,6 @@ const createComment = async (post_id) => {
           )}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <button onClick={()=>}>LIKE</button>
 </div>
 
 </div>
@@ -194,85 +175,3 @@ const createComment = async (post_id) => {
 </form>
   </div>
 };
-/*
-articles?.map((article, index) => (
-        <div key={index} className="article">
-          <div>{article.title}</div>
-          <div>{article.description}</div>
-          {!article.comments && (
-            <button
-              className="ShowBtn"
-              onClick={() => {
-                getCommentsByArticle(article.id);
-                setShow(article.id);
-              }}
-            >
-              show comment
-            </button>
-          )}
-          <div>
-            {article.comments?.map((comment, i) => {
-              return (
-                <p className="comment" key={i}>
-                  {comment.comment}
-                </p>
-              );
-            })}
-          </div>
-          {show == article.id && (
-            <div>
-              <textarea
-                className="commentBox"
-                placeholder="comment..."
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }}
-              />
-              <button
-                className="commentBtn"
-                onClick={() => {
-                  if (comment) createComment(article.id);
-                }}
-              >
-                Add comment
-              </button>
-            </div>
-          )}
-          {article.author_id === parseInt(userId) && (
-            <>
-              {updateBox && articleId === article.id && (
-                <form>
-                  <br />
-                  <input
-                    type="text"
-                    defaultValue={article.title}
-                    placeholder="article title here"
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <br />
-
-                  <textarea
-                    placeholder="article description here"
-                    defaultValue={article.description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
-                </form>
-              )}
-              <button
-                className="delete"
-                onClick={() => deleteArticle(article.id)}
-              >
-                X
-              </button>
-              <button
-                className="update"
-                onClick={() => handleUpdateClick(article)}
-              >
-                Update
-              </button>
-            </>
-          )}
-        </div>
-      ))}
-      {message && <div>{message}</div>}
-*/

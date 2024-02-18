@@ -1,4 +1,5 @@
 import React from 'react'
+import { Post } from '../../components/posts/Post'
 
 const HomeMain = () => {
   return (
@@ -10,6 +11,7 @@ const HomeMain = () => {
       <div>
         Posts
       </div>
+      <Post/>
     </div>
   )
 }
