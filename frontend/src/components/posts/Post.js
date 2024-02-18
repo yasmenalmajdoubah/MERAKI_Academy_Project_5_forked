@@ -6,14 +6,14 @@ import { allPost } from "../../service/redux/reducers/posts/postsSlice";
 
 export const Post = () => {
   const [comment, setComment] = useState("");//
-
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const state = useSelector((state) => {
     return {
       token: state.log.token,
       postURL: state.posts.postURL,
-      posts :state.posts.posts
-
+      posts :state.posts.posts,
+      
     };
   });
   // ===============================
@@ -32,11 +32,33 @@ export const Post = () => {
       });
   }, []);
 
+///get comments 
+const getCommentsByPost = async (post_id) => {
+  try {
+    const result = await axios.get(
+      `http://localhost:5000/comments/${post_id}`);
+    if (result.data.success) {
+      setComment( result.data.result);
+      
+    } else throw Error;
+  } catch (error) {
+    if (!error.response.data) {
+      return setMessage(error.response.data.message);
+    }
+    setMessage("Error happened while Get Data, please try again");
+  }
+};
 
 
 
 
-  
+
+
+
+
+
+
+
 //state.posts
   // ================================
   return <div> 
