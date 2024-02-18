@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
+  const navigate = useNavigate();
   /*
   firstName,
     lastName,
@@ -68,7 +70,7 @@ const Register = () => {
     <>
       <div className="Form">
         <>
-          <p className="Title">Register</p>
+          <p className="font-bold text-3xl text-center">Register</p>
           <form onSubmit={addNewUser}>
             <br />
             <input
@@ -128,7 +130,18 @@ const Register = () => {
             />
             <br />
             <button className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg">
+              next
+            </button>
+            <button className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg">
               Register
+            </button>
+            <button
+              className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Back to login
             </button>
             <br />
           </form>
