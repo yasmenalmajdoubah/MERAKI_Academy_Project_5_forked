@@ -65,7 +65,7 @@ const createComment = async (post_id) => {
     );
     if (result.data.success) {
       const comments = result.data.result;
-      dispatch(addComment({ comments, post_id }))
+      dispatch(addComment({ newCommet, post_id }))
     getCommentsByPost(post_id);
     } 
     
