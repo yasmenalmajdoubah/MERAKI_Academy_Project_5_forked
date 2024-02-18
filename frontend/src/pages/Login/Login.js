@@ -6,7 +6,6 @@ import axios from "axios";
 
 const Login = () => {
   const dispatch = useDispatch();
-
   const state = useSelector((state) => {
     return {
       token: state.log.token,
@@ -14,6 +13,7 @@ const Login = () => {
     };
   });
 
+  // ===================================
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +34,8 @@ const Login = () => {
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
+        console.log(error.response.data.message);
+
         return setMessage(error.response.data.message);
       }
       setMessage("Error happened while Login, please try again");
@@ -49,6 +51,7 @@ const Login = () => {
           <br />
 
           <input
+            className=""
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
