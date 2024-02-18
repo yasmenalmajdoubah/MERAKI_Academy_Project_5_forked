@@ -7,6 +7,8 @@ import { allPost,allComments,addComment } from "../../service/redux/reducers/pos
 export const Post = () => {
   const [comment, setComment] = useState("");//
   const [message, setMessage] = useState("");
+  const [post_id, setPost_id] = useState(false);
+  const [show, setShow] = useState("");
   const dispatch = useDispatch();
   const state = useSelector((state) => {
     return {
@@ -32,6 +34,17 @@ export const Post = () => {
       });
   }, []);
 
+
+/*
+  const handleUpdateClick = (post) => {
+    
+    setPost_id(post.post_id);
+    
+   
+
+  }
+
+*/
 ///get comments 
 const getCommentsByPost = async (post_id) => {
   try {
@@ -65,7 +78,7 @@ const createComment = async (post_id) => {
     );
     if (result.data.success) {
       const comments = result.data.result;
-      dispatch(addComment({ comments, post_id }))
+      dispatch(addComment({ newCommet, post_id }))
     getCommentsByPost(post_id);
     } 
     
@@ -75,14 +88,6 @@ const createComment = async (post_id) => {
 };
 
 
-
-
-
-
-
-
-
-//state.posts
   // ================================
   return <div> 
 <form className="posts-form">
@@ -97,8 +102,8 @@ const createComment = async (post_id) => {
             <button
               className="ShowBtn"
               onClick={() => {
-                getCommentsByPost(post_id);
-                
+                getCommentsByPost(post.post_id);
+                setShow(post.post_id);
               }}
             >
                Comment
@@ -133,6 +138,45 @@ const createComment = async (post_id) => {
               </button>
             </div>
           )}
+
+
+
+
+
+
+
+
+          {show == post.post_id && (
+            <div>
+              <textarea
+                className="commentBox"
+                placeholder="comment..."
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+              />
+              <button
+                className="commentBtn"
+                onClick={() => {
+                  if (comment) createComment(post.post_id);
+                }}
+              >
+                Add comment
+              </button>
+            </div>
+          )}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
