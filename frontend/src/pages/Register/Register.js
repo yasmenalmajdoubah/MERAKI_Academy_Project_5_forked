@@ -1,4 +1,4 @@
-import React ,{  useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
@@ -18,7 +18,7 @@ const Register = () => {
     field_id,
     role_id,
   */
-  
+
   //const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -35,22 +35,21 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
-
   const addNewUser = async (e) => {
     e.preventDefault();
     try {
       const result = await axios.post("http://localhost:5000/users/register", {
         firstName,
         lastName,
-       // profileImage,
-       // coverImage,
+        // profileImage,
+        // coverImage,
         jobName,
         country,
         email,
         password,
         about,
-      //  CV,
-        phoneNumber
+        //  CV,
+        phoneNumber,
       });
       if (result.data.success) {
         setStatus(true);
@@ -68,68 +67,75 @@ const Register = () => {
   return (
     <>
       <div className="Form">
-        
-          <>
-            <p className="Title">Register:</p>
-            <form onSubmit={addNewUser}>
-              <br />
-              <input
-                type="text"
-                placeholder="First Name"
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              <br />
-              <input
-                type="text"
-                placeholder="Last Name"
-                onChange={(e) => setLastName(e.target.value)}
-              />
-              <br />
-              <input
-                type="number"
-                placeholder="phoneNumber"
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-              <br />
-              <input
-                type="text"
-                placeholder="Country"
-                onChange={(e) => setCountry(e.target.value)}
-              />
-              <br />
-              <input
-                type="text"
-                placeholder="About"
-                onChange={(e) => setAbout(e.target.value)}
-              />
-              <br />
-              <input
-                type="text"
-                placeholder="Job Name"
-                onChange={(e) => setJobName(e.target.value)}
-              />
-              <br />
-              <input
-                type="email"
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <br />
-              <input
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <br />
-              <button>Register</button>
-              <br />
-            </form>
-           
-          </>
-      
+        <>
+          <p className="Title">Register</p>
+          <form onSubmit={addNewUser}>
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="text"
+              placeholder="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="text"
+              placeholder="PhoneNumber"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="text"
+              placeholder="Country"
+              onChange={(e) => setCountry(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="text"
+              placeholder="About"
+              onChange={(e) => setAbout(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="text"
+              placeholder="Job Name"
+              onChange={(e) => setJobName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
+            <button className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg">
+              Register
+            </button>
+            <br />
+          </form>
+        </>
       </div>
     </>
   );
-}
+};
 
-export default Register
+export default Register;

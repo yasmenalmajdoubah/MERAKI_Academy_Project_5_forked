@@ -97,7 +97,7 @@ const Login = () => {
         <p></p>
         <div className="flex-none">
           <div className="">
-            <h1 className="">WorkedIn</h1>
+            <h1 className="">Welcome WorkedIn Space</h1>
           </div>
           <div className="">
             <img
