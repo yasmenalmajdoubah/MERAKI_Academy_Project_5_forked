@@ -105,7 +105,7 @@ const login = (req, res) => {
           } else {
             res.status(403).json({
               success: false,
-              message: `The email doesn’t exist or the password you’ve entered is incorrect`,
+              message: `Wrong email or password`,
             });
           }
         });
@@ -114,8 +114,7 @@ const login = (req, res) => {
     .catch((err) => {
       res.status(403).json({
         success: false,
-        message:
-          "The email doesn’t exist or the password you’ve entered is incorrect",
+        message: "Wrong email or password",
         err: err.message,
       });
     });
