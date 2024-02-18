@@ -77,7 +77,7 @@ const createComment = async (post_id) => {
       }
     );
     if (result.data.success) {
-      const comments = result.data.result;
+      const newCommet = result.data.result
       dispatch(addComment({ newCommet, post_id }))
     getCommentsByPost(post_id);
     } 
@@ -160,7 +160,7 @@ const createComment = async (post_id) => {
 
 
 
-  <button onClick={()=>}>LIKE</button>
+  
 </div>
 
 </div>
