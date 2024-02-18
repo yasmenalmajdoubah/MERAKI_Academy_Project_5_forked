@@ -18,6 +18,7 @@ export const Post = () => {
       
     };
   });
+  console.log(state.postURL)
   // ===============================
   useEffect(() => {
     axios
@@ -27,6 +28,7 @@ export const Post = () => {
         },
       })
       .then((result) => {
+        console.log(result.data)
         dispatch(allPost(result.data.posts));
       })
       .catch((err) => {
