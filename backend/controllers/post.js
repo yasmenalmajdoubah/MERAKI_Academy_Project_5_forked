@@ -25,32 +25,21 @@ const createNewPost = (req, res) => {
 };
 
 /* ============================================= */
+// SELECT * FROM follows INNER JOIN posts ON user_id=follows.followed_user_id WHERE following_user_id=2
 
-/* const getPostsMyFollows = (req, res) => {
-  const user_id = req.token.user_id;
-  const ids = [];
-  const placeholders = [user_id];
-  const query = `SELECT followed_user_id FROM follows WHERE following_user_id=$1`;
-  const placeholder = ids.join("");
-  console.log(placeholder);
-  const que = `SELECT * FROM posts WHERE user_id IN ${ids.join(",")}`;
+const getPostsMyFollows = (req, res) => {
+  const following_user_id = req.token.user_id;
+  const placeholders = [following_user_id];
+  const query = `SELECT * FROM follows INNER JOIN posts ON user_id=follows.followed_user_id WHERE following_user_id=$1`;
 
   pool
     .query(query, placeholders)
     .then((result) => {
-      result.rows.map((elem, i) => {
-        ids.push(elem.followed_user_id);
+      res.status(200).json({
+        success: true,
+        message: "All posts for followed",
+        posts: result.rows,
       });
-      console.log(ids.join(","));
-
-      pool
-        .query(que)
-        .then((result) => {
-          res.send(result.rows);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     })
     .catch((err) => {
       res.status(500).json({
@@ -59,7 +48,7 @@ const createNewPost = (req, res) => {
         err: err.message,
       });
     });
-}; */
+};
 
 /* =========================================== */
 
@@ -258,7 +247,7 @@ const deleteLike = (req, res) => {
 
 module.exports = {
   createNewPost,
- /*  getPostsMyFollows */
+  getPostsMyFollows,
   getPostsByUser,
   getPostsByField,
   updatePostById,
