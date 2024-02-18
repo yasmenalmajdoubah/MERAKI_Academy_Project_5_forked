@@ -87,7 +87,26 @@ const createComment = async (post_id) => {
 <div>{post.body}</div>
 <div>{post.image}</div>
 <div>
-  <button onClick={post.comment}>COMMENTS</button>
+{!post.comments && (
+            <button
+              className="ShowBtn"
+              onClick={() => {
+                getCommentsByPost(post_id);
+                
+              }}
+            >
+               Comment
+            </button>
+          )}
+ <div>
+            {post.comments?.map((comment, i) => {
+              return (
+                <p className="comment" key={i}>
+                  {comment.comment}
+                </p>
+              );
+            })}
+          </div>
 
 
 
