@@ -1,17 +1,17 @@
-import React from 'react'
-
+import React from "react";
+import Post from "./Post";
 const HomeMain = () => {
   return (
-    <div className='flex-row'>
+    <div className="flex-row">
       <div>
-        <textarea placeholder='Puplish here'/>
+        <textarea placeholder="Puplish here" />
         <button></button>
       </div>
       <div>
-        Posts
+        <Post />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomeMain
+export default HomeMain;

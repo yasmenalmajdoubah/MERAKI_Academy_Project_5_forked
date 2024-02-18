@@ -24,7 +24,7 @@ const NavBar = () => {
   };
   // ==========================================
   const fieldPosts = () => {
-    dispatch(setPostURL(`http://localhost:5000/posts/search_2`));
+    dispatch(setPostURL("http://localhost:5000/posts/search_2"));
   };
   // ===========================================
   return (
@@ -36,11 +36,11 @@ const NavBar = () => {
           <button>search</button>
         </div>
         <div className="flex-1 w-64 space-x-6 ">
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/" onClick={fieldPosts}>Home</NavLink>
           <NavLink to="/profile" onClick={userPosts}>
             Profile
           </NavLink>
-          <NavLink to="/global" onClick={fieldPosts}>
+          <NavLink to="/global" >
             Global
           </NavLink>
           <NavLink to="/discover">Discover</NavLink>
