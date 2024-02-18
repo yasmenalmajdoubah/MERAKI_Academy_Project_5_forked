@@ -5,12 +5,12 @@ import { ProfleSugg } from "./ProfleSugg";
 
 const Profile = () => {
   return (
-    <div className=" flex flex-col  ">
+    <div className=" flex flex-col    ">
        
-      <div className=" bg-slate-800  ">
+      <div className="   ">
         <ProfileHeader />
       </div>
-      <div className=" bg-gray-500 flex flex-row justify-around mt-6">
+      <div className="  flex flex-row justify-around mt-6">
         <div> <ProfileBody />  </div>
         <div> <ProfleSugg />  </div>
         
