@@ -114,6 +114,31 @@ const createComment = async (post_id) => {
             })}
           </div>
 
+          {show == post.id && (
+            <div>
+              <textarea
+                className="commentBox"
+                placeholder="comment..."
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+              />
+              <button
+                className="commentBtn"
+                onClick={() => {
+                  if (comment) createComment(post.id);
+                }}
+              >
+                Add comment
+              </button>
+            </div>
+          )}
+
+
+
+
+
+
 
 
   <button onClick={()=>}>LIKE</button>
