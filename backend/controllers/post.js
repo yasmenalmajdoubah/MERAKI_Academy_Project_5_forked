@@ -26,7 +26,7 @@ const createNewPost = (req, res) => {
 
 /* ============================================= */
 // SELECT * FROM follows INNER JOIN posts ON user_id=follows.followed_user_id WHERE following_user_id=2
-// ! Function to get all posts of users who followd >>
+// ! Function to get all posts of users who followd >>>
 const getPostsMyFollows = (req, res) => {
   const following_user_id = req.token.user_id;
   const placeholders = [following_user_id];
