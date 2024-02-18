@@ -36,7 +36,7 @@ export const Post = () => {
 const getCommentsByPost = async (post_id) => {
   try {
     const result = await axios.get(
-      `http://localhost:5000/comments/${post_id}`);
+      `http://localhost:5000/comments/${state.posts.post_id}`);
     if (result.data.success) {
       setComment( result.data.result);
       
@@ -49,7 +49,24 @@ const getCommentsByPost = async (post_id) => {
   }
 };
 
-
+const createComment = async (post_id) => {
+  try {
+    const result = await axios.post(
+      `http://localhost:5000/comments/${state.posts.post_id}`,
+      {
+        comment,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      }
+    );
+    getCommentsByPost(state.posts.post_id);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 
