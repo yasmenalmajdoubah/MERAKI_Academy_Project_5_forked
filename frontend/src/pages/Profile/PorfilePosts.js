@@ -16,7 +16,7 @@ const PorfilePosts = () => {
   const [post_id, setPost_id] = useState(false);
   const [show, setShow] = useState("");
   const dispatch = useDispatch();
-  const state = useSelector((state) => {
+  const {token,posts,userId} = useSelector((state) => {
     return {
       token: state.log.token,
       posts: state.posts.posts,
@@ -25,9 +25,9 @@ const PorfilePosts = () => {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+      .get(`http://localhost:5000/posts/search_1?user=${userId}`, {
         headers: {
-          Authorization: `Bearer ${state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((result) => {
@@ -67,7 +67,7 @@ const PorfilePosts = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -87,7 +87,7 @@ const PorfilePosts = () => {
   return (
     <div>
       {/* <form className="posts-form"> */}
-      {state.posts?.map((post, index) => {
+      {posts?.map((post, index) => {
         return (
           <div key={index} className="posts">
             <div>{post.post_id}</div>

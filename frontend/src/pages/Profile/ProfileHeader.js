@@ -1,38 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profile.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserInfo } from "../../service/redux/reducers/profile/profileSlice";
+import { setUserInfo,setFollow } from "../../service/redux/reducers/profile/profileSlice";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 export const ProfileHeader = () => {
+  const [myFollow, setMyFollow] = useState(false)
   const dispatch = useDispatch();
-  const state = useSelector((state) => {
+  const {userId,userInfo,token,follow,posts} = useSelector((state) => {
     return {
       userId: state.log.userId,
       userInfo: state.profile.userInfo,
+      token:state.log.token,
+      follow:state.profile.follow,
+      posts:state.posts.posts
     };
   });
-  useEffect(() => {
+  const getUser=()=>{
     axios
-      .get(`http://localhost:5000/users/search_1/${state.userId}`, {
+      .get(`http://localhost:5000/users/search_1/${userId}`, {
         headers: {
-          Authorization: `Bearer ${state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((result) => {
-        console.log(result);
         dispatch(setUserInfo(result.data.result));
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+  const getfollows=()=>{
+    axios.get(`http://localhost:5000/users/follows/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result)=>{
+      
+      dispatch(setFollow(result.data.result))
+    }).catch((err)=>{
+      console.log('err from use effect function getfollows', err)
+    })
+  }
+  useEffect(() => {
+   getUser()
+   getfollows()
   }, []);
 
   return (
     <div className=" ">
+      {myFollow}
       <img
         class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile"
-        src={state.userInfo.profileimage}
+        src={userInfo.profileimage}
         alt="Profile image"
       />
       <div className=" flex flex-row w-full   ">
@@ -41,7 +63,7 @@ export const ProfileHeader = () => {
           <div className="flex flex-col mt-10 ml-16  w-11/12 shadow-2xl rounded-xl  ">
             <div className=" ">
               <img
-                src={state.userInfo.coverimage}
+                src={userInfo.coverimage}
                 className=" w-full h-52 rounded-t-xl"
               />
             </div>
@@ -49,21 +71,23 @@ export const ProfileHeader = () => {
               <div className=" bg-slate-600 flex flex-row">
               <div className=" py-10 pl-6 w-96 border-r border-orange-600	 ">
                 <h1 className=" text-5xl">
-                  {state.userInfo.firstname} {state.userInfo.lastname}
+                  {userInfo.firstname} {userInfo.lastname}
                 </h1>
-                <p>{state.userInfo.jobname}</p>
+                <p>{userInfo.jobname}</p>
               </div>
               <div className=" mt-8 ml-4 max-w-96">
                 
-                <p>{state.userInfo.experience} </p>
+                <p>{userInfo.experience} </p>
                 
                 
                 </div></div>
               <div className=" flex flex-row justify-around  pl-6">
-                <p>25 folowers</p>
-                <p>30 follow</p>
-                <p>6 posts</p>
-                <button>About you</button>
+                <button >25 folowers</button>
+
+                <button > {follow.length} follow</button> 
+                <button >{posts.length} posts</button>
+
+                <button >About you</button>
               </div>
             </div>
           </div>

@@ -200,10 +200,10 @@ const unFollow = (req, res) => {
 const getAllFollowersByUserId = (req, res) => {
   const id = req.params.id;
   const query = `SELECT users.firstName, users.lastName, users.user_id 
-  FROM users
- LEFT JOIN  follows
- ON follows.followed_user_id=users.user_id 
-  WHERE follows.followed_user_id=$1 ;`;
+  FROM follows
+   INNER JOIN users
+  ON users.user_id=follows.followed_user_id
+    WHERE follows.following_user_id=$1 ;`;
   const placeholders = [id];
 
   pool
