@@ -98,82 +98,81 @@ export const Post = () => {
       {state.posts?.map((post, index) => {
         return (
           <div class="bg-gray-100">
-          <div class="max-w-xl mx-auto p-4">
-            <div class="bg-white rounded-lg shadow">
-              <div class="flex p-4">
-                <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full"/>
-                <div class="ml-3">
-                  <h3 class="text-lg font-semibold"> {post.firstname}  {post.lastname}</h3>
-                  <p class="text-sm text-gray-600">Posted  {post.created_at
-           }</p>
-                </div>
+          <div class="container mx-auto p-9">
+              <div class="bg-white rounded-lg shadow p-4">
+                  <div class="flex items-center">
+                      <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full"/>
+                      <div class="ml-2">
+                          <p class="font-semibold">{post.firstname}  {post.lastname}</p>
+                          <p class="text-gray-500 text-sm"> Posted  {post.created_at
+                 }</p>
+                      </div>
+                  </div>
+                  <div class="mt-4">
+                      <p>{post.body}</p>
+                      <img src={post.image} alt="Post Image" class="mt-4"/>
+                  </div>
+                  <div class="flex items-center justify-between mt-4">
+                      <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">LIKE</button>
+                      <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+                  </div>
+                  <div class="comment-section mt-4">
+                      <div class="bg-white rounded-lg shadow p-4">
+                          <p>كومنت 1</p>
+                      </div>
+                      <div class="bg-white rounded-lg shadow p-4 mt-4">
+                          <p>كومنت 2</p>
+                      </div>
+                  </div>
+                  <div class="mt-4">
+                      <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"></textarea>
+                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+                  </div>
               </div>
-              <div class="px-4 py-2">
-                <p class="text-lg">{post.body}</p>
-              </div>
-              <img src={post.image} alt="Post Image" class="w-full"/>
-              <div class="flex p-4">
-                <div class="flex items-center mr-4">
-                  <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span class="ml-1 text-gray-600">Like</span>
-                </div>
-                <div class="flex items-center">
-                  <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                  <span class="ml-1 text-gray-600">Comment</span>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+      </div>
         );
       })}
 
-      {/* </form> */}
+    
     </div>
   );
 };
 /*
 <div class="bg-gray-100">
-  <div class="max-w-xl mx-auto p-4">
-    <div class="bg-white rounded-lg shadow">
-      <div class="flex p-4">
-        <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full">
-        <div class="ml-3">
-          <h3 class="text-lg font-semibold"> {post.firstname}  {post.lastname}</h3>
-          <p class="text-sm text-gray-600">Posted  {post.created_at
-   }</p>
+    <div class="container mx-auto p-4">
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="flex items-center">
+                <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full">
+                <div class="ml-2">
+                    <p class="font-semibold">{post.firstname}  {post.lastname}</p>
+                    <p class="text-gray-500 text-sm"> Posted  {post.created_at
+           }</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p>{post.body}</p>
+                <img src={post.image} alt="Post Image" class="mt-4">
+            </div>
+            <div class="flex items-center justify-between mt-4">
+                <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">LIKE</button>
+                <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+            </div>
+            <div class="comment-section mt-4">
+                <div class="bg-white rounded-lg shadow p-4">
+                    <p>كومنت 1</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4 mt-4">
+                    <p>كومنت 2</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"></textarea>
+                <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+            </div>
         </div>
-      </div>
-      <div class="px-4 py-2">
-        <p class="text-lg">{post.body}</p>
-      </div>
-      <img src={post.image} alt="Post Image" class="w-full">
-      <div class="flex p-4">
-        <div class="flex items-center mr-4">
-          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5 13l4 4L19 7"></path>
-          </svg>
-          <span class="ml-1 text-gray-600">Like</span>
-        </div>
-        <div class="flex items-center">
-          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M19 9l-7 7-7-7"></path>
-          </svg>
-          <span class="ml-1 text-gray-600">Comment</span>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
-
 */
 
 export default Post;
