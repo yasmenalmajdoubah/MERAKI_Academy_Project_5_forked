@@ -58,6 +58,28 @@ const PorfilePosts = () => {
   };
 
 
+  const createComment = async (post_id) => {
+    try {
+      const result = await axios.post(
+        `http://localhost:5000/comments/comment/${post_id}`,
+        {
+          comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      if (result.data.success) {
+        const newCommet = result.data.result
+        dispatch(addComment({ newCommet, post_id }))
+        getCommentsByPost(post_id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
 
