@@ -13,13 +13,15 @@ const register = async (req, res) => {
     about,
     CV,
     phoneNumber,
+    skills,
+    education,
     field_id,
     role_id,
   } = req.body;
 
   const encryptedPassword = await bcrypt.hash(password, 7); //salt = 7
   const query = `INSERT INTO users (firstName,
-        lastName,,
+        lastName,
         jobName,
         country,
         email,
@@ -27,8 +29,10 @@ const register = async (req, res) => {
         about,
         CV,
         phoneNumber,
+        skills,
+        education,
         field_id,
-        role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`;
+        role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`;
   const placeholders = [
     firstName,
     lastName,
@@ -39,6 +43,8 @@ const register = async (req, res) => {
     about,
     CV,
     phoneNumber,
+    skills,
+    education,
     field_id,
     role_id,
   ];
@@ -328,6 +334,31 @@ const createNewInstitutionUser = (req, res) => {
     });
 };
 
+/* ================================================ */
+
+const getUserExperiences = (req, res) => {
+  const user_id = req.params.user_id;
+  const placeholders = [user_id];
+  const query = `SELECT * FROM institution_user WHERE user_id=$1`;
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `All Experiences`,
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
 module.exports = {
   register,
   login,
@@ -338,4 +369,5 @@ module.exports = {
   unFollow,
   createNewInstitutionUser,
   getUsersByInstitustion,
+  getUserExperiences,
 };
