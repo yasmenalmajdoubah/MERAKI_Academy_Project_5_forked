@@ -292,9 +292,23 @@ const getUsersByInstitustion = (req, res) => {
 
 const createNewInstitutionUser = (req, res) => {
   const user_id = req.token.user_id;
-  const { institution_id, dateOfWork, workDiscription } = req.body;
-  const placeholders = [institution_id, user_id, dateOfWork, workDiscription];
-  const query = `INSERT INTO institution_user (institution_id, user_id, dateOfWork, workDiscription) VALUES ($1,$2,$3,$4) RETURNING *`;
+  const {
+    institution_id,
+    workDiscription,
+    InstitutionName,
+    startDate,
+    endDate,
+  } = req.body;
+  const placeholders = [
+    institution_id,
+    user_id,
+    workDiscription,
+    InstitutionName,
+    startDate,
+    endDate,
+  ];
+  const query = `INSERT INTO institution_user (institution_id, user_id, workDiscription, InstitutionName,startDate,
+    endDate) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`;
 
   pool
     .query(query, placeholders)
