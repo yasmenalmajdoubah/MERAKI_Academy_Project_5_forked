@@ -19,11 +19,25 @@ const PorfilePosts = () => {
   const state = useSelector((state) => {
     return {
       token: state.log.token,
-      postURL: state.posts.postURL,
       posts: state.posts.posts,
+      userId: state.log.userId
     };
   });
-
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        dispatch(allPost(result.data.posts));
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
 
 
