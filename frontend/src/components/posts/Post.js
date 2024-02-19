@@ -68,7 +68,7 @@ const getCommentsByPost = async (post_id) => {
 const createComment = async (post_id) => {
   try {
     const result = await axios.post(
-      `http://localhost:5000/comments/${post_id}`,
+      `http://localhost:5000/comments/comment/${post_id}`,
       {
         comment,
       },
@@ -79,7 +79,7 @@ const createComment = async (post_id) => {
       }
     );
     if (result.data.success) {
-      const comments = result.data.result;
+      const newCommet = result.data.result;
       dispatch(addComment({ newCommet, post_id }))
     getCommentsByPost(post_id);
     } 
