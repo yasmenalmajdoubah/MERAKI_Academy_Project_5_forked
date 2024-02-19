@@ -84,7 +84,9 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-        const newCommet = result.data.result
+        console.log('result.data', result.data)
+        const newCommet = result.data.results
+        console.log("123",newCommet)
         dispatch(addComment({ newCommet, post_id }))
         //getCommentsByPost(post_id);
       }

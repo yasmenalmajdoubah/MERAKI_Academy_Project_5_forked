@@ -49,6 +49,7 @@ const postsSlice = createSlice({
     },
     //* add new comment to comments
     addComment: (state, action) => {
+      console.log (action.payload)
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
           elem.comments.push(action.payload.newCommet);
