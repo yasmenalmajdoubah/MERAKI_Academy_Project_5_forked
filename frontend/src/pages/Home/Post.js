@@ -51,13 +51,15 @@ export const Post = () => {
 */
   ///get comments
   const getCommentsByPost = async (post_id) => {
+    console.log(post_id)
     try {
       const result = await axios.get(
         `http://localhost:5000/comments/comment/${post_id}`
       );
       if (result.data.success) {
-        const comments = result.data.result;
-        console.log(result.data);
+        console.log('result.data', result.data)
+        const comments = result.data.comments;
+        console.log("comments",comments);
         dispatch(allComments({ comments, post_id }));
       } else throw Error;
     } catch (error) {
@@ -84,7 +86,7 @@ export const Post = () => {
       if (result.data.success) {
         const newCommet = result.data.result
         dispatch(addComment({ newCommet, post_id }))
-        getCommentsByPost(post_id);
+        //getCommentsByPost(post_id);
       }
     } catch (error) {
       console.log(error);
@@ -114,19 +116,36 @@ export const Post = () => {
                   </div>
                   <div class="flex items-center justify-between mt-4">
                       <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">LIKE</button>
-                      <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+                      <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                       onClick={() => {
+                        console.log(post)
+                        getCommentsByPost(post.post_id);
+                        setShow(post.post_id);
+                      }}
+                      >COMMENT</button>
                   </div>
+                  {post.comments?.map((comment, i) => {
+                            console.log(comment)
+              return (
+                <p className="comment" key={i}>
+                 
+                  {comment.comment}
+                </p>
+              );
+            })}
                   <div class="comment-section mt-4">
                       <div class="bg-white rounded-lg shadow p-4">
-                          <p>كومنت 1</p>
+                          
                       </div>
-                      <div class="bg-white rounded-lg shadow p-4 mt-4">
-                          <p>كومنت 2</p>
-                      </div>
+                      
                   </div>
                   <div class="mt-4">
-                      <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"></textarea>
-                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+                      <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"  onChange={(e) => {
+                  setComment(e.target.value);
+                }}></textarea>
+                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"  onClick={() => {
+                  if (comment) createComment(post.post_id);
+                }}>COMMENT</button>
                   </div>
               </div>
           </div>
@@ -138,41 +157,6 @@ export const Post = () => {
     </div>
   );
 };
-/*
-<div class="bg-gray-100">
-    <div class="container mx-auto p-4">
-        <div class="bg-white rounded-lg shadow p-4">
-            <div class="flex items-center">
-                <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full">
-                <div class="ml-2">
-                    <p class="font-semibold">{post.firstname}  {post.lastname}</p>
-                    <p class="text-gray-500 text-sm"> Posted  {post.created_at
-           }</p>
-                </div>
-            </div>
-            <div class="mt-4">
-                <p>{post.body}</p>
-                <img src={post.image} alt="Post Image" class="mt-4">
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">LIKE</button>
-                <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
-            </div>
-            <div class="comment-section mt-4">
-                <div class="bg-white rounded-lg shadow p-4">
-                    <p>كومنت 1</p>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4 mt-4">
-                    <p>كومنت 2</p>
-                </div>
-            </div>
-            <div class="mt-4">
-                <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"></textarea>
-                <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
-            </div>
-        </div>
-    </div>
-</div>
-*/
+
 
 export default Post;
