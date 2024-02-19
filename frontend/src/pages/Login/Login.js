@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <>
       <div className="bg-zinc-100 h-screen flex items-center justify-evenly">
-        <div className="flex-none">
+        <div className="flex-none ms-4">
           <h1 className="font-bold text-3xl text-center">Sign In</h1>
           <div>
             <form onSubmit={login}>
