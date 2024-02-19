@@ -105,7 +105,7 @@ const login = (req, res) => {
           } else {
             res.status(403).json({
               success: false,
-              message: `The email doesn’t exist or the password you’ve entered is incorrect`,
+              message: `Wrong email or password`,
             });
           }
         });
@@ -114,8 +114,7 @@ const login = (req, res) => {
     .catch((err) => {
       res.status(403).json({
         success: false,
-        message:
-          "The email doesn’t exist or the password you’ve entered is incorrect",
+        message: "Wrong email or password",
         err: err.message,
       });
     });
@@ -239,7 +238,7 @@ const getAllFollowersByUserId = (req, res) => {
 
 const getUserById = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about FROM users WHERE user_id=$1`;
+  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about,skills,experience,education FROM users WHERE user_id=$1`;
   const placeholders = [id];
 
   pool
