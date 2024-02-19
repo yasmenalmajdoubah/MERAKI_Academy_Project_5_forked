@@ -39,7 +39,23 @@ const PorfilePosts = () => {
       });
   }, []);
 
-
+  const getCommentsByPost = async (post_id) => {
+    try {
+      const result = await axios.get(
+        `http://localhost:5000/comments/comment/${post_id}`
+      );
+      if (result.data.success) {
+        const comments = result.data.result;
+        console.log(result.data);
+        dispatch(allComments({ comments, post_id }));
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
 
 
 
