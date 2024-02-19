@@ -25,7 +25,7 @@ export const Post = () => {
   // ===============================
   useEffect(() => {
     axios
-      .get("http://localhost:5000/posts/search_2", {
+      .get("http://localhost:5000/posts/followsPosts", {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
@@ -97,75 +97,40 @@ export const Post = () => {
       {/* <form className="posts-form"> */}
       {state.posts?.map((post, index) => {
         return (
-          <div key={index} className="posts">
-            <div>{post.post_id}</div>
-            <div>{post.body}</div>
-            <div>{post.image}</div>
-            <div>
-              {!post.comments && (
-                <button
-                  className="ShowBtn"
-                  onClick={() => {
-                    getCommentsByPost(post.post_id);
-                    setShow(post.post_id);
-                  }}
-                >
-                  Comment
-                </button>
-              )}
-              <div>
-                {post.comments?.map((comment, i) => {
-                  return (
-                    <p className="comment" key={i}>
-                      {comment.comment}
-                    </p>
-                  );
-                })}
+          <div class="bg-gray-100">
+          <div class="max-w-xl mx-auto p-4">
+            <div class="bg-white rounded-lg shadow">
+              <div class="flex p-4">
+                <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full"/>
+                <div class="ml-3">
+                  <h3 class="text-lg font-semibold"> {post.firstname}  {post.lastname}</h3>
+                  <p class="text-sm text-gray-600">Posted  {post.created_at
+           }</p>
+                </div>
               </div>
-
-              {show == post.id && (
-                <div>
-                  <textarea
-                    className="commentBox"
-                    placeholder="comment..."
-                    onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                  />
-                  <button
-                    className="commentBtn"
-                    onClick={() => {
-                      if (comment) createComment(post.id);
-                    }}
-                  >
-                    Add comment
-                  </button>
+              <div class="px-4 py-2">
+                <p class="text-lg">{post.body}</p>
+              </div>
+              <img src={post.image} alt="Post Image" class="w-full"/>
+              <div class="flex p-4">
+                <div class="flex items-center mr-4">
+                  <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="ml-1 text-gray-600">Like</span>
                 </div>
-              )}
-
-              {show == post.post_id && (
-                <div>
-                  <textarea
-                    className="commentBox"
-                    placeholder="comment..."
-                    onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                  />
-                  <button
-                    className="commentBtn"
-                    onClick={() => {
-                      if (comment) createComment(post.post_id);
-                    }}
-                  >
-                    Add comment
-                  </button>
+                <div class="flex items-center">
+                  <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                  <span class="ml-1 text-gray-600">Comment</span>
                 </div>
-              )}
-
-              <button onClick={() => {}}>LIKE</button>
+              </div>
             </div>
           </div>
+        </div>
         );
       })}
 
@@ -174,86 +139,41 @@ export const Post = () => {
   );
 };
 /*
-articles?.map((article, index) => (
-        <div key={index} className="article">
-          <div>{article.title}</div>
-          <div>{article.description}</div>
-          {!article.comments && (
-            <button
-              className="ShowBtn"
-              onClick={() => {
-                getCommentsByArticle(article.id);
-                setShow(article.id);
-              }}
-            >
-              show comment
-            </button>
-          )}
-          <div>
-            {article.comments?.map((comment, i) => {
-              return (
-                <p className="comment" key={i}>
-                  {comment.comment}
-                </p>
-              );
-            })}
-          </div>
-          {show == article.id && (
-            <div>
-              <textarea
-                className="commentBox"
-                placeholder="comment..."
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }}
-              />
-              <button
-                className="commentBtn"
-                onClick={() => {
-                  if (comment) createComment(article.id);
-                }}
-              >
-                Add comment
-              </button>
-            </div>
-          )}
-          {article.author_id === parseInt(userId) && (
-            <>
-              {updateBox && articleId === article.id && (
-                <form>
-                  <br />
-                  <input
-                    type="text"
-                    defaultValue={article.title}
-                    placeholder="article title here"
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <br />
-
-                  <textarea
-                    placeholder="article description here"
-                    defaultValue={article.description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
-                </form>
-              )}
-              <button
-                className="delete"
-                onClick={() => deleteArticle(article.id)}
-              >
-                X
-              </button>
-              <button
-                className="update"
-                onClick={() => handleUpdateClick(article)}
-              >
-                Update
-              </button>
-            </>
-          )}
+<div class="bg-gray-100">
+  <div class="max-w-xl mx-auto p-4">
+    <div class="bg-white rounded-lg shadow">
+      <div class="flex p-4">
+        <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full">
+        <div class="ml-3">
+          <h3 class="text-lg font-semibold"> {post.firstname}  {post.lastname}</h3>
+          <p class="text-sm text-gray-600">Posted  {post.created_at
+   }</p>
         </div>
-      ))}
-      {message && <div>{message}</div>}
+      </div>
+      <div class="px-4 py-2">
+        <p class="text-lg">{post.body}</p>
+      </div>
+      <img src={post.image} alt="Post Image" class="w-full">
+      <div class="flex p-4">
+        <div class="flex items-center mr-4">
+          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="ml-1 text-gray-600">Like</span>
+        </div>
+        <div class="flex items-center">
+          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+          </svg>
+          <span class="ml-1 text-gray-600">Comment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 */
 
 export default Post;
