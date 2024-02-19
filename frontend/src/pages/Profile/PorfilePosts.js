@@ -85,8 +85,85 @@ const PorfilePosts = () => {
 
 
   return (
-    <div>PorfilePosts</div>
-  )
-}
+    <div>
+      {/* <form className="posts-form"> */}
+      {state.posts?.map((post, index) => {
+        return (
+          <div key={index} className="posts">
+            <div>{post.post_id}</div>
+            <div>{post.body}</div>
+            <div>{post.image}</div>
+            <div>
+              {!post.comments && (
+                <button
+                  className="ShowBtn"
+                  onClick={() => {
+                    getCommentsByPost(post.post_id);
+                    setShow(post.post_id);
+                  }}
+                >
+                  Comment
+                </button>
+              )}
+              <div>
+                {post.comments?.map((comment, i) => {
+                  return (
+                    <p className="comment" key={i}>
+                      {comment.comment}
+                    </p>
+                  );
+                })}
+              </div>
+
+              {show == post.id && (
+                <div>
+                  <textarea
+                    className="commentBox"
+                    placeholder="comment..."
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                  />
+                  <button
+                    className="commentBtn"
+                    onClick={() => {
+                      if (comment) createComment(post.id);
+                    }}
+                  >
+                    Add comment
+                  </button>
+                </div>
+              )}
+
+              {show == post.post_id && (
+                <div>
+                  <textarea
+                    className="commentBox"
+                    placeholder="comment..."
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                  />
+                  <button
+                    className="commentBtn"
+                    onClick={() => {
+                      if (comment) createComment(post.post_id);
+                    }}
+                  >
+                    Add comment
+                  </button>
+                </div>
+              )}
+
+              <button onClick={() => {}}>LIKE</button>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* </form> */}
+    </div>
+  );
+};
 
 export default PorfilePosts
