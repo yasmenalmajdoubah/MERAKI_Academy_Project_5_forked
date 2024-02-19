@@ -11,6 +11,7 @@ const {
   unFollow,
   getUsersByInstitustion,
   createNewInstitutionUser,
+  getUserExperiences,
 } = require("../controllers/user");
 
 const authentication = require("../middlewares/authentication");
@@ -34,13 +35,16 @@ usersRouter.get("/search_1/:id", getUserById);
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
 // http://localhost:5000/users/follows/1
-usersRouter.delete("/follows/:follow_id",authentication,unFollow);
+usersRouter.delete("/follows/:follow_id", authentication, unFollow);
 
 // http://localhost:5000/users/institustion/1
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
 
 // http://localhost:5000/users/institution_user
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
+
+// http://localhost:5000/users/experience/:user_id
+usersRouter.get("/experience/:user_id", getUserExperiences);
 
 module.exports = usersRouter;
 

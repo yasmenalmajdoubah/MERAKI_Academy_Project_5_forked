@@ -57,6 +57,8 @@ CREATE TABLE users (
   country VARCHAR(255),
   jobName VARCHAR(255),
   about VARCHAR(255),
+  skills TEXT,
+  education TEXT,
   CV TEXT,
   phoneNumber VARCHAR(255),
   role_id INT,
