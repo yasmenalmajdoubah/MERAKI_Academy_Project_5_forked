@@ -154,6 +154,30 @@ export const PorfilePosts = () => {
                   {/* ========== */}
                   <div className="bg-white absolute top-56 left-52 w-96 h-auto">
                     <p className="text-center">Commets</p>
+                    <div>
+                      {post.comments?.map((comment, i) => {
+                        console.log(comment);
+                        return (
+                          <div className="mb-3 border-t-2">
+                            <div className="flex items-center ms-2 mt-2">
+                              <img
+                                src={comment.profileimage}
+                                alt="Profile Picture"
+                                className="w-10 h-10 rounded-full"
+                              />
+                              <div className="ml-2">
+                                <p className="font-semibold">
+                                  {comment.firstname} {comment.lastname}
+                                </p>
+                              </div>
+                            </div>
+                            <p className="comment ms-12" key={i}>
+                              {comment.comment}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
                     <div class="mt-4">
                       <textarea
                         id="comment-textarea"
@@ -175,14 +199,6 @@ export const PorfilePosts = () => {
                     </div>
                   </div>
                 </div>
-                {post.comments?.map((comment, i) => {
-                  console.log(comment);
-                  return (
-                    <p className="comment" key={i}>
-                      {comment.comment}
-                    </p>
-                  );
-                })}
                 <div class="comment-section mt-4">
                   <div class="bg-white rounded-lg shadow p-4"></div>
                 </div>
