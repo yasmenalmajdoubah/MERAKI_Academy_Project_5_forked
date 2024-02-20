@@ -86,7 +86,9 @@ const postsSlice = createSlice({
       });
     },
     removeLike: (state, action) => {
-      //code here
+      state.posts = state.posts.filter((elem, i) => {
+        return elem.id !== action.payload;
+      });
     },
     setPostURL: (state, action) => {
       state.postURL=action.payload
@@ -103,7 +105,8 @@ export const {
   addComment,
   setPostURL,
   allLikes,
-  addLike
+  addLike,
+  removeLike
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
