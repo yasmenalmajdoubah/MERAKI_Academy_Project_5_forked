@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import { setLogout } from "../../service/redux/reducers/log/logSlice";
 
 const NavBar = () => {
@@ -14,38 +13,26 @@ const NavBar = () => {
     };
   });
 
-  // ==========================================
-  const userPosts = () => {
-    dispatch(
-      setPostURL(
-        `http://localhost:5000/posts/search_1?user=${state.userIduserId}`
-      )
-    );
-  };
-  // ==========================================
-  const fieldPosts = () => {
-    dispatch(setPostURL("http://localhost:5000/posts/search_2"));
-  };
   // ===========================================
   return (
     <div>
-      <div className="flex space-x-10 md:flex-auto font-mono Menlo bg-black text-white shadow-lg h-12 items-center">
-        <h1 className="flex-1">WorkedIn</h1>
-        <div className="flex-1">
-          <input type="text" placeholder="Search" />
-          <button>search</button>
+      <div className="flex justify-around md:flex-auto bg-black text-white shadow-lg h-12 items-center">
+        <h1 className="flex-none text-xl ">WorkedIn</h1>
+        <div className="flex-none space-x-2">
+          <input className="rounded-lg ps-1 h-7" type="text" placeholder="Search" />
+          <button>Search</button>
         </div>
-        <div className="flex-1 w-64 space-x-6 ">
-          <NavLink to="/" onClick={fieldPosts}>Home</NavLink>
-          <NavLink to="/profile" onClick={userPosts}>
+        <div className="flex-none w-64 space-x-3 ">
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/profile">
             Profile
           </NavLink>
           <NavLink to="/global" >
             Global
           </NavLink>
-          <NavLink to="/discover">Discover</NavLink>
+          {/* <NavLink to="/discover">Discover</NavLink> */}
         </div>
-        <div>
+        <div className="flex-none cursor-pointer">
           <p
             onClick={() => {
               dispatch(setLogout());

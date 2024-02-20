@@ -2,7 +2,7 @@ import React from 'react'
 
 function DiscoverPost() {
   return (
-    <div>بيشبشيبشب</div>
+    <div>Global Posts and users</div>
   )
 }
 
