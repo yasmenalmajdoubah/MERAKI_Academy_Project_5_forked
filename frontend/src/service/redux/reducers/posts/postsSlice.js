@@ -6,7 +6,7 @@ const postsSlice = createSlice({
   initialState: {
     posts: [],
     postURL:"",
-   
+   comments:[]
   },
 
   reducers:
@@ -38,9 +38,11 @@ const postsSlice = createSlice({
 
     //* get all comments
     allComments: (state, action) => {
+      console.log('first', action.payload)
       state.posts = state.posts.map((elem, i) => {
-        if (elem.id === action.payload.post_id) {
-        //  state.posts[post_id].comments= action.payload.comments;
+        if (elem.post_id === action.payload.post_id) {
+         elem.comments= action.payload.comments;
+         console.log('elem',  elem.comments)
         }
         return elem;
       });
@@ -48,7 +50,7 @@ const postsSlice = createSlice({
     //* add new comment to comments
     addComment: (state, action) => {
       state.posts = state.posts.map((elem, i) => {
-        if (elem.id === action.payload.post_id) {
+        if (elem.post_id === action.payload.post_id) {
           elem.comments.push(action.payload.newCommet);
         }
         return elem;
