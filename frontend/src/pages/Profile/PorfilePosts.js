@@ -37,6 +37,8 @@ const PorfilePosts = () => {
       .catch((err) => {
         console.log(err.message);
       });
+  console.log(state.posts);
+
   }, []);
 
   const getCommentsByPost = async (post_id) => {
