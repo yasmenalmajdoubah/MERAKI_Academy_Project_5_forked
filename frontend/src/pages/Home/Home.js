@@ -4,8 +4,8 @@ import HomeMain from "./HomeMain";
 
 function Home() {
   return (
-    <div className="flex justify-center bg-neutral-200">
-      <div className="flex-none w-80">
+    <div className="flex bg-zinc-100">
+      <div className="flex-none">
         <HomeSide/>
       </div>
       <div className="flex-none"> 

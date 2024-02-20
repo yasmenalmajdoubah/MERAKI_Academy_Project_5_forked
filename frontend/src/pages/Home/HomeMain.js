@@ -3,7 +3,7 @@ import Post from "./Post";
 
 const HomeMain = () => {
   return (
-    <div className="flex-row">
+    <div className="flex-col">
       <div>
         <textarea placeholder="Puplish here" />
         <button></button>
@@ -11,7 +11,6 @@ const HomeMain = () => {
       <div>
         <Post />
       </div>
-      <Post/>
     </div>
   );
 };
