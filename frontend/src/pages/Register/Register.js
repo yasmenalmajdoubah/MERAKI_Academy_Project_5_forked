@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -33,13 +33,15 @@ const Register = () => {
   const [CV, setCV] = useState("");
   const [skills, setSkills] = useState("");
   const [education, setEducation] = useState("");
-  const [field_id, setField_id] = useState(1);
-  const [role_id, setRole_id] = useState("");
+  const [field_id, setField_id] = useState("");
+  const [role_id, setRole_id] = useState(1);
+  const [allFields, setAllFields] = useState([]);
 
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [nextPage, setNextPage] = useState(false);
-  /* ====================================================== */
+
+  /* ============================================================= */
   const addNewUser = async (e) => {
     e.preventDefault();
     try {
@@ -72,6 +74,28 @@ const Register = () => {
       setMessage("Error happened while register, please try again");
     }
   };
+
+  /* ================================================================== */
+  const getAllFields = async (e) => {
+    try {
+      const result = await axios.get("http://localhost:5000/roles/fields");
+      if (result.data.success) {
+        setAllFields(result.data.Fields);
+      } else throw Error;
+    } catch (error) {
+      setStatus(false);
+      if (error.response && error.response.data) {
+        console.log(error.response.data.message);
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while register, please try again");
+    }
+  };
+
+  useEffect(() => {
+    getAllFields();
+  });
+
   /* ===================================================================== */
   return (
     <>
@@ -199,6 +223,22 @@ const Register = () => {
             placeholder="Skills"
             onChange={(e) => setSkills(e.target.value)}
           />
+          <br />
+          <label>Your Field: </label>
+          <select
+            className="mb-2 w-29 h-9 border-2 border-slate-700 rounded-md pl-2.5"
+            onChange={(e) => {
+              setField_id(e.target.value);
+            }}
+          >
+            {allFields.map((field, i) => {
+              return (
+                <option value={field.field_id} key={field.field_id}>
+                  {field.field}
+                </option>
+              );
+            })}
+          </select>
           <br />
           <button
             onClick={() => {
