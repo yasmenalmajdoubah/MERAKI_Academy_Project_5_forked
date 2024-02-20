@@ -8,12 +8,16 @@ import {
   addComment,
 } from "../../service/redux/reducers/posts/postsSlice";
 import { IoIosCloseCircle } from "react-icons/io";
+import { FaRegHeart } from "react-icons/fa";
+import { TfiCommentAlt } from "react-icons/tfi";
 
 const PorfilePosts = () => {
   const [comment, setComment] = useState(""); //
   const [message, setMessage] = useState("");
-  const [post_id, setPost_id] = useState(false);
+  const [post_id, setPost_id] = useState("");
   const [show, setShow] = useState("");
+  const [commentWind, setCommentWind] = useState(false);
+
   const dispatch = useDispatch();
   const state = useSelector((state) => {
     return {
@@ -25,6 +29,7 @@ const PorfilePosts = () => {
   });
   // ===============================
   useEffect(() => {
+    console.log(state.userId);
     axios
       .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
         headers: {
@@ -33,7 +38,6 @@ const PorfilePosts = () => {
       })
       .then((result) => {
         dispatch(allPost(result.data.posts));
-        console.log(result.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -44,15 +48,12 @@ const PorfilePosts = () => {
   ///get comments
 
   const getCommentsByPost = async (post_id) => {
-    console.log(post_id);
     try {
       const result = await axios.get(
         `http://localhost:5000/comments/comment/${post_id}`
       );
       if (result.data.success) {
-        console.log("result.data", result.data);
         const comments = result.data.comments;
-        console.log("comments", comments);
         dispatch(allComments({ comments, post_id }));
       } else throw Error;
     } catch (error) {
@@ -79,23 +80,23 @@ const PorfilePosts = () => {
       );
       if (result.data.success) {
         // getCommentsByPost()
-        console.log("result.data", result.data);
         const newCommet = result.data.results;
-        console.log("123", newCommet);
         dispatch(addComment({ newCommet, post_id }));
       }
     } catch (error) {
       console.log(error);
     }
   };
-
   /* ================================================= */
   return (
-    <div className="bg-zinc-100">
+    <div className="bg-zinc-100 ">
       {state.posts?.map((post, index) => {
         return (
-          <div key={post_id} className="relative">
-            <div className="container mx-auto p-3" style={{ width: "650px" }}>
+          <div key={post.post_id} className="">
+            <div
+              className="container mx-auto p-3 relative"
+              style={{ width: "650px" }}
+            >
               <div
                 className="bg-white rounded-lg shadow p-4"
                 style={{ width: "650px" }}
@@ -110,7 +111,7 @@ const PorfilePosts = () => {
                     <p className="font-semibold">
                       {post.firstname} {post.lastname}
                     </p>
-                    <p class="text-gray-500 text-xs">
+                    <p className="text-gray-500 text-xs">
                       {" "}
                       Posted{" "}
                       {post.created_at
@@ -128,97 +129,91 @@ const PorfilePosts = () => {
                     <img src={post.image} alt="Post Image" className="mt-4" />
                   )}
                 </div>
-                <div className="flex items-center justify-between mt-4">
-                  <button
-                    id="like-button"
-                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
-                  >
-                    LIKE
-                  </button>
-                  <button
-                    id="comment-button"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => {
-                      console.log(post);
-                      getCommentsByPost(post.post_id);
-                      setShow(post.post_id);
-                    }}
-                  >
-                    COMMENT
-                  </button>
-                  {/* ========== */}
-                  <div className="bg-white absolute top-12 left-52 w-96 h-auto">
-                    <div className="flex justify-between">
-                      <p className="text-center">Commets</p>
-                      <div>
-                        <IoIosCloseCircle />
+                <div className="items-center mt-4 pt-2 border-t-2">
+                  <div className="flex justify-around">
+                    <div className="flex items-center cursor-pointer">
+                      <div className="me-1 mt-1">
+                        {" "}
+                        <FaRegHeart />
                       </div>
+                      <div>Interested</div>
                     </div>
-                    <div>
-                      {post.comments?.map((comment, i) => {
-                        return (
-                          <div className="mb-3 border-t-2">
-                            <div className="flex items-center ms-2 mt-2">
-                              <img
-                                src={comment.profileimage}
-                                alt="Profile Picture"
-                                className="w-10 h-10 rounded-full"
-                              />
-                              <div className="ml-2">
-                                <p className="font-semibold">
-                                  {comment.firstname} {comment.lastname}
-                                </p>
-                              </div>
-                            </div>
-                            <p className="comment ms-12" key={i}>
-                              {comment.comment}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div class="mt-4">
-                      <textarea
-                        id="comment-textarea"
-                        className="w-96 h-18 p-1 bg-gray-200 rounded"
-                        placeholder="Write a comment"
-                        onChange={(e) => {
-                          setComment(e.target.value);
-                        }}
-                      ></textarea>
-                      <button
-                        id="post-comment-button"
-                        class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => {
-                          if (comment) createComment(post.post_id);
-                        }}
-                      >
-                        Add Comment
-                      </button>
+
+                    {/* ======*******===== */}
+
+                    <div
+                      className="flex items-center cursor-pointer"
+                      onClick={() => {
+                        getCommentsByPost(post.post_id);
+                        setShow(post.post_id);
+                        setCommentWind(true);
+                        setPost_id(post.post_id);
+                      }}
+                    >
+                      <div className="me-1 mt-1">
+                        <TfiCommentAlt />
+                      </div>
+                      <div>Reviews</div>
                     </div>
                   </div>
-                </div>
-                <div class="comment-section mt-4">
-                  <div class="bg-white rounded-lg shadow p-4"></div>
-                </div>
-                <div class="mt-4">
-                  <textarea
-                    id="comment-textarea"
-                    class="w-full h-32 p-2 bg-gray-200 rounded"
-                    placeholder="WRITE YOUR COMMENT HERE"
-                    onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                  ></textarea>
-                  <button
-                    id="post-comment-button"
-                    class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => {
-                      if (comment) createComment(post.post_id);
-                    }}
-                  >
-                    COMMENT
-                  </button>
+                  {/* ========== */}
+                  {commentWind && post_id === post.post_id && (
+                    <div className="bg-white absolute bottom-32 left-52 w-96 h-auto rounded">
+                      <div className="flex justify-between">
+                        <p className="text-center mt-1 ms-1">Commets</p>
+                        <div
+                          className="mt-1 me-1"
+                          onClick={() => {
+                            setCommentWind(false);
+                          }}
+                        >
+                          <IoIosCloseCircle />
+                        </div>
+                      </div>
+                      <div>
+                        {post.comments?.map((comment, i) => {
+                          return (
+                            <div className="mb-3 border-b-2">
+                              <div className="flex items-center ms-2 mt-2">
+                                <img
+                                  src={comment.profileimage}
+                                  alt="Profile Picture"
+                                  className="w-10 h-10 rounded-full"
+                                />
+                                <div className="ml-2">
+                                  <p className="font-semibold">
+                                    {comment.firstname} {comment.lastname}
+                                  </p>
+                                </div>
+                              </div>
+                              <p className="comment ms-12" key={i}>
+                                {comment.comment}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="mt-4">
+                        <textarea
+                          id="comment-textarea"
+                          className="w-96 h-12 p-1 bg-gray-200 rounded-2xl"
+                          placeholder="  Write a comment"
+                          onChange={(e) => {
+                            setComment(e.target.value);
+                          }}
+                        ></textarea>
+                        <button
+                          id="post-comment-button"
+                          className="mt-2 ms-2 mb-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => {
+                            if (comment) createComment(post.post_id);
+                          }}
+                        >
+                          Add Comment
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
