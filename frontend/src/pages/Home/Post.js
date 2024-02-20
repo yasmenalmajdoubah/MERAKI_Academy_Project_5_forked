@@ -95,6 +95,69 @@ export const Post = () => {
     }
   };
 
+
+
+  const getlikes = async (post_id) => {
+    console.log(post_id)
+    try {
+      const result = await axios.get(
+                `http://localhost:5000/posts/getLikes/${post_id}`
+      );
+      if (result.data.success) {
+        console.log('result.data', result.data)
+        const comments = result.data.comments;
+        console.log("comments",comments);
+        dispatch(allComments({ comments, post_id }));
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
+
+  const addLike = async (post_id) => {
+    try {
+      const result = await axios.post(
+        `http://localhost:5000/comments/comment/${post_id}`,
+        {
+          comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      if (result.data.success) {
+        console.log('result.data', result.data)
+        const newCommet = result.data.results
+        console.log("123",newCommet)
+        dispatch(addComment({ newCommet, post_id }))
+        //getCommentsByPost(post_id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // ================================
   return (
     <div>
@@ -144,9 +207,12 @@ export const Post = () => {
                   <div class="mt-4">
                       <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"  onChange={(e) => {
                   setComment(e.target.value);
+                 
                 }}></textarea>
-                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"  onClick={() => {
+                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type ="reset" onClick={() => {
                   if (comment) createComment(post.post_id);
+                  //document.textform.textarea.value=""
+                  
                 }}>COMMENT</button>
                   </div>
               </div>
