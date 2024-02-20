@@ -6,7 +6,8 @@ const postsSlice = createSlice({
   initialState: {
     posts: [],
     postURL:"",
-   comments:[]
+   comments:[],
+  
   },
 
   reducers:
@@ -59,16 +60,30 @@ const postsSlice = createSlice({
     },
     //* delete comment
     deleteComment: (state, action) => {
-      // code here
+      state.posts = state.posts.filter((elem, i) => {
+        return elem.id !== action.payload;
+      });
     },
 
     //* get all likes of post
     allLikes: (state, action) => {
-      // code here
+            state.posts = state.posts.map((elem, i) => {
+        if (elem.post_id === action.payload.post_id) {
+         elem.likes= action.payload.likes;
+        
+        }
+        return elem;
+      });
     },
     //* to add like to post
     addLike: (state, action) => {
-      // code here
+      console.log (action.payload)
+      state.posts = state.posts.map((elem, i) => {
+        if (elem.post_id === action.payload.post_id) {
+          elem.comments.push(action.payload.likes);
+        }
+        return elem;
+      });
     },
     removeLike: (state, action) => {
       //code here

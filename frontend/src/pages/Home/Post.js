@@ -6,6 +6,8 @@ import {
   allPost,
   allComments,
   addComment,
+  addLikes,
+  allLikes
 } from "../../service/redux/reducers/posts/postsSlice";
 
 export const Post = () => {
@@ -39,16 +41,7 @@ export const Post = () => {
       });
   }, []);
 
-  /*
-  const handleUpdateClick = (post) => {
-    
-    setPost_id(post.post_id);
-    
-   
-
-  }
-
-*/
+  
   ///get comments
   const getCommentsByPost = async (post_id) => {
     console.log(post_id)
@@ -139,21 +132,6 @@ export const Post = () => {
       console.log(error);
     }
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // ================================
