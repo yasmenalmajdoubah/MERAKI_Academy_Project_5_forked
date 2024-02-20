@@ -29,7 +29,7 @@ const getCommentsByPost = (req, res) => {
   console.log('req.params', req.params)
   const { post_id } = req.params;
   const placeholders = [post_id];
-  const query = `SELECT users.FirstName, users.LastName, comments.comment, comments.comment_id  FROM users LEFT JOIN comments ON 
+  const query = `SELECT users.FirstName, users.LastName, users.profileimage, comments.comment, comments.comment_id  FROM users LEFT JOIN comments ON 
     comments.user_id=users.user_id WHERE comments.post_id=$1 AND comments.is_deleted=0
    `;
   pool
