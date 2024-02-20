@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+/*import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
@@ -87,8 +87,9 @@ const PorfilePosts = () => {
 
 
   return (
-    <div>
+    <div>*/
       {/* <form className="posts-form"> */}
+      /*
       {posts?.map((post, index) => {
         return (
           <div key={index} className="posts">
@@ -150,6 +151,7 @@ const PorfilePosts = () => {
                     className="commentBtn"
                     onClick={() => {
                       if (comment) createComment(post.post_id);
+                      
                     }}
                   >
                     Add comment
@@ -162,10 +164,12 @@ const PorfilePosts = () => {
           </div>
         );
       })}
+/*
 
-      {/* </form> */}
-    </div>
+      {/* </form> */ //}
+  /*  </div>
   );
 };
 
 export default PorfilePosts
+*/
