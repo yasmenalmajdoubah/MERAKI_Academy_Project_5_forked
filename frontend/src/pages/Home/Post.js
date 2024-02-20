@@ -140,8 +140,12 @@ export const Post = () => {
                       
                   </div>
                   <div class="mt-4">
-                      <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"></textarea>
-                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">COMMENT</button>
+                      <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"  onChange={(e) => {
+                  setComment(e.target.value);
+                }}></textarea>
+                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"  onClick={() => {
+                  if (comment) createComment(post.post_id);
+                }}>COMMENT</button>
                   </div>
               </div>
           </div>
