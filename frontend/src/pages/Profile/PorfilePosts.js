@@ -37,7 +37,7 @@ const PorfilePosts = () => {
       .catch((err) => {
         console.log(err.message);
       });
-  console.log(state.posts);
+  console.log(posts);
 
   }, []);
 

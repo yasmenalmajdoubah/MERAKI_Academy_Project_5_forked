@@ -6,6 +6,7 @@ const {
   createNewPermissions,
   createNewRolePermissions,
   createNewField,
+  getAllFields,
 } = require("../controllers/role");
 
 //  http://localhost:5000/roles/create
@@ -19,5 +20,8 @@ rolesRouter.post("/role_permissions", createNewRolePermissions);
 
 //  http://localhost:5000/roles/field
 rolesRouter.post("/field", createNewField);
+
+//  http://localhost:5000/roles/fields
+rolesRouter.get("/fields", getAllFields);
 
 module.exports = rolesRouter;
