@@ -180,16 +180,18 @@ const createNewFollow = (req, res) => {
 /* ============================================= */
 
 const unFollow = (req, res) => {
-  const { follow_id } = req.params;
-  const placeholders = [follow_id];
-  const query = `DELETE FROM follows WHERE follow_id=$1 RETURNING* ;
+  const { followed_user_id } = req.params;
+  const following_user_id = req.token.user_id;
+
+  const placeholders = [following_user_id,followed_user_id];
+  const query = `DELETE FROM follows WHERE following_user_id=$1 AND followed_user_id=$2 RETURNING*;
     `;
   pool
     .query(query, placeholders)
     .then((result) => {
       res.status(200).json({
         success: true,
-        massage: `follows with follows_id: ${follow_id} deleted successfully`,
+        massage: `follows with following_user_id: ${following_user_id} and followed_user_id:${followed_user_id} deleted successfully`,
       });
     })
     .catch((err) => {

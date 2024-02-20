@@ -35,7 +35,7 @@ usersRouter.get("/search_1/:id", getUserById);
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
 // http://localhost:5000/users/follows/1
-usersRouter.delete("/follows/:follow_id", authentication, unFollow);
+usersRouter.delete("/follows/:followed_user_id", authentication, unFollow);
 
 // http://localhost:5000/users/institustion/1
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
