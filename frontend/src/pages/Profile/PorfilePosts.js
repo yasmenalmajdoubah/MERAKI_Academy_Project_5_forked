@@ -1,4 +1,4 @@
-/*import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
@@ -7,8 +7,9 @@ import {
   allComments,
   addComment,
 } from "../../service/redux/reducers/posts/postsSlice";
+import { IoIosCloseCircle } from "react-icons/io";
 
-export const PorfilePosts = () => {
+const PorfilePosts = () => {
   const [comment, setComment] = useState(""); //
   const [message, setMessage] = useState("");
   const [post_id, setPost_id] = useState(false);
@@ -22,7 +23,6 @@ export const PorfilePosts = () => {
       userId: state.log.userId,
     };
   });
-  console.log(state.posts);
   // ===============================
   useEffect(() => {
     axios
@@ -40,18 +40,9 @@ export const PorfilePosts = () => {
       });
   }, []);
 
-  /*
-  const handleUpdateClick = (post) => {
-    
-    setPost_id(post.post_id);
-    
-   
-
-  }
-
-*/
+  /* ===================================================== */
   ///get comments
-  /*
+
   const getCommentsByPost = async (post_id) => {
     console.log(post_id);
     try {
@@ -72,6 +63,7 @@ export const PorfilePosts = () => {
     }
   };
 
+  /* ================================================== */
   const createComment = async (post_id) => {
     try {
       const result = await axios.post(
@@ -86,28 +78,28 @@ export const PorfilePosts = () => {
         }
       );
       if (result.data.success) {
+        // getCommentsByPost()
         console.log("result.data", result.data);
         const newCommet = result.data.results;
         console.log("123", newCommet);
         dispatch(addComment({ newCommet, post_id }));
-        //getCommentsByPost(post_id);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // ================================
+  /* ================================================= */
   return (
-    <div>*/
-    /*
-      {/* <form className="posts-form"> *//*}
- 
+    <div className="bg-zinc-100">
       {state.posts?.map((post, index) => {
         return (
-          <div key={post_id} className="bg-gray-100 relative">
-            <div className="container mx-auto p-9">
-              <div className="bg-white rounded-lg shadow p-4">
+          <div key={post_id} className="relative">
+            <div className="container mx-auto p-3" style={{ width: "650px" }}>
+              <div
+                className="bg-white rounded-lg shadow p-4"
+                style={{ width: "650px" }}
+              >
                 <div className="flex items-center">
                   <img
                     src={post.profileimage}
@@ -154,12 +146,16 @@ export const PorfilePosts = () => {
                   >
                     COMMENT
                   </button>
-                  {/* ========== *//*}
-                  <div className="bg-white absolute top-56 left-52 w-96 h-auto">
-                    <p className="text-center">Commets</p>
+                  {/* ========== */}
+                  <div className="bg-white absolute top-12 left-52 w-96 h-auto">
+                    <div className="flex justify-between">
+                      <p className="text-center">Commets</p>
+                      <div>
+                        <IoIosCloseCircle />
+                      </div>
+                    </div>
                     <div>
                       {post.comments?.map((comment, i) => {
-                        console.log(comment);
                         return (
                           <div className="mb-3 border-t-2">
                             <div className="flex items-center ms-2 mt-2">
@@ -184,8 +180,8 @@ export const PorfilePosts = () => {
                     <div class="mt-4">
                       <textarea
                         id="comment-textarea"
-                        class="text-center w-96 h-28 p-2 bg-gray-200 rounded"
-                        placeholder="WRITE YOUR COMMENT HERE"
+                        className="w-96 h-18 p-1 bg-gray-200 rounded"
+                        placeholder="Write a comment"
                         onChange={(e) => {
                           setComment(e.target.value);
                         }}
@@ -219,7 +215,6 @@ export const PorfilePosts = () => {
                     class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
                       if (comment) createComment(post.post_id);
-                      
                     }}
                   >
                     COMMENT
@@ -235,4 +230,3 @@ export const PorfilePosts = () => {
 };
 
 export default PorfilePosts;
-*/

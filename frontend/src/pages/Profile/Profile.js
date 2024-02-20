@@ -6,16 +6,21 @@ import PorfilePosts from "./PorfilePosts";
 
 const Profile = () => {
   return (
-    <div className=" flex flex-col    ">
-       
+    <div className=" flex flex-col bg-zinc-100   ">
       <div className="   ">
         <ProfileHeader />
       </div>
       <div className="  flex flex-row justify-around mt-6">
-        <div> <ProfileBody /><PorfilePosts/>  </div>
-        <div> <ProfleSugg />  </div>
-        
-        
+        <div>
+          {" "}
+          <ProfileBody />
+          <PorfilePosts />
+        </div>
+
+        <div>
+          {" "}
+          <ProfleSugg />{" "}
+        </div>
       </div>
     </div>
   );
