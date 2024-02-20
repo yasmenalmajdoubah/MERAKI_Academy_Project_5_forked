@@ -1,7 +1,8 @@
 const { pool } = require("../models/db");
 const createNewComment = (req, res) => {
-  const { comment, post_id } = req.body;
-
+  const {post_id}=req.params
+  const { comment} = req.body;
+  
   const { user_id } = req.token;
   const query = `INSERT INTO comments(user_id,post_id,comment) VALUES ($1, $2,$3) RETURNING *;`;
   const placeholders = [user_id, post_id, comment];
@@ -15,7 +16,7 @@ const createNewComment = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log("err", err);
+      console.log('err', err)
       res.status(500).json({
         success: false,
         message: "Server error",
@@ -25,10 +26,10 @@ const createNewComment = (req, res) => {
 };
 
 const getCommentsByPost = (req, res) => {
-  console.log("req.params", req.params);
+  console.log('req.params', req.params)
   const { post_id } = req.params;
   const placeholders = [post_id];
-  const query = `SELECT users.FirstName,users.profileimage, users.LastName, comments.comment, comments.comment_id  FROM users LEFT JOIN comments ON 
+  const query = `SELECT users.FirstName, users.LastName, comments.comment, comments.comment_id  FROM users LEFT JOIN comments ON 
     comments.user_id=users.user_id WHERE comments.post_id=$1 AND comments.is_deleted=0
    `;
   pool
@@ -50,7 +51,7 @@ const getCommentsByPost = (req, res) => {
 };
 const updateCommentById = (req, res) => {
   const { comment_id } = req.params;
-  console.log("req.body", req.body);
+  console.log('req.body', req.body)
   const { comment } = req.body;
   const placeholders = [comment, comment_id];
   const query = `UPDATE comments SET comment=$1 WHERE comment_id=$2 RETURNING *;
@@ -69,7 +70,7 @@ const updateCommentById = (req, res) => {
       }
     })
     .catch((err) => {
-      console.log("errup", err);
+      console.log('errup', err)
       res.status(500).json({
         success: false,
         message: "Server error",
@@ -98,9 +99,10 @@ const deleteCommentById = (req, res) => {
     });
 };
 
+
 module.exports = {
   createNewComment,
   getCommentsByPost,
   updateCommentById,
-  deleteCommentById,
+  deleteCommentById
 };

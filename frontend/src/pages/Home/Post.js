@@ -2,20 +2,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
+import {  useNavigate } from "react-router-dom";
 import {
   allPost,
   allComments,
   addComment,
-  addLikes,
-  allLikes
+  allLikes,
+  addLike
 } from "../../service/redux/reducers/posts/postsSlice";
 
 export const Post = () => {
   const [comment, setComment] = useState(""); //
   const [message, setMessage] = useState("");
   const [post_id, setPost_id] = useState(false);
+  const [likes, setLikes] = useState([]);////////
   const [show, setShow] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const state = useSelector((state) => {
     return {
       token: state.log.token,
@@ -89,12 +92,17 @@ export const Post = () => {
   };
 
 
-
+///////////////////
   const getlikes = async (post_id) => {
-    console.log(post_id)
+    console.log("post_id")
     try {
       const result = await axios.get(
-                `http://localhost:5000/posts/getLikes/${post_id}`
+                `http://localhost:5000/posts/getLikes/${post_id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${state.token}`,
+                  },
+                }
       );
       if (result.data.success) {
         console.log('result.data', result.data)
@@ -109,7 +117,7 @@ export const Post = () => {
       setMessage("Error happened while Get Data, please try again");
     }
   };
-
+////////////////
   const addLike = async (post_id) => {
     try {
       const result = await axios.post(
@@ -125,7 +133,7 @@ export const Post = () => {
       );
       if (result.data.success) {
        
-        dispatch(addLikes({  post_id }))
+        dispatch(addLike({  post_id }))
        
       }
     } catch (error) {
@@ -146,7 +154,7 @@ export const Post = () => {
                   <div class="flex items-center">
                       <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full"/>
                       <div class="ml-2">
-                          <p class="font-semibold">{post.firstname}  {post.lastname}</p>
+                          <p class="font-semibold"onClick={()=>{navigate(`/friend/${post.user_id}`)}}>{post.firstname}  {post.lastname}</p>
                           <p class="text-gray-500 text-sm"> Posted  {post.created_at
                  }</p>
                       </div>
@@ -155,8 +163,15 @@ export const Post = () => {
                       <p>{post.body}</p>
                       <img src={post.image} alt="Post Image" class="mt-4"/>
                   </div>
+                  
                   <div class="flex items-center justify-between mt-4">
-                      <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">LIKE</button>
+                      <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" 
+                      onClick={() => {
+                        console.log("post")
+                        getlikes(post.post_id);
+                        
+                      }}
+                      >LIKE</button>
                       <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                        onClick={() => {
                         console.log(post)

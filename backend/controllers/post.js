@@ -31,8 +31,12 @@ const getPostsMyFollows = (req, res) => {
   const following_user_id = req.token.user_id;
   const placeholders = [following_user_id];
 
-  const query = `SELECT posts.body, posts.image, posts.created_at, users.firstname , users.lastname, users.profileimage FROM follows INNER JOIN posts ON user_id=follows.followed_user_id INNER JOIN users ON posts.user_id=users.user_id WHERE following_user_id=$1`;
-
+  const query = `SELECT posts.body, posts.image,posts.post_id, posts.created_at,posts.user_id ,users.firstname , users.lastname, users.profileimage FROM follows INNER JOIN posts ON user_id=follows.followed_user_id INNER JOIN users ON posts.user_id=users.user_id WHERE following_user_id=$1
+ `;
+ /*
+UNION
+SELECT comments.comm ent_id FROM comments 
+INNER JOIN posts ON  post_id=comments.post_id*/
   pool
     .query(query, placeholders)
     .then((result) => {
