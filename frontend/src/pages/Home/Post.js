@@ -105,9 +105,9 @@ export const Post = () => {
       );
       if (result.data.success) {
         console.log('result.data', result.data)
-        const comments = result.data.comments;
-        console.log("comments",comments);
-        dispatch(allComments({ comments, post_id }));
+        const likes = result.data.likes;
+       
+        dispatch(allLikes({ likes, post_id }));
       } else throw Error;
     } catch (error) {
       if (!error.response.data) {
@@ -120,9 +120,9 @@ export const Post = () => {
   const addLike = async (post_id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/comments/comment/${post_id}`,
+        `http://localhost:5000/posts/addLike`,
         {
-          comment,
+          post_id,
         },
         {
           headers: {
@@ -131,11 +131,9 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-        console.log('result.data', result.data)
-        const newCommet = result.data.results
-        console.log("123",newCommet)
-        dispatch(addComment({ newCommet, post_id }))
-        //getCommentsByPost(post_id);
+       
+        dispatch(addLikes({  post_id }))
+       
       }
     } catch (error) {
       console.log(error);
