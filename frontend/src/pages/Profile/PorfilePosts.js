@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+/*import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
@@ -98,8 +98,9 @@ export const PorfilePosts = () => {
 
   // ================================
   return (
-    <div>
+    <div>*/
       {/* <form className="posts-form"> */}
+ 
       {state.posts?.map((post, index) => {
         return (
           <div key={post_id} className="bg-gray-100 relative">
@@ -216,6 +217,7 @@ export const PorfilePosts = () => {
                     class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
                       if (comment) createComment(post.post_id);
+                      
                     }}
                   >
                     COMMENT
@@ -231,3 +233,4 @@ export const PorfilePosts = () => {
 };
 
 export default PorfilePosts;
+
