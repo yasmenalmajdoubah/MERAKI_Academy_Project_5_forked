@@ -13,10 +13,15 @@ const profileSlice = createSlice({
     },
     setFollow:(state,action) =>{
       state.follow=action.payload
-    }
+    },
+    AddFollow:(state,action)=>{
+    state.follow.push(action.payload)
+    },
+  
+
   },
 });
 
-export const { setUserInfo,setFollow } = profileSlice.actions;
+export const { setUserInfo,setFollow,AddFollow } = profileSlice.actions;
 
 export default profileSlice.reducer;

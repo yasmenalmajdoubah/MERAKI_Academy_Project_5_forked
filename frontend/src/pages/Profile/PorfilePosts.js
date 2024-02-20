@@ -43,7 +43,7 @@ const PorfilePosts = () => {
         console.log(err.message);
       });
   }, []);
-
+  
   /* ===================================================== */
   ///get comments
 
@@ -129,6 +129,7 @@ const PorfilePosts = () => {
                     <img src={post.image} alt="Post Image" className="mt-4" />
                   )}
                 </div>
+
                 <div className="items-center mt-4 pt-2 border-t-2">
                   <div className="flex justify-around">
                     <div className="flex items-center cursor-pointer">
