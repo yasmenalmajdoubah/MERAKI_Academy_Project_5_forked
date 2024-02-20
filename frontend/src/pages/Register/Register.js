@@ -28,8 +28,7 @@ const Register = () => {
   const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState(0);
-  const [about, setAbout] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [CV, setCV] = useState("");
   const [skills, setSkills] = useState("");
   const [education, setEducation] = useState("");
@@ -40,6 +39,21 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [nextPage, setNextPage] = useState(false);
+  console.log(
+    field_id,
+    firstName,
+    lastName,
+    country,
+    email,
+    password,
+    phoneNumber,
+    skills,
+    CV,
+    education,
+    role_id,
+    field_id,
+    jobName
+  );
 
   /* ============================================================= */
   const addNewUser = async (e) => {
@@ -52,7 +66,6 @@ const Register = () => {
         country,
         email,
         password,
-        about,
         CV,
         phoneNumber,
         skills,
@@ -64,6 +77,7 @@ const Register = () => {
         setStatus(true);
         setMessage(result.data.message);
         console.log(result.data);
+        navigate("/login");
       } else throw Error;
     } catch (error) {
       setStatus(false);
@@ -94,18 +108,18 @@ const Register = () => {
 
   useEffect(() => {
     getAllFields();
-  });
+  }, []);
 
   /* ===================================================================== */
   return (
     <div className=" h-screen">
-      <p className=" font-bold text-3xl text-center">Register</p>
+      <p className=" font-bold text-3xl text-center mt-3">Register</p>
       {nextPage ? (
         <div className="h-screen bg-white flex items-center justify-center">
           <div className="flex-none ms-2 me-3">
             <label>Type of account: </label>
             <select
-              className="mb-2 w-30 h-9 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              className="mb-2 w-30 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
               onChange={(e) => {
                 if (e.target.value === "User") {
                   setRole_id(1);
@@ -177,83 +191,80 @@ const Register = () => {
       ) : (
         /* =================================================== */
         /* ===================================================== */
-        <div>
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="First Name"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="Last Name"
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="About"
-            onChange={(e) => setAbout(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="Job Name"
-            onChange={(e) => setJobName(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="Education"
-            onChange={(e) => setEducation(e.target.value)}
-          />
-          <br />{" "}
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="Skills"
-            onChange={(e) => setSkills(e.target.value)}
-          />
-          <br />
-          <label>Your Field: </label>
-          <select
-            className="mb-2 w-29 h-9 border-2 border-slate-700 rounded-md pl-2.5"
-            onChange={(e) => {
-              setField_id(e.target.value);
-            }}
-          >
-            {allFields.map((field, i) => {
-              return (
-                <option value={field.field_id} key={field.field_id}>
-                  {field.field}
-                </option>
-              );
-            })}
-          </select>
-          <br />
-          <button
-            onClick={() => {
-              setNextPage(true);
-            }}
-            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-          >
-            next
-          </button>
-          <button
-            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login Page
-          </button>
-          <br />
+        <div className="h-screen bg-white flex items-center justify-center">
+          <div className="flex-none ms-2 me-3">
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="Education"
+              onChange={(e) => setEducation(e.target.value)}
+            />
+            <br />{" "}
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="Skills"
+              onChange={(e) => setSkills(e.target.value)}
+            />
+            <br />
+            <button
+              className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Login Page
+            </button>
+          </div>
+
+          <div className="flex-none">
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="Job Name"
+              onChange={(e) => setJobName(e.target.value)}
+            />
+            <br />
+            <label>Your Field: </label>
+            <select
+              className="mb-2 w-24 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              onChange={(e) => {
+                setField_id(e.target.value);
+              }}
+            >
+              <option className=" text-slate-500">Choose</option>
+              {allFields.map((field, i) => {
+                return (
+                  <option value={field.field_id} key={field.field_id}>
+                    {field.field}
+                  </option>
+                );
+              })}
+            </select>
+            <br />
+            <button
+              onClick={() => {
+                setNextPage(true);
+              }}
+              className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
+            >
+              next
+            </button>
+          </div>
         </div>
       )}
     </div>

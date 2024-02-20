@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <>
       <div className="bg-zinc-100 h-screen flex items-center justify-evenly">
-        <div className="flex-none ms-4">
+        <div className="flex-none ms-20">
           <h1 className="font-bold text-3xl text-center">Sign In</h1>
           <div>
             <form onSubmit={login}>
@@ -95,7 +95,7 @@ const Login = () => {
           </div>
         </div>
         <p></p>
-        <div className="flex-none">
+        <div className="flex-none me-20">
           <div className="">
             <h1 className="">Welcome WorkedIn Space</h1>
           </div>

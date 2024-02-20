@@ -56,7 +56,7 @@ const getPostsMyFollows = (req, res) => {
 const getPostsByUser = (req, res) => {
   const user_id = req.query.user;
   const placeholders = [user_id];
-  const query = `SELECT * FROM posts where user_id=$1 AND is_deleted=0 ORDER BY created_at DESC;`;
+  const query = `SELECT posts.body,posts.post_id, posts.field_id ,posts.image, posts.created_at, users.firstname , users.lastname, users.profileimage FROM posts INNER JOIN users ON posts.user_id=users.user_id WHERE posts.user_id=$1 AND posts.is_deleted=0 ORDER BY created_at DESC;`;
   pool
     .query(query, placeholders)
     .then((result) => {
