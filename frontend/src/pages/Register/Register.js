@@ -98,89 +98,86 @@ const Register = () => {
 
   /* ===================================================================== */
   return (
-    <>
+    <div className=" h-screen">
+      <p className=" font-bold text-3xl text-center">Register</p>
       {nextPage ? (
-        <div>
-          <p className="font-bold text-3xl text-center">Register</p>
-          <br />
-          <label>Type of account: </label>
-          <select
-            className="mb-2 w-30 h-9 border-2 border-slate-700 rounded-md pl-2.5"
-            onChange={(e) => {
-              if (e.target.value === "User") {
-                setRole_id(1);
-              }
-              if (e.target.value === "Institution") {
-                setRole_id(2);
-              }
-            }}
-          >
-            <option className="text-gray-500">Choose</option>
-            <option value="User">User</option>
-            <option value="Institution">Institution</option>
-          </select>
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="PhoneNumber"
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <br />{" "}
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="Country"
-            onChange={(e) => setCountry(e.target.value)}
-          />
-          <br />{" "}
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="text"
-            placeholder="CV"
-            onChange={(e) => setCV(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br />{" "}
-          <button
-            onClick={addNewUser}
-            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-          >
-            Register
-          </button>
-          <button
-            onClick={() => {
-              setNextPage(false);
-            }}
-            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-          >
-            Back
-          </button>
-          <button
-            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login Page
-          </button>
+        <div className="h-screen bg-white flex items-center justify-center">
+          <div className="flex-none ms-2 me-3">
+            <label>Type of account: </label>
+            <select
+              className="mb-2 w-30 h-9 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              onChange={(e) => {
+                if (e.target.value === "User") {
+                  setRole_id(1);
+                }
+                if (e.target.value === "Institution") {
+                  setRole_id(2);
+                }
+              }}
+            >
+              <option className="text-gray-500">Choose</option>
+              <option value="User">User</option>
+              <option value="Institution">Institution</option>
+            </select>
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="PhoneNumber"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />{" "}
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <button
+              onClick={() => {
+                setNextPage(false);
+              }}
+              className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
+            >
+              Back
+            </button>
+          </div>
+
+          <div className="flex-none">
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="CV"
+              onChange={(e) => setCV(e.target.value)}
+            />{" "}
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="text"
+              placeholder="Country"
+              onChange={(e) => setCountry(e.target.value)}
+            />{" "}
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />{" "}
+            <br />
+            <button
+              onClick={addNewUser}
+              className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
+            >
+              Register Now
+            </button>{" "}
+          </div>
         </div>
       ) : (
+        /* =================================================== */
+        /* ===================================================== */
         <div>
-          <p className="font-bold text-3xl text-center">Register</p>
           <br />
           <input
             className="mb-2 w-64 h-10 border-2 border-slate-700 rounded-md pl-2.5"
@@ -259,7 +256,7 @@ const Register = () => {
           <br />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
