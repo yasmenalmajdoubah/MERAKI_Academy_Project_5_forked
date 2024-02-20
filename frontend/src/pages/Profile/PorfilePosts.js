@@ -23,6 +23,7 @@ const PorfilePosts = () => {
       userId: state.log.userId
     };
   });
+  console.log(posts);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/posts/search_1?user=${userId}`, {
