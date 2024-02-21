@@ -51,6 +51,7 @@ export const PorfilePosts = () => {
 
 */
   ///get comments
+  /*
   const getCommentsByPost = async (post_id) => {
     console.log(post_id);
     try {
@@ -99,7 +100,8 @@ export const PorfilePosts = () => {
   // ================================
   return (
     <div>*/
-      {/* <form className="posts-form"> */}
+    /*
+      {/* <form className="posts-form"> *//*}
  
       {state.posts?.map((post, index) => {
         return (
@@ -152,7 +154,7 @@ export const PorfilePosts = () => {
                   >
                     COMMENT
                   </button>
-                  {/* ========== */}
+                  {/* ========== *//*}
                   <div className="bg-white absolute top-56 left-52 w-96 h-auto">
                     <p className="text-center">Commets</p>
                     <div>
@@ -233,4 +235,4 @@ export const PorfilePosts = () => {
 };
 
 export default PorfilePosts;
-
+*/

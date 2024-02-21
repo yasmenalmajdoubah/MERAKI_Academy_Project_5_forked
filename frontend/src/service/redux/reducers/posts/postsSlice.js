@@ -80,7 +80,7 @@ const postsSlice = createSlice({
       console.log (action.payload)
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
-          elem.comments.push(action.payload.likes);
+          elem.likes.push(action.payload.likes);
         }
         return elem;
       });
@@ -101,7 +101,9 @@ export const {
   allPost,
   allComments,
   addComment,
-  setPostURL
+  setPostURL,
+  allLikes,
+  addLike
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
