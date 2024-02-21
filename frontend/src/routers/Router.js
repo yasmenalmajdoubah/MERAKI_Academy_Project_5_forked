@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
         element: <DiscoverPost />,
       },
       {
-        path: "/job",
+        path: "/jobs",
         element: <Jobs />,
       },
       {
