@@ -5,7 +5,6 @@ import NotFound from "../pages/404/404";
 import Register from "../pages/Register/Register";
 import Home from "../pages/Home/Home";
 import Profile from "../pages/Profile/Profile";
-import DiscoverFreind from "../pages/DiscoverFreind/DiscoverFreind";
 import DiscoverPost from "../pages/DiscoverPost/DiscoverPost";
 import Visited from "../pages/Visited/Visited";
 
@@ -22,10 +21,10 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
-      {
+/*       {
         path: "/discover",
         element: <DiscoverFreind />,
-      },
+      }, */
       {
         path: "/global",
         element: <DiscoverPost />,

@@ -5,7 +5,7 @@ import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 
 function Home() {
   return (
-    <div className="flex justify-around mt-3 bg-zinc-100">
+    <div className="flex justify-around mt-3 bg-zinc-200 ">
       <div className="flex-none">
         <HomeSide />
       </div>

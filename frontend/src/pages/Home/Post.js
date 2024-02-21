@@ -179,7 +179,7 @@ export const Post = () => {
   // ================================
 
   return (
-    <div className="bg-zinc-100 ">
+    <div className="bg-zinc-200 ">
       {state.posts?.map((post, index) => {
         return (
           <div key={post.post_id} className="">

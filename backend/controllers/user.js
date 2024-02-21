@@ -123,9 +123,9 @@ const login = (req, res) => {
 /* ============================================= */
 
 const getAllUsersByField = (req, res) => {
-  const id = req.params.id;
-  const query = `SELECT user_id,firstName,lastName FROM users  WHERE field_id=$1 ;`;
-  const placeholders = [id];
+  const field_id = req.token.field_id;
+  const query = `SELECT user_id,firstName,lastName, profileImage, jobName FROM users  WHERE field_id=$1 ;`;
+  const placeholders = [field_id];
 
   pool
     .query(query, placeholders)
@@ -183,7 +183,7 @@ const unFollow = (req, res) => {
   const { followed_user_id } = req.params;
   const following_user_id = req.token.user_id;
 
-  const placeholders = [following_user_id,followed_user_id];
+  const placeholders = [following_user_id, followed_user_id];
   const query = `DELETE FROM follows WHERE following_user_id=$1 AND followed_user_id=$2 RETURNING*;
     `;
   pool

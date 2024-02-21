@@ -25,8 +25,8 @@ usersRouter.post("/login", login);
 // http://localhost:5000/users/follows
 usersRouter.post("/follows", authentication, createNewFollow);
 
-// http://localhost:5000/users/search_2/2
-usersRouter.get("/search_2/:id", authentication, getAllUsersByField);
+// http://localhost:5000/users/search_2/field
+usersRouter.get("/search_2/field", authentication, getAllUsersByField);
 
 // http://localhost:5000/users/search_1/5
 usersRouter.get("/search_1/:id", getUserById);
