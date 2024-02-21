@@ -86,7 +86,9 @@ const postsSlice = createSlice({
       });
     },
     removeLike: (state, action) => {
-      //code here
+      state.posts = state.posts.filter((elem, i) => {
+        return elem.id !== action.payload;
+      });
     },
     setPostURL: (state, action) => {
       state.postURL=action.payload
