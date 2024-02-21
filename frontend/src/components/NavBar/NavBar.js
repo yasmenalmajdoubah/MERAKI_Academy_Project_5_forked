@@ -24,6 +24,9 @@ const NavBar = () => {
         </div>
         <div className="flex-none w-64 space-x-3 ">
           <NavLink to="/">Home</NavLink>
+          <NavLink to="/jobs">
+            Jobs
+          </NavLink>
           <NavLink to="/profile">
             Profile
           </NavLink>
