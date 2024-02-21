@@ -207,7 +207,7 @@ const unFollow = (req, res) => {
 
 const getAllFollowersByUserId = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT users.firstName, users.lastName, users.user_id 
+  const query = `SELECT users.firstName, users.lastName, users.user_id , users.role_id
   FROM follows
    INNER JOIN users
   ON users.user_id=follows.followed_user_id

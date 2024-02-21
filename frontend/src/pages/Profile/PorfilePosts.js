@@ -92,13 +92,13 @@ const PorfilePosts = () => {
   };
   /* ================================================= */
   return (
-    <div className="bg-zinc-100 ">
+    <div className="bg-zinc-100 w-full">
       {state.posts?.map((post, index) => {
         return (
           <div key={post.post_id} className="">
             <div
-              className="container mx-auto p-3 relative"
-              style={{ width: "650px" }}
+              className="container mx-auto p-3 w-full relative"
+              /* style={{ width: "650px" }} */
             >
               <div
                 className="bg-white rounded-lg shadow p-4"

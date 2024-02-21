@@ -17,7 +17,7 @@ const profileSlice = createSlice({
     AddFollow:(state,action)=>{
     state.follow.push(action.payload)
     },
-  
+    
 
   },
 });
