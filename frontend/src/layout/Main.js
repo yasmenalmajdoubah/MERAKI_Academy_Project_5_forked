@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const Main = () => {
   return (
     <div className="bg-zinc-200 h-screen ">
-      <div className="flex-col relative">
+      <div className="flex-col">
         <header className="">
           <NavBar />
         </header>

@@ -27,16 +27,16 @@ const HomeSide = () => {
 
   return (
     <div /* className="bg-white w-72" */>
-      <div>
+      <div className="flex-col text-center">
         <div>
           <img
-            className="rounded-md w-28 h-28 object-cover"
+            className="rounded-full w-32 h-32 object-cover"
             src={state.userInfo.profileimage}
           />
         </div>
-        <span>
+        <h1 className="mt-3 text-2xl font-medium" >
           {state.userInfo.firstname} {state.userInfo.lastname}
-        </span>
+        </h1>
         <p>{state.userInfo.jobname}</p>
       </div>
     </div>
