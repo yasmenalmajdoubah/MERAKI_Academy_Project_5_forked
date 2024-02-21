@@ -221,7 +221,7 @@ export const Post = () => {
                 <div className="mt-4">
                   <p>{post.body}</p>
                   {post.image && (
-                    <img src={post.image} alt="Post Image" className="mt-4" />
+                    <img src={post.image} alt="Post Image" className="mt-4 object-cover" />
                   )}
                 </div>
 

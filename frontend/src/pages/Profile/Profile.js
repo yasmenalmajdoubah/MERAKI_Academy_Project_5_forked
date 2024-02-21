@@ -1,8 +1,8 @@
 import React from "react";
 import { ProfileBody } from "./ProfileBody";
 import { ProfileHeader } from "./ProfileHeader";
-import { ProfleSugg } from "./ProfleSugg";
 import PorfilePosts from "./PorfilePosts";
+import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 
 const Profile = () => {
   return (
@@ -19,7 +19,7 @@ const Profile = () => {
 
         <div>
           {" "}
-          <ProfleSugg />{" "}
+          <DiscoverFreind />
         </div>
       </div>
     </div>
