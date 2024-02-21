@@ -41,7 +41,7 @@ const DiscoverFreind = () => {
               <img
                 src={user.profileimage}
                 alt="Profile Picture"
-                className="w-12 h-12 rounded-full cursor-pointer"
+                className="w-12 h-12 rounded-full object-cover cursor-pointer"
                 onClick={() => {
                   navigate(`/friend/${user.user_id}`);
                 }}

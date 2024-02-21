@@ -192,7 +192,7 @@ export const Post = () => {
                   <img
                     src={post.profileimage}
                     alt="Profile Picture"
-                    className="w-12 h-12 rounded-full cursor-pointer"
+                    className="w-12 h-12 rounded-full cursor-pointer object-cover"
                     onClick={() => {
                       navigate(`/friend/${post.user_id}`);
                     }}
