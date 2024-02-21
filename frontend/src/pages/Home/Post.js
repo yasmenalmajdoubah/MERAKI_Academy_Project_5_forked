@@ -2,14 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   allPost,
   allComments,
   addComment,
   allLikes,
   addLike,
-  removeLike
+  removeLike,
 } from "../../service/redux/reducers/posts/postsSlice";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -33,7 +33,7 @@ export const Post = () => {
       posts: state.posts.posts,
     };
   });
-  console.log(state.posts);
+  // console.log(state.posts);
   // ===============================
   useEffect(() => {
     axios
@@ -44,25 +44,24 @@ export const Post = () => {
       })
       .then((result) => {
         dispatch(allPost(result.data.posts));
-        console.log(result.data);
+        // console.log(result.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
 
-  
   ///get comments
   const getCommentsByPost = async (post_id) => {
-    console.log(post_id)
+    console.log(post_id);
     try {
       const result = await axios.get(
         `http://localhost:5000/comments/comment/${post_id}`
       );
       if (result.data.success) {
-        console.log('result.data', result.data)
+        console.log("result.data", result.data);
         const comments = result.data.comments;
-        console.log("comments",comments);
+        console.log("comments", comments);
         dispatch(allComments({ comments, post_id }));
       } else throw Error;
     } catch (error) {
@@ -87,10 +86,10 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-        console.log('result.data', result.data)
-        const newCommet = result.data.results
-        console.log("123",newCommet)
-        dispatch(addComment({ newCommet, post_id }))
+        console.log("result.data", result.data);
+        const newCommet = result.data.results;
+        console.log("123", newCommet);
+        dispatch(addComment({ newCommet, post_id }));
         //getCommentsByPost(post_id);
       }
     } catch (error) {
@@ -98,22 +97,22 @@ export const Post = () => {
     }
   };
 
-/* =============================== */
+  /* =============================== */
   const getlikes = async (post_id) => {
     //console.log("post_id")
     try {
       const result = await axios.get(
-                `http://localhost:5000/posts/getLikes/${post_id}`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${state.token}`,
-                  },
-                }
+        `http://localhost:5000/posts/getLikes/${post_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
       );
       if (result.data.success) {
-       // console.log('result.data', result.data)
+        // console.log('result.data', result.data)
         const likes = result.data.likes;
-       
+
         dispatch(allLikes({ likes, post_id }));
       } else throw Error;
     } catch (error) {
@@ -127,9 +126,9 @@ export const Post = () => {
   /* ============================================== */
 
   const like = async (post_id) => {
-    console.log('first', post_id)
+    console.log("first", post_id);
     try {
-      console.log('first', post_id)
+      console.log("first", post_id);
       const result = await axios.post(
         `http://localhost:5000/posts/addLike`,
         {
@@ -142,9 +141,8 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-       setLikes(true)
-        dispatch(addLike({  post_id }))
-       
+        setLikes(true);
+        dispatch(addLike({ post_id }));
       }
     } catch (error) {
       console.log(error);
@@ -154,12 +152,12 @@ export const Post = () => {
   /* ============================================== */
 
   const unlike = async (like_id) => {
-    console.log('first', like_id)
+    console.log("first", like_id);
     try {
-      console.log('first',like_id)
+      console.log("first", like_id);
       const result = await axios.post(
         `http://localhost:5000/posts/removeLike/${like_id}`,
-        
+
         {
           headers: {
             Authorization: `Bearer ${state.token}`,
@@ -167,9 +165,8 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-       setLikes(true)
-        dispatch(removeLike({  like_id }))
-       
+        setLikes(true);
+        dispatch(removeLike({ like_id }));
       }
     } catch (error) {
       console.log(error);
@@ -195,10 +192,18 @@ export const Post = () => {
                   <img
                     src={post.profileimage}
                     alt="Profile Picture"
-                    className="w-12 h-12 rounded-full"
+                    className="w-12 h-12 rounded-full cursor-pointer"
+                    onClick={() => {
+                      navigate(`/friend/${post.user_id}`);
+                    }}
                   />
                   <div className="ml-2">
-                    <p className="font-semibold">
+                    <p
+                      className="font-semibold cursor-pointer"
+                      onClick={() => {
+                        navigate(`/friend/${post.user_id}`);
+                      }}
+                    >
                       {post.firstname} {post.lastname}
                     </p>
                     <p className="text-gray-500 text-xs">
@@ -242,7 +247,9 @@ export const Post = () => {
                       </div>
                       <div
                         className={
-                          interested && post_id === post.post_id ? "text-red-800" : "text-grey-600"
+                          interested && post_id === post.post_id
+                            ? "text-red-800"
+                            : "text-grey-600"
                         }
                       >
                         Interested
@@ -332,13 +339,11 @@ export const Post = () => {
       })}
     </div>
   );
-  
-  
-  
+
   /*(
     <div>
-      {/* <form className="posts-form"> *///} 
-      /*
+      {/* <form className="posts-form"> */ //}
+  /*
       {state.posts?.map((post, index) => {
         return (
           <div class="bg-gray-100">
@@ -410,6 +415,5 @@ export const Post = () => {
     </div>
   );*/
 };
-
 
 export default Post;

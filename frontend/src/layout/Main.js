@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const Main = () => {
   return (
-    <div className="bg-zinc-200 ">
+    <div className="bg-zinc-200 h-screen">
       <div className="flex-col">
         <header>
           <NavBar />
