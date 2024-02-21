@@ -98,9 +98,32 @@ const createNewField = (req, res) => {
     });
 };
 
+/* ======================================== */
+const getAllFields = (req, res) => {
+  const query = `SELECT * FROM field`;
+
+  pool
+    .query(query)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "All Field",
+        Fields: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: err.message,
+      });
+    });
+};
+
 module.exports = {
   createNewRole,
   createNewPermissions,
   createNewRolePermissions,
   createNewField,
+  getAllFields,
 };

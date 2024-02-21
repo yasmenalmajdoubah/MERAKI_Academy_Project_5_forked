@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 import "./profile.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo,setFollow } from "../../service/redux/reducers/profile/profileSlice";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+
 export const ProfileHeader = () => {
   const [myFollow, setMyFollow] = useState(false)
   const dispatch = useDispatch();
@@ -38,7 +37,6 @@ export const ProfileHeader = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((result)=>{
-      
       dispatch(setFollow(result.data.result))
     }).catch((err)=>{
       console.log('err from use effect function getfollows', err)
@@ -111,3 +109,4 @@ export const ProfileHeader = () => {
     </div>
   );
 };
+*/
