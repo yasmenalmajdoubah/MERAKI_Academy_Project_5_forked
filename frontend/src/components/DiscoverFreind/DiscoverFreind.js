@@ -36,7 +36,7 @@ const DiscoverFreind = () => {
       <div>Suggestions People</div><br/>
       {discoverFriend.map((user, i) => {
         return (
-          <div className="" key={user.user_id}>
+          <div className="mb-3" key={user.user_id}>
             <div className="flex items-center">
               <img
                 src={user.profileimage}
