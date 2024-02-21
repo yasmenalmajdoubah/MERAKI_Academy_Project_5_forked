@@ -199,8 +199,8 @@ export const Post = () => {
                       onClick={() => {
                         console.log("post")
                         getlikes(post.post_id);
-                        {cat==="silver"?<hr/>:<></> }
-                        like (post.post_id)
+                        {likes?like (post.post_id):unlike(post.post_id)}
+                       
                       }}
                       >LIKE</button>
                       <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
