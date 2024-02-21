@@ -103,7 +103,8 @@ export const {
   addComment,
   setPostURL,
   allLikes,
-  addLike
+  addLike,
+  removeLike
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

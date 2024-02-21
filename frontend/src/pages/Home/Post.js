@@ -8,14 +8,15 @@ import {
   allComments,
   addComment,
   allLikes,
-  addLike
+  addLike,
+  removeLike
 } from "../../service/redux/reducers/posts/postsSlice";
 
 export const Post = () => {
   const [comment, setComment] = useState(""); //
   const [message, setMessage] = useState("");
   const [post_id, setPost_id] = useState(false);
-  const [likes, setLikes] = useState([]);////////
+  const [likes, setLikes] = useState(false);////////
   const [show, setShow] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ export const Post = () => {
 
 ///////////////////
   const getlikes = async (post_id) => {
-    console.log("post_id")
+    //console.log("post_id")
     try {
       const result = await axios.get(
                 `http://localhost:5000/posts/getLikes/${post_id}`,
@@ -105,7 +106,7 @@ export const Post = () => {
                 }
       );
       if (result.data.success) {
-        console.log('result.data', result.data)
+       // console.log('result.data', result.data)
         const likes = result.data.likes;
        
         dispatch(allLikes({ likes, post_id }));
@@ -118,8 +119,10 @@ export const Post = () => {
     }
   };
 ////////////////
-  const addLike = async (post_id) => {
+  const like = async (post_id) => {
+    console.log('first', post_id)
     try {
+      console.log('first', post_id)
       const result = await axios.post(
         `http://localhost:5000/posts/addLike`,
         {
@@ -132,7 +135,7 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-       
+       setLikes(true)
         dispatch(addLike({  post_id }))
        
       }
@@ -140,6 +143,33 @@ export const Post = () => {
       console.log(error);
     }
   };
+
+  const unlike = async (like_id) => {
+    console.log('first', like_id)
+    try {
+      console.log('first',like_id)
+      const result = await axios.post(
+        `http://localhost:5000/posts/removeLike/${like_id}`,
+        
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      if (result.data.success) {
+       setLikes(true)
+        dispatch(removeLike({  like_id }))
+       
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
 
 
   // ================================
@@ -169,7 +199,8 @@ export const Post = () => {
                       onClick={() => {
                         console.log("post")
                         getlikes(post.post_id);
-                        
+                        {cat==="silver"?<hr/>:<></> }
+                        like (post.post_id)
                       }}
                       >LIKE</button>
                       <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
