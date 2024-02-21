@@ -3,21 +3,24 @@ import "./profile.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserInfo,setFollow } from "../../service/redux/reducers/profile/profileSlice";
+import {
+  setUserInfo,
+  setFollow,
+} from "../../service/redux/reducers/profile/profileSlice";
 
 export const ProfileHeader = () => {
-  const [myFollow, setMyFollow] = useState(false)
+  const [myFollow, setMyFollow] = useState(false);
   const dispatch = useDispatch();
-  const {userId,userInfo,token,follow,posts} = useSelector((state) => {
+  const { userId, userInfo, token, follow, posts } = useSelector((state) => {
     return {
       userId: state.log.userId,
       userInfo: state.profile.userInfo,
-      token:state.log.token,
-      follow:state.profile.follow,
-      posts:state.posts.posts
+      token: state.log.token,
+      follow: state.profile.follow,
+      posts: state.posts.posts,
     };
   });
-  const getUser=()=>{
+  const getUser = () => {
     axios
       .get(`http://localhost:5000/users/search_1/${userId}`, {
         headers: {
@@ -30,28 +33,31 @@ export const ProfileHeader = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
-  const getfollows=()=>{
-    axios.get(`http://localhost:5000/users/follows/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((result)=>{
-      dispatch(setFollow(result.data.result))
-    }).catch((err)=>{
-      console.log('err from use effect function getfollows', err)
-    })
-  }
+  };
+  const getfollows = () => {
+    axios
+      .get(`http://localhost:5000/users/follows/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        dispatch(setFollow(result.data.result));
+      })
+      .catch((err) => {
+        console.log("err from use effect function getfollows", err);
+      });
+  };
   useEffect(() => {
-   getUser()
-   getfollows()
+    getUser();
+    getfollows();
   }, []);
 
   return (
     <div className=" ">
       {myFollow}
       <img
-        class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile"
+        class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={userInfo.profileimage}
         alt="Profile image"
       />
@@ -62,17 +68,22 @@ export const ProfileHeader = () => {
             <div className=" ">
               <img
                 src={userInfo.coverimage}
-                className=" w-full h-52 rounded-t-xl"
+                className=" w-full h-52 rounded-t-xl object-cover"
               />
             </div>
-            <div >
+            <div>
               <div className=" bg-slate-600 flex flex-row">
-              <div className=" py-10 pl-6 w-96 border-r border-orange-600	 ">
-                <h1 className=" text-5xl">
-                  {userInfo.firstname} {userInfo.lastname}
-                </h1>
-                <p>{userInfo.jobname}</p>
+                <div className=" py-10 pl-6 w-96 border-r border-orange-600	 ">
+                  <h1 className=" text-5xl">
+                    {userInfo.firstname} {userInfo.lastname}
+                  </h1>
+                  <p>{userInfo.jobname}</p>
+                </div>
+                <div className=" mt-8 ml-4 max-w-96">
+                  <p>{userInfo.experience} </p>
+                </div>
               </div>
+
               <div className=" mt-8 ml-4 max-w-96">
                 
                 <p>{userInfo.experience} </p>
@@ -82,10 +93,10 @@ export const ProfileHeader = () => {
               <div className=" flex flex-row justify-around  pl-6 mt-3 mb-3">
                 <button >25 folowers</button>
 
-                <button > {follow.length} follow</button> 
-                <button >{posts.length} posts</button>
+                <button> {follow.length} follow</button>
+                <button>{posts.length} posts</button>
 
-                <button >About you</button>
+                <button>About you</button>
               </div>
             </div>
           </div>
@@ -94,6 +105,7 @@ export const ProfileHeader = () => {
         <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
           <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
             <button><a href='#hh'>interests</a></button>
+
           </div>
           <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
             <button>Experience</button>
@@ -110,4 +122,3 @@ export const ProfileHeader = () => {
     </div>
   );
 };
-

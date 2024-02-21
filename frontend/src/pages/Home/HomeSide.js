@@ -11,7 +11,7 @@ const HomeSide = () => {
       userInfo: state.profile.userInfo,
     };
   });
-//   console.log(state.userInfo);
+  //   console.log(state.userInfo);
   // ======================================
   useEffect(() => {
     axios
@@ -26,12 +26,14 @@ const HomeSide = () => {
   // =======================================
 
   return (
-    <div className="">
+    <div /* className="bg-white w-72" */>
       <div>
-        <img
-          className="rounded-md w-28 h-28"
-          src={state.userInfo.profileimage}
-        />
+        <div>
+          <img
+            className="rounded-md w-28 h-28 object-cover"
+            src={state.userInfo.profileimage}
+          />
+        </div>
         <span>
           {state.userInfo.firstname} {state.userInfo.lastname}
         </span>

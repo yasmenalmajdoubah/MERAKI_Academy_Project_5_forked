@@ -123,9 +123,9 @@ const login = (req, res) => {
 /* ============================================= */
 
 const getAllUsersByField = (req, res) => {
-  const id = req.params.id;
-  const query = `SELECT user_id,firstName,lastName FROM users  WHERE field_id=$1 ;`;
-  const placeholders = [id];
+  const field_id = req.token.field_id;
+  const query = `SELECT user_id,firstName,lastName, profileImage, jobName FROM users WHERE field_id=$1;`;
+  const placeholders = [field_id];
 
   pool
     .query(query, placeholders)
@@ -133,11 +133,11 @@ const getAllUsersByField = (req, res) => {
       if (result.rows.length !== 0) {
         res.status(200).json({
           success: true,
-          message: `The users with Field: ${id}`,
+          message: `The users with Field: ${field_id}`,
           result: result.rows,
         });
       } else {
-        throw new Error(`No users on Field: ${id}`);
+        throw new Error(`No users on Field: ${field_id}`);
       }
     })
     .catch((err) => {
@@ -183,7 +183,7 @@ const unFollow = (req, res) => {
   const { followed_user_id } = req.params;
   const following_user_id = req.token.user_id;
 
-  const placeholders = [following_user_id,followed_user_id];
+  const placeholders = [following_user_id, followed_user_id];
   const query = `DELETE FROM follows WHERE following_user_id=$1 AND followed_user_id=$2 RETURNING*;
     `;
   pool

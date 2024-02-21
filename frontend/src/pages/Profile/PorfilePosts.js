@@ -8,15 +8,17 @@ import {
   addComment,
 } from "../../service/redux/reducers/posts/postsSlice";
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TfiCommentAlt } from "react-icons/tfi";
 
+// ========================================================
 const PorfilePosts = () => {
-  const [comment, setComment] = useState(""); //
+  const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
   const [post_id, setPost_id] = useState("");
   const [show, setShow] = useState("");
   const [commentWind, setCommentWind] = useState(false);
+  const [interested, setInterested] = useState(false);
 
   const dispatch = useDispatch();
   const state = useSelector((state) => {
@@ -27,7 +29,8 @@ const PorfilePosts = () => {
       userId: state.log.userId,
     };
   });
-  // ===============================
+
+  // =====================================
   useEffect(() => {
     console.log(state.userId);
     axios
@@ -43,7 +46,7 @@ const PorfilePosts = () => {
         console.log(err.message);
       });
   }, []);
-  
+
   /* ===================================================== */
   ///get comments
 
@@ -132,12 +135,33 @@ const PorfilePosts = () => {
 
                 <div className="items-center mt-4 pt-2 border-t-2">
                   <div className="flex justify-around">
-                    <div className="flex items-center cursor-pointer">
-                      <div className="me-1 mt-1">
+                    <div
+                      className="flex items-center cursor-pointer"
+                      onClick={() => {
+                        setInterested(true);
+                        setPost_id(post.post_id);
+                      }}
+                    >
+                      <div
+                        className={
+                          interested && post_id === post.post_id
+                            ? "text-red-800 me-1 mt-1"
+                            : "text-grey-600 me-1 mt-1"
+                        }
+                      >
                         {" "}
-                        <FaRegHeart />
+                        <FaHeart />
+                        {/* <FaRegHeart /> */}
                       </div>
-                      <div>Interested</div>
+                      <div
+                        className={
+                          interested && post_id === post.post_id
+                            ? "text-red-800"
+                            : "text-grey-600"
+                        }
+                      >
+                        Interested
+                      </div>
                     </div>
 
                     {/* ======*******===== */}
