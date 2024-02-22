@@ -1,6 +1,36 @@
-import React from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import React from "react";
+import axios from "axios";
 
 const Jobs = () => {
+    const [jobs, setJobs] = useState([]);
+    const state = useSelector((state) => {
+        return {
+          token: state.log.token,
+          postURL: state.posts.postURL,
+          posts: state.posts.posts,
+        };})
+
+    useEffect(() => {
+        axios
+          .get("http://localhost:5000/jobs", {
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+            },
+          })
+          .then((result) => {
+           setJobs(result.data)
+            console.log(result.data);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }, []);
+    
+
+
+
   return (
     <div>
          <div class="flex h-screen">
