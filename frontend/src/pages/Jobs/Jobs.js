@@ -69,7 +69,7 @@ const Jobs = () => {
                         .reverse()
                         .join("-")}
                     </p>
-          <p className="font-semibold">
+          <p className="font-semibold text-3xl">
             {job.title}
           </p>
           
