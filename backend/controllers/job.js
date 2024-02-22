@@ -120,7 +120,7 @@ const getAllJobs = (req, res) => {
   const query = `SELECT jobs.title, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE users.role_id =2`;
 
   pool
-    .query(query, placeholder)
+    .query(query)
     .then((result) => {
       if (result.rows.length) {
         return res.status(200).json({

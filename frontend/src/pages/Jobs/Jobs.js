@@ -14,14 +14,15 @@ const Jobs = () => {
 
     useEffect(() => {
         axios
-          .get("http://localhost:5000/jobs", {
+          .get("http://localhost:5000/jobs/", {
             headers: {
               Authorization: `Bearer ${state.token}`,
             },
           })
           .then((result) => {
-           setJobs(result.data)
-            console.log(result.data);
+           setJobs(result.data.jobs)
+            console.log("a",result.data.jobs
+            );
           })
           .catch((err) => {
             console.log(err.message);
@@ -30,8 +31,8 @@ const Jobs = () => {
     
 
 
-
   return (
+   
     <div>
          <div class="flex h-screen">
         <div class="w-2/5 bg-gray-100">
@@ -44,22 +45,39 @@ const Jobs = () => {
                 className="bg-white rounded-lg shadow p-4"
                 style={{ width: "400px" }}
               >
-                <div className="flex items-center">
-                  <img
-                    src={"post.profileimage"}
-                    alt="Profile Picture"
-                    className="w-12 h-12 rounded-full"
-                  />
-                  <div className="ml-2">
-                    <p className="font-semibold">
-                     company name
+                 { jobs?.map((job, index) => {
+        return (  <div className="flex items-center">
+        <img
+          src={job.profileimage}
+          alt="Profile Picture"
+          className="w-12 h-12 rounded-full"
+        />
+        <div className="ml-2">
+          <p className="font-semibold">
+          {job.firstname}  {job.lastname}
+
+          </p>
+          
+          <h6 >Amman,Jordan(Onsite)</h6>
+          <p className="text-gray-500 text-xs">
+                      {" "}
+                      Published{" "}
+                      {job.created_at
+                        .split("T")
+                        .shift()
+                        .split("-")
+                        .reverse()
+                        .join("-")}
                     </p>
-                    <h6 >Amman,Jordan(Onsite)</h6>
-                    <p className="font-semibold">
-                      job title
-                    </p>
-                  </div>
-                </div>
+          <p className="font-semibold">
+            {job.title}
+          </p>
+          
+        </div>
+      </div>)})
+    
+                 }
+
                 
                 </div>
                 </div>
