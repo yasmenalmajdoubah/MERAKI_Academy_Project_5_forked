@@ -5,10 +5,40 @@ const Jobs = () => {
     <div>
          <div class="flex h-screen">
         <div class="w-2/5 bg-gray-100">
-            <h>12233</h>
+        <div className="">
+            <div
+              className="container mx-auto p-3 relative"
+              style={{ width: "400px" }}
+            >
+              <div
+                className="bg-white rounded-lg shadow p-4"
+                style={{ width: "400px" }}
+              >
+                <div className="flex items-center">
+                  <img
+                    src={"post.profileimage"}
+                    alt="Profile Picture"
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <div className="ml-2">
+                    <p className="font-semibold">
+                     company name
+                    </p>
+                    <h6 >Amman,Jordan(Onsite)</h6>
+                    <p className="font-semibold">
+                      job title
+                    </p>
+                  </div>
+                </div>
+                
+                </div>
+                </div>
+                        
+                            </div>
         </div>
         <div class="w-3/5 bg-gray-100">
-        <>
+      
+        < div className="container mx-auto p-3 relative">
        <div class="bg-white  shadow-md rounded-md p-6 mb-6 max-w-2xl">
        <div class="container mx-auto p-9">
               <div class="bg-white rounded-lg shadow p-4">
@@ -16,6 +46,7 @@ const Jobs = () => {
                       <img src ="https://w0.peakpx.com/wallpaper/979/89/HD-wallpaper-purple-smile-design-eye-smily-profile-pic-face-thumbnail.jpg" alt="Profile Picture" class="w-12 h-12 rounded-full"/>
                       <div class="ml-2">
                           <p class="font-semibold">company name</p>
+                          
                       </div>
                       </div>
                       </div>
@@ -28,7 +59,7 @@ const Jobs = () => {
           APPLY
         </button>
       </div>
-    </>
+    </div>
         </div>
     </div>
     </div>
