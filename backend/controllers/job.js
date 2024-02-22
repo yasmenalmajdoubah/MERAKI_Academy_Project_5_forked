@@ -2,9 +2,9 @@ const { pool } = require("../models/db");
 
 const createNewJob = (req, res) => {
   const institution_user_id = req.token.user_id;
-  const { title, discription } = req.body;
-  const placeholder = [institution_user_id, title, discription];
-  const query = `INSERT INTO jobs (institution_user_id, title, discription) VALUES ($1,$2 ,$3) RETURNING *`;
+  const { title, discription, field_id } = req.body;
+  const placeholder = [institution_user_id, title, discription, field_id];
+  const query = `INSERT INTO jobs (institution_user_id, title, discription) VALUES ($1,$2 ,$3, $4) RETURNING *`;
 
   pool
     .query(query, placeholder)
@@ -113,14 +113,15 @@ const getAllUsersOfJobId = (req, res) => {
       });
     });
 };
-//
-const getAllJobs = (req, res) => {
-  const user_user_id = req.token.user_id;
-  const placeholder = [user_user_id];
-  const query = `SELECT jobs.title, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE users.role_id =2`;
+
+//=====================================================
+const getAllJobsbyField = (req, res) => {
+  const field_id = req.token.field_id;
+  const placeholder = [field_id];
+  const query = `SELECT jobs.title, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE jobs.field_id=$1`; // ! AND users.role_id=2
 
   pool
-    .query(query)
+    .query(query, placeholder)
     .then((result) => {
       if (result.rows.length) {
         return res.status(200).json({
@@ -148,5 +149,5 @@ module.exports = {
   getJobsByInstitustionId,
   createNewJobUser,
   getAllUsersOfJobId,
-  getAllJobs
+  getAllJobsbyField,
 };
