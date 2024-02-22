@@ -34,7 +34,7 @@ const HomeSide = () => {
             src={state.userInfo.profileimage}
           />
         </div>
-        <h1 className="mt-3 text-2xl font-medium" >
+        <h1 className="mt-3 text-2xl font-medium me-4" >
           {state.userInfo.firstname} {state.userInfo.lastname}
         </h1>
         <p>{state.userInfo.jobname}</p>

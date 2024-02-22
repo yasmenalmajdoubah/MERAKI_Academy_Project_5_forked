@@ -8,10 +8,11 @@ const PuplishPost = () => {
   const [modal, setModal] = useState(false);
 
   return (
-    <div>
+    <div className="container relative" style={{ width: "650px" }}>
       {" "}
       <div
-        className="bg-white rounded h-28 flex-col"
+        className="bg-white rounded h-28 flex-col "
+        style={{ width: "650px" }}
         onClick={() => {
           setModal(true);
         }}
