@@ -30,9 +30,11 @@ CREATE TABLE jobs (
    institution_user_id INT,
    title VARCHAR(255),
    discription TEXT,
+   field_id INT,
    created_at TIMESTAMP DEFAULT NOW(),
    is_deleted SMALLINT DEFAULT 0,
    FOREIGN KEY (institution_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+   FOREIGN KEY (field_id) REFERENCES field(field_id)
     
    PRIMARY KEY (job_id)
 );
