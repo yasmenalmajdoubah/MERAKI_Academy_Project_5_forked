@@ -16,7 +16,7 @@ export const Post = () => {
   const [comment, setComment] = useState(""); //
   const [message, setMessage] = useState("");
   const [post_id, setPost_id] = useState(false);
-  const [likes, setLikes] = useState(false);////////
+  const [likes, setLikes] = useState(true);////////
   const [show, setShow] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -135,7 +135,7 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-       setLikes(true)
+       setLikes(false)
         dispatch(addLike({  post_id }))
        
       }
@@ -195,7 +195,7 @@ export const Post = () => {
                   </div>
                   
                   <div class="flex items-center justify-between mt-4">
-                      <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" 
+                      <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"  className={likes? "bg-gray-500" :"bg-blue-500"}
                       onClick={() => {
                         console.log("post")
                         getlikes(post.post_id);
