@@ -33,6 +33,7 @@ CREATE TABLE jobs (
    created_at TIMESTAMP DEFAULT NOW(),
    is_deleted SMALLINT DEFAULT 0,
    FOREIGN KEY (institution_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    
    PRIMARY KEY (job_id)
 );
 CREATE TABLE job_user (

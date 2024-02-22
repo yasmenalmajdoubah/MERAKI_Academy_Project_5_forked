@@ -113,10 +113,40 @@ const getAllUsersOfJobId = (req, res) => {
       });
     });
 };
+//
+const getAllJobs = (req, res) => {
+  const user_user_id = req.token.user_id;
+  const placeholder = [user_user_id];
+  const query = `SELECT jobs.title, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE users.role_id =2`;
 
+  pool
+    .query(query, placeholder)
+    .then((result) => {
+      if (result.rows.length) {
+        return res.status(200).json({
+          success: true,
+          message: `All Jobs `,
+          jobs: result.rows,
+        });
+      }
+
+      return res.status(404).json({
+        success: false,
+        message: ` no Jobs`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 module.exports = {
   createNewJob,
   getJobsByInstitustionId,
   createNewJobUser,
   getAllUsersOfJobId,
+  getAllJobs
 };
