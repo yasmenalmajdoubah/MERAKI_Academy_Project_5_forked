@@ -1,7 +1,7 @@
 import React from "react";
 import HomeSide from "./HomeSide";
 import HomeMain from "./HomeMain";
-import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
+import HomeRight from "./HomeRight";
 
 function Home() {
   return (
@@ -13,7 +13,7 @@ function Home() {
         <HomeMain />
       </div>{" "}
       <div className="flex-none w-44">
-        <DiscoverFreind />
+        <HomeRight />
       </div>
     </div>
   );
