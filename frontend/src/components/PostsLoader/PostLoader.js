@@ -2,10 +2,10 @@ import React from "react";
 
 const PostLoader = () => {
   return (
-    <div>
+    <div className="container relative" style={{ width: "650px" }}>
       <div
         class="border mt-2 shadow rounded-md p-5 h-56 mx-auto bg-slate-50 justify-center"
-        style={{ width: "600px" }}
+        style={{ width: "650px" }}
       >
         <div
           class="animate-pulse flex-col space-x-4 justify-center"
@@ -30,7 +30,7 @@ const PostLoader = () => {
       <>
         <div
           class="border mt-4 shadow rounded-md p-5 h-56 mx-auto bg-slate-50 justify-center"
-          style={{ width: "600px" }}
+          style={{ width: "650px" }}
         >
           <div
             class="animate-pulse flex-col space-x-4 justify-center"

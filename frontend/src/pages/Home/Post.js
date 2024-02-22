@@ -177,7 +177,7 @@ export const Post = () => {
   // ================================
 
   return (
-    <div className="bg-zinc-200">
+    <div className="bg-zinc-200 mt-5">
       {state.posts.length === 0 ? (
         <PostLoader />
       ) : (
@@ -185,7 +185,7 @@ export const Post = () => {
           return (
             <div key={post.post_id} className="">
               <div
-                className="container mx-auto p-3 relative"
+                className="container mt-3 relative"
                 style={{ width: "650px" }}
               >
                 <div
