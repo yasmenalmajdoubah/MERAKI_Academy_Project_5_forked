@@ -32,9 +32,10 @@ export const Post = () => {
       token: state.log.token,
       postURL: state.posts.postURL,
       posts: state.posts.posts,
+      userLikes: state.posts.userLikes,
     };
   });
-  // console.log(state.posts);
+  console.log( "likes from posts",  state.userLikes);
   // ===============================
   useEffect(() => {
     axios
@@ -173,7 +174,7 @@ export const Post = () => {
       console.log(error);
     }
   };
-  console.log(state.posts);
+  
   // ================================
 
   return (

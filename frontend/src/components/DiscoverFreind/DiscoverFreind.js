@@ -13,7 +13,6 @@ const DiscoverFreind = () => {
       token: state.log.token,
     };
   });
-  console.log("users by field >>", discoverFriend);
 
   useEffect(() => {
     axios
@@ -32,7 +31,7 @@ const DiscoverFreind = () => {
 
   /* =========================================== */
   return (
-    <div className="bg-white w-60 p-3 rounded-lg shadow-lg">
+    <div className="bg-white w-72 p-3 rounded-lg shadow-lg">
       <div className="font-medium text-center text-gray-500">
         Suggestions For You
       </div>
