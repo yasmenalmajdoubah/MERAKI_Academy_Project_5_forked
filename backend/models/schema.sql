@@ -96,6 +96,7 @@ CREATE TABLE institution_user (
    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
    PRIMARY KEY (institution_user_id)
 );
+
 //
 CREATE TABLE posts (
   post_id SERIAL NOT NULL,

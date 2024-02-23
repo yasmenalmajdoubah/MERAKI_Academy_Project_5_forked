@@ -4,7 +4,8 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: {
     userInfo: {},
-    follow:[] 
+    follow:[] ,
+    experience: []
   },
 
   reducers: {
@@ -16,12 +17,15 @@ const profileSlice = createSlice({
     },
     AddFollow:(state,action)=>{
     state.follow.push(action.payload)
-    },
+    }, 
+    setExperience:(state,action)=>{
+      state.experience=action.payload
+      },
     
 
   },
 });
 
-export const { setUserInfo,setFollow,AddFollow } = profileSlice.actions;
+export const { setUserInfo,setFollow,AddFollow,setExperience } = profileSlice.actions;
 
 export default profileSlice.reducer;

@@ -7,7 +7,8 @@ import {
   setUserInfo,
   setFollow,
 } from "../../service/redux/reducers/profile/profileSlice";
-
+ import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'; 
 export const ProfileHeader = () => {
   const [myFollow, setMyFollow] = useState(false);
   const dispatch = useDispatch();
@@ -55,12 +56,33 @@ export const ProfileHeader = () => {
 
   return (
     <div className=" ">
-      {myFollow}
-      <img
+ {myFollow &&  <div
+      className="modal show"
+      style={{ display: 'block', position: 'initial' }}
+    >
+      <Modal.Dialog>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>Modal body text goes here.</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={()=>setMyFollow(false)}>Close</Button>
+          <Button variant="primary">Save changes</Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>}       <img
         class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={userInfo.profileimage}
         alt="Profile image"
       />
+      <div className=" flex flex-row">
+
+
+      
       <div className=" flex flex-row w-full   ">
         <div className="  w-11/12  ">
           {" "}
@@ -91,8 +113,9 @@ export const ProfileHeader = () => {
             <div className=" flex flex-row justify-around  pl-6 mt-3 mb-3">
               <button>25 folowers</button>
 
-              <button> {follow.length} follow</button>
-              <button>{posts.length} posts</button>
+              <button onClick={()=>setMyFollow(true)}> {follow.length} follow</button>
+             
+              <button><a href="#posts"> {posts.length} posts</a></button>
 
               <button>About you</button>
             </div>
@@ -103,19 +126,19 @@ export const ProfileHeader = () => {
       <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
         <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
           <button>
-            <a href="#hh">interests</a>
+            <a href="#interests">interests</a>
           </button>
         </div>
         <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-          <button>Experience</button>
+          <button > <a href="#Experience">Experience </a></button>
         </div>
         <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
           <button>Education</button>
         </div>
         <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
-          <button id="hh">Skills</button>
+          <button ><a href="#Skills">Skills</a></button>
         </div>
       </div>
-    </div>
+    </div></div>
   );
 };
