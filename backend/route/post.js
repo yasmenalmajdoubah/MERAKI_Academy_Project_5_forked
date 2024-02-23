@@ -11,6 +11,7 @@ const {
   addLike,
   getLikesByPost,
   deleteLike,
+  getAllLikedPostsByUser,
 } = require("../controllers/post");
 
 const authentication = require("../middlewares/authentication");
@@ -23,6 +24,8 @@ postRouter.post(
   authorization("CREATE_POST"),
   createNewPost
 );
+// http://localhost:5000/posts/allLikedPosts/user
+postRouter.get("/allLikedPosts/user", authentication, getAllLikedPostsByUser);
 
 // http://localhost:5000/posts/followsPosts
 postRouter.get("/followsPosts", authentication, getPostsMyFollows);

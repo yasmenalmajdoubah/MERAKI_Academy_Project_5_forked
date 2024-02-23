@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomeSide from "./HomeSide";
 import HomeMain from "./HomeMain";
-import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
+import HomeRight from "./HomeRight";
+import axios from "axios";
 
 function Home() {
   return (
-    <div className="flex justify-evenly mt-3 bg-zinc-200">
-      <div className="flex-none w-40">
+    <div className="flex flex-row justify-center space-x-5 mt-5 bg-zinc-200">
+      <div className="">
         <HomeSide />
       </div>
-      <div className="flex-none justify-center">
+      <div className="">
         <HomeMain />
       </div>{" "}
-      <div className="flex-none w-44">
-        <DiscoverFreind />
+      <div className="">
+        <HomeRight />
       </div>
     </div>
   );

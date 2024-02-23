@@ -5,13 +5,12 @@ const postsSlice = createSlice({
 
   initialState: {
     posts: [],
-    postURL:"",
-   comments:[],
-  
+    postURL: "",
+    comments: [],
+    userLikes: [],
   },
 
-  reducers:
-   {
+  reducers: {
     //*  get all posts
     allPost: (state, action) => {
       state.posts = action.payload;
@@ -39,18 +38,18 @@ const postsSlice = createSlice({
 
     //* get all comments
     allComments: (state, action) => {
-      console.log('first', action.payload)
+      console.log("first", action.payload);
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
-         elem.comments= action.payload.comments;
-         console.log('elem',  elem.comments)
+          elem.comments = action.payload.comments;
+          console.log("elem", elem.comments);
         }
         return elem;
       });
     },
     //* add new comment to comments
     addComment: (state, action) => {
-      console.log (action.payload)
+      console.log(action.payload);
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
           elem.comments.push(action.payload.newCommet);
@@ -67,17 +66,16 @@ const postsSlice = createSlice({
 
     //* get all likes of post
     allLikes: (state, action) => {
-            state.posts = state.posts.map((elem, i) => {
+      state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
-         elem.likes= action.payload.likes;
-        
+          elem.likes = action.payload.likes;
         }
         return elem;
       });
     },
     //* to add like to post
     addLike: (state, action) => {
-      console.log (action.payload)
+      console.log(action.payload);
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
           elem.likes.push(action.payload.likes);
@@ -91,7 +89,12 @@ const postsSlice = createSlice({
       });
     },
     setPostURL: (state, action) => {
-      state.postURL=action.payload
+      state.postURL = action.payload;
+    },
+
+    // *get all liked posts for user
+    setAllLikedPosts: (state, action) => {
+      state.userLikes = action.payload;
     },
   },
 });
@@ -106,7 +109,8 @@ export const {
   setPostURL,
   allLikes,
   addLike,
-  removeLike
+  removeLike,
+  setAllLikedPosts,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

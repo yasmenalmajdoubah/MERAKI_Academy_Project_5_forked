@@ -32,7 +32,7 @@ const getPostsMyFollows = (req, res) => {
   const placeholders = [following_user_id];
 
   const query = `SELECT posts.body, posts.image,posts.post_id, posts.created_at,posts.user_id ,users.firstname , users.lastname, users.profileimage FROM follows INNER JOIN posts ON user_id=follows.followed_user_id INNER JOIN users ON posts.user_id=users.user_id WHERE following_user_id=$1 ORDER BY created_at DESC`;
-  
+
   /*
 UNION
 SELECT comments.comm ent_id FROM comments 
@@ -250,6 +250,31 @@ const deleteLike = (req, res) => {
 
 /* ============================================= */
 
+const getAllLikedPostsByUser = (req, res) => {
+  const user_id = req.token.user_id;
+  const placeholders = [user_id];
+  const query = `SELECT post_id FROM likes WHERE user_id=$1`;
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `All liked Posts for User: ${user_id}`,
+        likes: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+/* =============================================== */
+
 module.exports = {
   createNewPost,
   getPostsMyFollows,
@@ -260,4 +285,5 @@ module.exports = {
   addLike,
   getLikesByPost,
   deleteLike,
+  getAllLikedPostsByUser
 };

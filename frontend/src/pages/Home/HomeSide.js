@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo } from "../../service/redux/reducers/profile/profileSlice";
+import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
+import { FaHeart } from "react-icons/fa";
+import { setAllLikedPosts } from "../../service/redux/reducers/posts/postsSlice";
 
 const HomeSide = () => {
   const dispatch = useDispatch();
@@ -9,9 +12,11 @@ const HomeSide = () => {
     return {
       userId: state.log.userId,
       userInfo: state.profile.userInfo,
+      token: state.log.token,
+      userLikes: state.posts.userLikes,
     };
   });
-  //   console.log(state.userInfo);
+
   // ======================================
   useEffect(() => {
     axios
@@ -23,21 +28,48 @@ const HomeSide = () => {
         console.log(err);
       });
   }, []);
+
   // =======================================
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/posts/allLikedPosts/user", {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        dispatch(setAllLikedPosts(result.data.likes));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  // =========================================
   return (
-    <div /* className="bg-white w-72" */>
-      <div className="flex-col text-center">
+    <div className="flex flex-col space-y-6 items-center w-72 ">
+      <div className="  bg-white w-72 p-3 rounded-lg shadow-lg">
         <div>
-          <img
-            className="rounded-full w-32 h-32 object-cover"
-            src={state.userInfo.profileimage}
-          />
+          <p className="font-medium text-center text-gray-500">Welcome</p>
         </div>
-        <h1 className="mt-3 text-2xl font-medium me-4" >
+        <h1 className="mt-1 mb-2 text-2xl text-center font-medium me-4">
           {state.userInfo.firstname} {state.userInfo.lastname}
         </h1>
-        <p>{state.userInfo.jobname}</p>
+        <div className="p-3">
+          <p className="border-t font-medium pt-2 text-gray-500">
+            Last Activity
+          </p>
+          <div className="flex mt-2">
+            <FaHeart size={25} className="text-red-800 me-1 mt-1" />
+            <p className=" text-gray-900">Interested Posts</p>
+            <div className=" text-gray-700 ms-8">
+              '{state.userLikes.length}'
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <DiscoverFreind />
       </div>
     </div>
   );

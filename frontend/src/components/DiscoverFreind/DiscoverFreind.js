@@ -13,7 +13,6 @@ const DiscoverFreind = () => {
       token: state.log.token,
     };
   });
-  console.log("users by field >>", discoverFriend);
 
   useEffect(() => {
     axios
@@ -32,11 +31,14 @@ const DiscoverFreind = () => {
 
   /* =========================================== */
   return (
-    <div>
-      <div>Suggestions People</div><br/>
+    <div className="bg-white w-72 p-3 rounded-lg shadow-lg">
+      <div className="font-medium text-center text-gray-500">
+        Suggestions For You
+      </div>
+      <br />
       {discoverFriend.map((user, i) => {
         return (
-          <div className="mb-3" key={user.user_id}>
+          <div className="mb-3 ms-1 border-t pt-2" key={user.user_id}>
             <div className="flex items-center">
               <img
                 src={user.profileimage}
@@ -61,7 +63,6 @@ const DiscoverFreind = () => {
           </div>
         );
       })}
-      
     </div>
   );
 };
