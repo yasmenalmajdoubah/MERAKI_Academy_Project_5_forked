@@ -5,7 +5,8 @@ const profileSlice = createSlice({
   initialState: {
     userInfo: {},
     follow:[] ,
-    experience: []
+    experience: [],
+    workNow:{}
   },
 
   reducers: {
@@ -21,11 +22,18 @@ const profileSlice = createSlice({
     setExperience:(state,action)=>{
       state.experience=action.payload
       },
-    
+    setWorkNow:(state,action)=>{
+      console.log("دخل عادي");
+      state.workNow=action.payload.filter((elem,i)=>{
+        console.log('elem.enddate', typeof elem.enddate)
+        return elem.enddate=="now"
+      })[0]
+      console.log('state.workNow', state.workNow)
+    }
 
   },
 });
 
-export const { setUserInfo,setFollow,AddFollow,setExperience } = profileSlice.actions;
+export const { setUserInfo,setFollow,AddFollow,setExperience,setWorkNow } = profileSlice.actions;
 
 export default profileSlice.reducer;
