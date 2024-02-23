@@ -24,6 +24,7 @@ export const Post = () => {
   const [show, setShow] = useState("");
   const [commentWind, setCommentWind] = useState(false);
   const [interested, setInterested] = useState(false);
+  const [noPosts, setNoPosts] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -173,13 +174,14 @@ export const Post = () => {
     }
   };
 
+  setTimeout(() => {
+    setNoPosts(true);
+  }, 3000);
   // ================================
 
   return (
     <div className="bg-zinc-200 mt-5">
-      {state.posts.length === 0 ? (
-        <PostLoader />
-      ) : (
+      {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
             <div key={post.post_id} className="">
@@ -327,6 +329,15 @@ export const Post = () => {
             </div>
           );
         })
+      ) : noPosts ? (
+        <div
+          className="flex h-64 items-center justify-center"
+          style={{ width: "650px" }}
+        >
+          <div className="text-gray-500 text-2xl">"No Posts Yet"</div>
+        </div>
+      ) : (
+        <PostLoader />
       )}
     </div>
   );

@@ -55,18 +55,23 @@ const HomeSide = () => {
         <h1 className="mt-1 mb-2 text-2xl text-center font-medium me-4">
           {state.userInfo.firstname} {state.userInfo.lastname}
         </h1>
-        <div className="p-3">
-          <p className="border-t font-medium pt-2 text-gray-500">
-            Last Activity
-          </p>
-          <div className="flex mt-2">
-            <FaHeart size={25} className="text-red-800 me-1 mt-1" />
-            <p className=" text-gray-900">Interested Posts</p>
-            <div className=" text-gray-700 ms-8">
-              '{state.userLikes.length}'
+
+        {state.userInfo.role_id === 2 ? (
+          <div>Post A Job</div>
+        ) : (
+          <div className="p-3">
+            <p className="border-t font-medium pt-2 text-gray-500">
+              Last Activity
+            </p>
+            <div className="flex mt-2">
+              <FaHeart size={25} className="text-red-800 me-1 mt-1" />
+              <p className=" text-gray-900">Interested Posts</p>
+              <div className=" text-gray-700 ms-8">
+                '{state.userLikes.length}'
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <div>
         <DiscoverFreind />

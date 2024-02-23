@@ -124,8 +124,9 @@ const login = (req, res) => {
 
 const getAllUsersByField = (req, res) => {
   const field_id = req.token.field_id;
-  const query = `SELECT user_id,firstName,lastName, profileImage, jobName FROM users WHERE field_id=$1;`;
-  const placeholders = [field_id];
+  const user_id = req.token.user_id;
+  const query = `SELECT user_id,firstName,lastName, profileImage, jobName FROM users WHERE field_id=$1 AND NOT user_id=$2;`;
+  const placeholders = [field_id, user_id];
 
   pool
     .query(query, placeholders)
@@ -240,7 +241,7 @@ const getAllFollowersByUserId = (req, res) => {
 
 const getUserById = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about,skills,experience,education FROM users WHERE user_id=$1`;
+  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about,skills,experience,education, role_id, field_id FROM users WHERE user_id=$1`;
   const placeholders = [id];
 
   pool
