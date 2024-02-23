@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setExperience } from "../../service/redux/reducers/profile/profileSlice";
+import { setExperience,setWorkNow } from "../../service/redux/reducers/profile/profileSlice";
 export const ProfileBody = () => {
   const dispatch=useDispatch()
   const {userInfo,userId,experience,token} = useSelector((state) => {
@@ -19,6 +19,7 @@ export const ProfileBody = () => {
       },
     }).then((result)=>{
       dispatch(setExperience(result.data.result))
+      dispatch(setWorkNow(result.data.result))
     }).catch((err)=>{
       console.log(err);
     })
@@ -58,7 +59,7 @@ export const ProfileBody = () => {
             return(
               <div>
                 <p>{elem.workdiscription} in {elem.institutionname} from {elem.startdate} to {elem.enddate}</p>
-              </div>
+             </div>
             )
           })}
           
