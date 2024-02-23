@@ -35,7 +35,7 @@ export const Post = () => {
       userLikes: state.posts.userLikes,
     };
   });
-  console.log( "likes from posts",  state.userLikes);
+
   // ===============================
   useEffect(() => {
     axios
@@ -88,11 +88,9 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-        console.log("result.data", result.data);
         const newCommet = result.data.results;
-        console.log("123", newCommet);
         dispatch(addComment({ newCommet, post_id }));
-        //getCommentsByPost(post_id);
+        getCommentsByPost(post_id);
       }
     } catch (error) {
       console.log(error);
@@ -174,7 +172,7 @@ export const Post = () => {
       console.log(error);
     }
   };
-  
+
   // ================================
 
   return (
@@ -236,33 +234,12 @@ export const Post = () => {
 
                   <div className="items-center mt-4 pt-2 border-t-2">
                     <div className="flex justify-around">
-                      <div
-                        className="flex items-center cursor-pointer"
-                        onClick={() => {
-                          setInterested(true);
-                          setPost_id(post.post_id);
-                        }}
-                      >
-                        <div
-                          className={
-                            interested && post_id === post.post_id
-                              ? "text-red-800 me-1 mt-1"
-                              : "text-grey-600 me-1 mt-1"
-                          }
-                        >
+                      <div className="flex items-center cursor-pointe">
+                        <div className="mt-1 me-1" onClick={() => {}}>
                           {" "}
                           <FaHeart />
-                          {/* <FaRegHeart /> */}
                         </div>
-                        <div
-                          className={
-                            interested && post_id === post.post_id
-                              ? "text-red-800"
-                              : "text-grey-600"
-                          }
-                        >
-                          Interested
-                        </div>
+                        <div>Interested</div>
                       </div>
 
                       {/* ======*******===== */}
@@ -283,62 +260,66 @@ export const Post = () => {
                       </div>
                     </div>
                     {/* ========== */}
+
                     {commentWind && post_id === post.post_id && (
-                      <div className="bg-white absolute bottom-32 left-52 w-96 h-auto rounded">
-                        <div className="flex justify-between">
-                          <p className="text-center mt-1 ms-1">Commets</p>
-                          <div
-                            className="mt-1 me-1"
-                            onClick={() => {
-                              setCommentWind(false);
-                            }}
-                          >
-                            <IoIosCloseCircle />
-                          </div>
-                        </div>
-                        <div>
-                          {post.comments?.map((comment, i) => {
-                            return (
-                              <div className="mb-3 border-b-2">
-                                <div className="flex items-center ms-2 mt-2">
-                                  <img
-                                    src={comment.profileimage}
-                                    alt="Profile Picture"
-                                    className="w-10 h-10 rounded-full"
-                                  />
-                                  <div className="ml-2">
-                                    <p className="font-semibold">
-                                      {comment.firstname} {comment.lastname}
+                      <>
+                        {" "}
+                        <div id="myModal" class="modal2">
+                          <div className="modal-content2">
+                            <span
+                              className="close2"
+                              onClick={() => {
+                                setCommentWind(false);
+                              }}
+                            >
+                              &times;
+                            </span>
+                            <p>Commets</p>
+                            <div>
+                              {post.comments?.map((comment, i) => {
+                                return (
+                                  <div className="mb-3 border-b-2">
+                                    <div className="flex items-center ms-2 mt-2">
+                                      <img
+                                        src={comment.profileimage}
+                                        alt="Profile Picture"
+                                        className="w-10 h-10 rounded-full object-cover"
+                                      />
+                                      <div className="ml-2">
+                                        <p className="font-semibold">
+                                          {comment.firstname} {comment.lastname}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <p className="comment ms-12 pb-2" key={i}>
+                                      {comment.comment}
                                     </p>
                                   </div>
-                                </div>
-                                <p className="comment ms-12" key={i}>
-                                  {comment.comment}
-                                </p>
-                              </div>
-                            );
-                          })}
+                                );
+                              })}
+                            </div>
+                            <div className="mt-4">
+                              <textarea
+                                id="comment-textarea"
+                                className="w-96 h-12 p-1 bg-gray-200 rounded-2xl"
+                                placeholder="  Write a comment"
+                                onChange={(e) => {
+                                  setComment(e.target.value);
+                                }}
+                              ></textarea>
+                              <button
+                                id="post-comment-button"
+                                className="mt-2 ms-2 mb-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                onClick={() => {
+                                  if (comment) createComment(post.post_id);
+                                }}
+                              >
+                                Add Comment
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                        <div className="mt-4">
-                          <textarea
-                            id="comment-textarea"
-                            className="w-96 h-12 p-1 bg-gray-200 rounded-2xl"
-                            placeholder="  Write a comment"
-                            onChange={(e) => {
-                              setComment(e.target.value);
-                            }}
-                          ></textarea>
-                          <button
-                            id="post-comment-button"
-                            className="mt-2 ms-2 mb-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => {
-                              if (comment) createComment(post.post_id);
-                            }}
-                          >
-                            Add Comment
-                          </button>
-                        </div>
-                      </div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -349,81 +330,6 @@ export const Post = () => {
       )}
     </div>
   );
-
-  /*(
-    <div>
-      {/* <form className="posts-form"> */ //}
-  /*
-      {state.posts?.map((post, index) => {
-        return (
-          <div class="bg-gray-100">
-          <div class="container mx-auto p-9">
-              <div class="bg-white rounded-lg shadow p-4">
-                  <div class="flex items-center">
-                      <img src ={post.profileimage} alt="Profile Picture" class="w-12 h-12 rounded-full"/>
-                      <div class="ml-2">
-                          <p class="font-semibold"onClick={()=>{navigate(`/friend/${post.user_id}`)}}>{post.firstname}  {post.lastname}</p>
-                          <p class="text-gray-500 text-sm"> Posted  {post.created_at
-                 }</p>
-                      </div>
-                  </div>
-                  <div class="mt-4">
-                      <p>{post.body}</p>
-                      <img src={post.image} alt="Post Image" class="mt-4"/>
-                  </div>
-                  
-                  <div class="flex items-center justify-between mt-4">
-                      <button id="like-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" 
-                      onClick={() => {
-                        console.log("post")
-                        getlikes(post.post_id);
-                        {likes?like (post.post_id):unlike(post.post_id)}
-                       
-                      }}
-                      >LIKE</button>
-                      <button id="comment-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                       onClick={() => {
-                        console.log(post)
-                        getCommentsByPost(post.post_id);
-                        setShow(post.post_id);
-                      }}
-                      >COMMENT</button>
-                  </div>
-                  {post.comments?.map((comment, i) => {
-                            console.log(comment)
-              return (
-                <p className="comment" key={i}>
-                 
-                  {comment.comment}
-                </p>
-              );
-            })}
-                  <div class="comment-section mt-4">
-                      <div class="bg-white rounded-lg shadow p-4">
-                          
-                      </div>
-                      
-                  </div>
-                  <div class="mt-4">
-                      <textarea id="comment-textarea" class="w-full h-32 p-2 bg-gray-200 rounded" placeholder="WRITE YOUR COMMENT HERE"  onChange={(e) => {
-                  setComment(e.target.value);
-                 
-                }}></textarea>
-                      <button id="post-comment-button" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type ="reset" onClick={() => {
-                  if (comment) createComment(post.post_id);
-                  //document.textform.textarea.value=""
-                  
-                }}>COMMENT</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-        );
-      })}
-
-    
-    </div>
-  );*/
 };
 
 export default Post;

@@ -46,7 +46,7 @@ const NavBar = () => {
         <div className="flex-none relative">
           <img
             src={state.userInfo.profileimage}
-            className="rounded-full w-12 h-12 cursor-pointer border-white border-2"
+            className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2"
             onClick={() => {
               {
                 showTab ? setShowTab(false) : setShowTab(true);
