@@ -29,7 +29,6 @@ const Login = () => {
         password,
       });
       if (result.data) {
-        console.log("result.data.user.profileimage", result.data);
         dispatch(setLogin(result.data.token));
         dispatch(setUserId(result.data.user_id));
         dispatch(setPostURL("http://localhost:5000/posts/search_2"));

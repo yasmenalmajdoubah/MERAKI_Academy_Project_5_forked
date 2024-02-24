@@ -10,16 +10,21 @@ const Profile = () => {
       <div className="   ">
         <ProfileHeader />
       </div>
-      <div className="  flex flex-row justify-between mt-6 ">
+      <div className="  flex flex-col justify-between mt-6 ">
         <div className=" ml-12 w-8/12">
           {" "}
-          <ProfileBody />
-          <PorfilePosts />
+          <div><ProfileBody /> </div>
+          
+
+          
+          
         </div>
 
-        <div>
+        <div className=" flex flex-row   ">
           {" "}
-          <DiscoverFreind />
+          <div className=" ml-12" ><PorfilePosts /> </div>
+          <div className=" mt-5 rounded-3xl ml-48"> <DiscoverFreind/></div>
+          
         </div>
       </div>
     </div>

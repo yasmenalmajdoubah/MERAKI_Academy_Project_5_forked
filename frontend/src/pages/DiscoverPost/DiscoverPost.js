@@ -46,7 +46,6 @@ const Global = () => {
       })
       .then((result) => {
         dispatch(allPost(result.data.posts));
-        console.log(result.data.posts);
       })
       .catch((err) => {
         console.log(err.message);
@@ -54,15 +53,12 @@ const Global = () => {
   }, []);
 
   const getCommentsByPost = async (post_id) => {
-    console.log(post_id);
     try {
       const result = await axios.get(
         `http://localhost:5000/comments/comment/${post_id}`
       );
       if (result.data.success) {
-        console.log("result.data", result.data);
         const comments = result.data.comments;
-        console.log("comments", comments);
         dispatch(allComments({ comments, post_id }));
       } else throw Error;
     } catch (error) {

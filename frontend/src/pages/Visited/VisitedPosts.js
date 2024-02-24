@@ -35,7 +35,6 @@ export const VisitedPosts = () => {
       })
       .then((result) => {
         dispatch(allPost(result.data.posts));
-        console.log(result.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -55,15 +54,12 @@ export const VisitedPosts = () => {
   ///get comments
   
   const getCommentsByPost = async (post_id) => {
-    console.log(post_id);
     try {
       const result = await axios.get(
         `http://localhost:5000/comments/comment/${post_id}`
       );
       if (result.data.success) {
-        console.log("result.data", result.data);
         const comments = result.data.comments;
-        console.log("comments", comments);
         dispatch(allComments({ comments, post_id }));
       } else throw Error;
     } catch (error) {
@@ -90,7 +86,6 @@ export const VisitedPosts = () => {
       if (result.data.success) {
         console.log("result.data", result.data);
         const newCommet = result.data.results;
-        console.log("123", newCommet);
         dispatch(addComment({ newCommet, post_id }));
         //getCommentsByPost(post_id);
       }
@@ -170,7 +165,6 @@ export const VisitedPosts = () => {
                     id="comment-button"
                     class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-                      console.log(post);
                       getCommentsByPost(post.post_id);
                       setShow(post.post_id);
                     }}
@@ -181,7 +175,6 @@ export const VisitedPosts = () => {
                     <p className="text-center">Commets</p>
                     <div>
                       {post.comments?.map((comment, i) => {
-                        console.log(comment);
                         return (
                           <div className="mb-3 border-t-2">
                             <div className="flex items-center ms-2 mt-2">
