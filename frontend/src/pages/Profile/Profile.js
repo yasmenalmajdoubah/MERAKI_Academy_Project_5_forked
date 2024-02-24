@@ -6,7 +6,7 @@ import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 
 const Profile = () => {
   return (
-    <div className=" flex flex-col bg-zinc-100   ">
+    <div className=" flex flex-col   ">
       <div className="   ">
         <ProfileHeader />
       </div>

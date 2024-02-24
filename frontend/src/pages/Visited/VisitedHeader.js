@@ -132,12 +132,30 @@ export const VisitedHeader = () => {
                     </h1>
                     <p>{userInfo.jobname}</p>
                   </div>
+                  <div>  
+
+
                   {workNow[0]&&<div className="  max-w-96 	">
                     <p className=" font-light text-3xl mt-12 mr-20 ">
                       
                       {workNow[0].workdiscription} in {workNow[0].institutionname}{" "}
                     </p>
                   </div>}
+                  <div className="mr-10 mt-8 mb-5">
+                    <Button
+                      variant="primary"
+                      id="buttonFollow"
+                      className=" font-bold w-40 bg-blue-600 rounded-lg h-10 "
+                      onClick={function(e){
+                        followOrUnFollow(e.target.innerText)
+                      }}
+
+                    >
+                      follow
+                    </Button>
+                  </div>
+                  </div>
+                 
                   
                 </div>
 
