@@ -12,7 +12,7 @@ import {
   removeLike,
 } from "../../service/redux/reducers/posts/postsSlice";
 import { IoIosCloseCircle } from "react-icons/io";
-
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TfiCommentAlt } from "react-icons/tfi";
 import PostLoader from "../../components/PostsLoader/PostLoader";
 
@@ -70,7 +70,7 @@ const Global = () => {
   };
 
   return (
-    <div className="bg-zinc-200 mt-5">
+    <div className="bg-zinc-200 mt-5 ml-20">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
@@ -124,7 +124,74 @@ const Global = () => {
                     )}
                   </div>
 
-                 
+                  <div className="items-center mt-4 pt-2 border-t-2">
+                    <div className="flex justify-around">
+                      
+
+                      {/* ======*******===== */}
+
+                      <div
+                        className="flex items-center cursor-pointer"
+                        onClick={() => {
+                          getCommentsByPost(post.post_id);
+                          setShow(post.post_id);
+                          setCommentWind(true);
+                          setPost_id(post.post_id);
+                        }}
+                      >
+                        <div className="me-1 mt-1">
+                          <TfiCommentAlt />
+                        </div>
+                        <div>Reviews</div>
+                      </div>
+                    </div>
+                    {/* ========== */}
+
+                    {commentWind && post_id === post.post_id && (
+                      <>
+                        {" "}
+                        <div id="myModal" class="modal2">
+                          <div className="modal-content2">
+                            <span
+                              className="close2"
+                              onClick={() => {
+                                setCommentWind(false);
+                              }}
+                            >
+                              &times;
+                            </span>
+                            <p>Commets</p>
+                            <div>
+                              {post.comments?.map((comment, i) => {
+                                return (
+                                  <div className="mb-3 border-b-2">
+                                    <div className="flex items-center ms-2 mt-2">
+                                      <img
+                                        src={comment.profileimage}
+                                        alt="Profile Picture"
+                                        className="w-10 h-10 rounded-full object-cover"
+                                      />
+                                      <div className="ml-2">
+                                        <p className="font-semibold">
+                                          {comment.firstname} {comment.lastname}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <p className="comment ms-12 pb-2" key={i}>
+                                      {comment.comment}
+                                    </p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            <div className="mt-4">
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
