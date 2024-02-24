@@ -24,6 +24,14 @@ const createNewPost = (req, res) => {
     });
 };
 
+/*  for search >>
+const values = [fname.toLowerCase() + "%"];
+  const query = `SELECT * FROM  providers INNER JOIN categories ON providers.category_id = categories.category_id WHERE fname LIKE $1 OR lname LIKE $1 ;`;
+
+  https://www.w3schools.com/sql/sql_wildcards.asp
+
+ */
+
 /* ============================================= */
 // SELECT * FROM follows INNER JOIN posts ON user_id=follows.followed_user_id WHERE following_user_id=2
 // ! Function to get all posts of users who followd >>>
@@ -88,7 +96,7 @@ const getPostsByUser = (req, res) => {
 
 const getPostsByField = (req, res) => {
   const field_id = req.token.field_id;
-  const query = `SELECT * FROM posts WHERE field_id=$1 AND is_deleted=0 ORDER BY created_at DESC`;
+  const query = `SELECT posts.body,posts.post_id, posts.field_id ,posts.image, posts.created_at, users.firstname , users.lastname, users.profileimage FROM posts INNER JOIN users ON posts.user_id=users.user_id WHERE posts.field_id=$1 AND posts.is_deleted=0 ORDER BY created_at DESC;`;
   const placeholders = [field_id];
   pool
     .query(query, placeholders)
@@ -285,5 +293,5 @@ module.exports = {
   addLike,
   getLikesByPost,
   deleteLike,
-  getAllLikedPostsByUser
+  getAllLikedPostsByUser,
 };

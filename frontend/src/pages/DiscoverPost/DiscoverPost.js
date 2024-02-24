@@ -119,15 +119,13 @@ const Global = () => {
                       <img
                         src={post.image}
                         alt="Post Image"
-                        className="mt-4 object-cover"
+                        className="mt-4 object-cover "
                       />
                     )}
                   </div>
 
                   <div className="items-center mt-4 pt-2 border-t-2">
                     <div className="flex justify-around">
-                      
-
                       {/* ======*******===== */}
 
                       <div
@@ -184,9 +182,7 @@ const Global = () => {
                                 );
                               })}
                             </div>
-                            <div className="mt-4">
-                              
-                            </div>
+                            <div className="mt-4"></div>
                           </div>
                         </div>
                       </>
