@@ -143,7 +143,7 @@ const Jobs = () => {
             </>
           );
         })}
-        {!showJob && <img src="https://cdn-icons-png.freepik.com/512/2936/2936630.png"/>}
+        {!showJob && <img src="https://equipmentcareltd.net/wp-content/uploads/2021/06/Job-hunt.gif"/>}
       </div>
     </div>
   );
