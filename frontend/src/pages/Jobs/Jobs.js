@@ -143,7 +143,7 @@ const Jobs = () => {
             </>
           );
         })}
-        {!showJob && <img src="https://equipmentcareltd.net/wp-content/uploads/2021/06/Job-hunt.gif"/>}
+        {!showJob && <img src="https://www.promoshin.com/wp-content/uploads/2022/10/Job-offers.gif" className="ml-20  mt-5 rounded-md" />}
       </div>
     </div>
   );
