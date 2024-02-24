@@ -38,18 +38,15 @@ const postsSlice = createSlice({
 
     //* get all comments
     allComments: (state, action) => {
-      console.log("first", action.payload);
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
           elem.comments = action.payload.comments;
-          console.log("elem", elem.comments);
         }
         return elem;
       });
     },
     //* add new comment to comments
     addComment: (state, action) => {
-      console.log(action.payload);
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
           elem.comments.push(action.payload.newCommet);
@@ -75,7 +72,6 @@ const postsSlice = createSlice({
     },
     //* to add like to post
     addLike: (state, action) => {
-      console.log(action.payload);
       state.posts = state.posts.map((elem, i) => {
         if (elem.post_id === action.payload.post_id) {
           elem.likes.push(action.payload.likes);

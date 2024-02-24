@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setUserInfo,
   setFollow,
+  setInstitutionFollow,
 } from "../../service/redux/reducers/profile/profileSlice";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -47,6 +48,7 @@ export const ProfileHeader = () => {
       })
       .then((result) => {
         dispatch(setFollow(result.data.result));
+        dispatch(setInstitutionFollow(result.data.result))
       })
       .catch((err) => {
         console.log("err from use effect function getfollows", err);
@@ -89,9 +91,9 @@ export const ProfileHeader = () => {
       />
       <div className=" flex flex-row">
         <div className=" flex flex-row w-full   ">
-          <div className="  w-11/12  ">
+          {/* <div className="  w-11/12  "> */}
             {" "}
-            <div className="flex flex-col mt-10 ml-16  w-11/12 shadow-2xl rounded-xl  ">
+            <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
               <div className=" ">
                 <img
                   src={userInfo.coverimage}
@@ -99,39 +101,43 @@ export const ProfileHeader = () => {
                 />
               </div>
               <div>
-                <div className=" bg-slate-600 flex flex-row">
-                  <div className=" py-10 pl-6 w-96 border-r border-orange-600	 ">
+                <div className="  flex flex-row justify-between">
+                  
+                  <div className=" py-10 pl-6 w-96 	 ">
                     <h1 className=" text-5xl">
                       {userInfo.firstname} {userInfo.lastname}
                     </h1>
                     <p>{userInfo.jobname}</p>
                   </div>
-                  <div className=" mt-8 ml-4 max-w-96 	">
-                    <p className=" font-light text-3xl mt-5">
-                      {workNow.workdiscription} in {workNow.institutionname}{" "}
+                  {workNow[0]&&<div className="  max-w-96 	">
+                    <p className=" font-light text-3xl mt-12 mr-20 ">
+                      
+                      {workNow[0].workdiscription} in {workNow[0].institutionname}{" "}
                     </p>
-                  </div>
+                  </div>}
+                  
                 </div>
 
                 {/*  <div className=" mt-8 ml-4 max-w-96">
                 <p>{userInfo.experience} </p>
               </div> */}
               </div>
-              <div className=" flex flex-row justify-around  pl-6 mt-3 mb-3">
-                <button>25 folowers</button>
+              <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
+                <button className=" text-white text-lg">25 folowers</button>
 
-                <button onClick={() => setMyFollow(true)}>
+                <button className="text-white text-lg" onClick={() => setMyFollow(true)}>
                   {" "}
                   {follow.length} follow
                 </button>
 
-                <button>
+                <button className="text-white text-lg">
                   <a href="#posts"> {posts.length} posts</a>
                 </button>
+                {userInfo.role_id===2&&<button className="text-white text-lg">Jobs </button>}
 
-                <button>About you</button>
+                
               </div>
-            </div>
+            {/* </div> */}
           </div>
         </div>
 

@@ -4,8 +4,8 @@ import { VisitedPosts } from "./VisitedPosts";
 import { VisitedSugg } from "./VisitedSugg";
 
 const Visited = () => {
-  return <div className=" flex flex-col    ">
-<div>
+  return <div className=" flex flex-col bg-white">
+<div className=" ">
   <VisitedHeader/>
 </div>
 <div className="  flex flex-row justify-around mt-6">

@@ -208,7 +208,7 @@ const unFollow = (req, res) => {
 
 const getAllFollowersByUserId = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT users.firstName, users.lastName, users.user_id , users.role_id
+  const query = `SELECT users.firstName, users.lastName, users.user_id , users.profileimage, users.role_id
   FROM follows
    INNER JOIN users
   ON users.user_id=follows.followed_user_id
@@ -237,37 +237,7 @@ const getAllFollowersByUserId = (req, res) => {
     });
 };
 
-/* ============================================= */
-const getAllFollowersInstitustionByUserId = (req, res) => {
-  const id = req.params.id;
-  const query = `SELECT users.firstName, users.lastName, users.user_id , users.role_id
-  FROM follows
-   INNER JOIN users
-  ON users.user_id=follows.followed_user_id
-    WHERE follows.following_user_id=$1 And users.role_id=2 ;`;
-  const placeholders = [id];
 
-  pool
-    .query(query, placeholders)
-    .then((result) => {
-      if (result.rows.length !== 0) {
-        res.status(200).json({
-          success: true,
-          message: `The follows for user with id = ${id}`,
-          result: result.rows,
-        });
-      } else {
-        throw new Error("Error happened while getting follows");
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        err: err.message,
-      });
-    });
-};
 
 /* ============================================= */
 const getUserById = (req, res) => {
@@ -403,5 +373,5 @@ module.exports = {
   unFollow,
   createNewInstitutionUser,
   getUsersByInstitustion,
-  getUserExperiences,
+  getUserExperiences
 };

@@ -25,7 +25,6 @@ const Jobs = () => {
       })
       .then((result) => {
         setJobs(result.data.jobs);
-        console.log("a", result.data.jobs);
       })
       .catch((err) => {
         console.log(err.message);

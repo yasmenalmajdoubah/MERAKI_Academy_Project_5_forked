@@ -39,21 +39,7 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [nextPage, setNextPage] = useState(false);
-  console.log(
-    field_id,
-    firstName,
-    lastName,
-    country,
-    email,
-    password,
-    phoneNumber,
-    skills,
-    CV,
-    education,
-    role_id,
-    field_id,
-    jobName
-  );
+  
 
   /* ============================================================= */
   const addNewUser = async (e) => {
@@ -76,7 +62,6 @@ const Register = () => {
       if (result.data.success) {
         setStatus(true);
         setMessage(result.data.message);
-        console.log(result.data);
         navigate("/login");
       } else throw Error;
     } catch (error) {

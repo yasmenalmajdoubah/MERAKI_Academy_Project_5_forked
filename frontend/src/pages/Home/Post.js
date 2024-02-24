@@ -47,7 +47,6 @@ export const Post = () => {
       })
       .then((result) => {
         dispatch(allPost(result.data.posts));
-        // console.log(result.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -56,15 +55,12 @@ export const Post = () => {
 
   ///get comments
   const getCommentsByPost = async (post_id) => {
-    console.log(post_id);
     try {
       const result = await axios.get(
         `http://localhost:5000/comments/comment/${post_id}`
       );
       if (result.data.success) {
-        console.log("result.data", result.data);
         const comments = result.data.comments;
-        console.log("comments", comments);
         dispatch(allComments({ comments, post_id }));
       } else throw Error;
     } catch (error) {
@@ -100,7 +96,6 @@ export const Post = () => {
 
   /* =============================== */
   const getlikes = async (post_id) => {
-    //console.log("post_id")
     try {
       const result = await axios.get(
         `http://localhost:5000/posts/getLikes/${post_id}`,
@@ -111,7 +106,6 @@ export const Post = () => {
         }
       );
       if (result.data.success) {
-        // console.log('result.data', result.data)
         const likes = result.data.likes;
 
         dispatch(allLikes({ likes, post_id }));
@@ -127,9 +121,7 @@ export const Post = () => {
   /* ============================================== */
 
   const like = async (post_id) => {
-    console.log("first", post_id);
     try {
-      console.log("first", post_id);
       const result = await axios.post(
         `http://localhost:5000/posts/addLike`,
         {
@@ -153,9 +145,7 @@ export const Post = () => {
   /* ============================================== */
 
   const unlike = async (like_id) => {
-    console.log("first", like_id);
     try {
-      console.log("first", like_id);
       const result = await axios.post(
         `http://localhost:5000/posts/removeLike/${like_id}`,
 
