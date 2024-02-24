@@ -131,7 +131,7 @@ export const ProfileHeader = () => {
                 </button>
 
                 <button className="text-white text-lg">
-                  <a href="#posts"> {posts.length} posts</a>
+                  <a href="#postProfile"> {posts.length} posts</a>
                 </button>
                 {userInfo.role_id===2&&<button className="text-white text-lg">Jobs </button>}
 

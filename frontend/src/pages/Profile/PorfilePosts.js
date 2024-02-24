@@ -95,7 +95,7 @@ const PorfilePosts = () => {
   };
   /* ================================================= */
   return (
-    <div className=" rounded-2xl mt-5 ml-3 ">
+    <div className=" rounded-2xl mt-5 ml-3 " id="postProfile">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
