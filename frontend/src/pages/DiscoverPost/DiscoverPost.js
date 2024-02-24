@@ -12,7 +12,7 @@ import {
   removeLike,
 } from "../../service/redux/reducers/posts/postsSlice";
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+
 import { TfiCommentAlt } from "react-icons/tfi";
 import PostLoader from "../../components/PostsLoader/PostLoader";
 
@@ -54,7 +54,25 @@ const Global = () => {
       });
   }, []);
 
-
+  const getCommentsByPost = async (post_id) => {
+    console.log(post_id);
+    try {
+      const result = await axios.get(
+        `http://localhost:5000/comments/comment/${post_id}`
+      );
+      if (result.data.success) {
+        console.log("result.data", result.data);
+        const comments = result.data.comments;
+        console.log("comments", comments);
+        dispatch(allComments({ comments, post_id }));
+      } else throw Error;
+    } catch (error) {
+      if (!error.response.data) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Get Data, please try again");
+    }
+  };
 
   return (
     <div>Global</div>
