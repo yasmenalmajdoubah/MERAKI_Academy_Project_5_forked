@@ -23,11 +23,10 @@ const profileSlice = createSlice({
       state.experience=action.payload
       },
     setWorkNow:(state,action)=>{
-      console.log("دخل عادي");
       state.workNow=action.payload.filter((elem,i)=>{
         console.log('elem.enddate', typeof elem.enddate)
         return elem.enddate=="now"
-      })[0]
+      })
       console.log('state.workNow', state.workNow)
     }
 
