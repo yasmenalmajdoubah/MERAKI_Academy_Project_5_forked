@@ -8,19 +8,20 @@ import { setAllLikedPosts } from "../../service/redux/reducers/posts/postsSlice"
 
 const HomeSide = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => {
+  const { userId, userInfo, token, userLikes } = useSelector((state) => {
     return {
       userId: state.log.userId,
       userInfo: state.profile.userInfo,
       token: state.log.token,
       userLikes: state.posts.userLikes,
-    };
+    }
   });
+
 
   // ======================================
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/search_1/${state.userId}`)
+      .get(`http://localhost:5000/users/search_1/${userId}`)
       .then((result) => {
         dispatch(setUserInfo(result.data.result));
       })
@@ -35,7 +36,7 @@ const HomeSide = () => {
     axios
       .get("http://localhost:5000/posts/allLikedPosts/user", {
         headers: {
-          Authorization: `Bearer ${state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((result) => {
@@ -53,10 +54,10 @@ const HomeSide = () => {
           <p className="font-medium text-center text-gray-500">Welcome</p>
         </div>
         <h1 className="mt-1 mb-2 text-2xl text-center font-medium me-4">
-          {state.userInfo.firstname} {state.userInfo.lastname}
+          {userInfo.firstname} {userInfo.lastname}
         </h1>
 
-        {state.userInfo.role_id === 2 ? (
+        {userInfo.role_id === 2 ? (
           <div>Post A Job</div>
         ) : (
           <div className="p-3">
@@ -66,9 +67,7 @@ const HomeSide = () => {
             <div className="flex mt-2">
               <FaHeart size={25} className="text-red-800 me-1 mt-1" />
               <p className=" text-gray-900">Interested Posts</p>
-              <div className=" text-gray-700 ms-8">
-                '{state.userLikes.length}'
-              </div>
+              <div className=" text-gray-700 ms-8">'{userLikes.length}'</div>
             </div>
           </div>
         )}

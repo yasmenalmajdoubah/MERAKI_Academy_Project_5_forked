@@ -4,8 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogin, setUserId } from "../../service/redux/reducers/log/logSlice";
 import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import axios from "axios";
+import "./Login.css";
+import CircleLoader from "../../components/Extra/CircleLoader";
 
 const Login = () => {
+  const [loginLoader, setLoginLoader] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => {
@@ -29,9 +33,12 @@ const Login = () => {
         password,
       });
       if (result.data) {
-        dispatch(setLogin(result.data.token));
-        dispatch(setUserId(result.data.user_id));
-        dispatch(setPostURL("http://localhost:5000/posts/search_2"));
+        {
+          dispatch(setLogin(result.data.token));
+
+          dispatch(setUserId(result.data.user_id));
+          dispatch(setPostURL("http://localhost:5000/posts/search_2"));
+        }
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {

@@ -12,6 +12,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 export const ProfileHeader = () => {
   const [myFollow, setMyFollow] = useState(false);
+  const [showPostImage, setShowPostImage] = useState(false);
+  const [showCoverImage, setShowCoverImage] = useState(false);
+
   const dispatch = useDispatch();
   const { userId, userInfo, token, follow, posts, experience, workNow } =
     useSelector((state) => {
@@ -48,7 +51,7 @@ export const ProfileHeader = () => {
       })
       .then((result) => {
         dispatch(setFollow(result.data.result));
-        dispatch(setInstitutionFollow(result.data.result))
+        dispatch(setInstitutionFollow(result.data.result));
       })
       .catch((err) => {
         console.log("err from use effect function getfollows", err);
@@ -88,55 +91,63 @@ export const ProfileHeader = () => {
         class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={userInfo.profileimage}
         alt="Profile image"
+        onClick={() => {
+          setShowPostImage(true);
+        }}
       />
       <div className=" flex flex-row">
         <div className=" flex flex-row w-full   ">
-          {/* <div className="  w-11/12  "> */}
-            {" "}
-            <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
-              <div className=" ">
-                <img
-                  src={userInfo.coverimage}
-                  className=" w-full h-52 rounded-t-xl object-cover"
-                />
-              </div>
-              <div>
-                <div className="  flex flex-row justify-between">
-                  
-                  <div className=" py-10 pl-6 w-96 	 ">
-                    <h1 className=" text-5xl">
-                      {userInfo.firstname} {userInfo.lastname}
-                    </h1>
-                    <p>{userInfo.jobname}</p>
-                  </div>
-                  {workNow[0]&&<div className="  max-w-96 	">
-                    <p className=" font-light text-3xl mt-12 mr-20 ">
-                      
-                      {workNow[0].workdiscription} in {workNow[0].institutionname}{" "}
-                    </p>
-                  </div>}
-                  
+          {/* <div className="  w-11/12  "> */}{" "}
+          <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
+            <div className=" ">
+              <img
+                src={userInfo.coverimage}
+                className=" w-full h-52 rounded-t-xl object-cover"
+                onClick={() => {
+                  setShowCoverImage(true);
+                }}
+              />
+            </div>
+            <div>
+              <div className="  flex flex-row justify-between">
+                <div className=" py-10 pl-6 w-96 	 ">
+                  <h1 className=" text-5xl">
+                    {userInfo.firstname} {userInfo.lastname}
+                  </h1>
+                  <p>{userInfo.jobname}</p>
                 </div>
+                {workNow[0] && (
+                  <div className="  max-w-96 	">
+                    <p className=" font-light text-3xl mt-12 mr-20 ">
+                      {workNow[0].workdiscription} in{" "}
+                      {workNow[0].institutionname}{" "}
+                    </p>
+                  </div>
+                )}
+              </div>
 
-                {/*  <div className=" mt-8 ml-4 max-w-96">
+              {/*  <div className=" mt-8 ml-4 max-w-96">
                 <p>{userInfo.experience} </p>
               </div> */}
-              </div>
-              <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
-                <button className=" text-white text-lg">25 folowers</button>
+            </div>
+            <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
+              <button className=" text-white text-lg">25 folowers</button>
 
-                <button className="text-white text-lg" onClick={() => setMyFollow(true)}>
-                  {" "}
-                  {follow.length} follow
-                </button>
+              <button
+                className="text-white text-lg"
+                onClick={() => setMyFollow(true)}
+              >
+                {" "}
+                {follow.length} follow
+              </button>
 
-                <button className="text-white text-lg">
-                  <a href="#postProfile"> {posts.length} posts</a>
-                </button>
-                {userInfo.role_id===2&&<button className="text-white text-lg">Jobs </button>}
-
-                
-              </div>
+              <button className="text-white text-lg">
+                <a href="#postProfile"> {posts.length} posts</a>
+              </button>
+              {userInfo.role_id === 2 && (
+                <button className="text-white text-lg">Jobs </button>
+              )}
+            </div>
             {/* </div> */}
           </div>
         </div>
@@ -163,6 +174,50 @@ export const ProfileHeader = () => {
           </div>
         </div>
       </div>
+      {/* ====================== to show profile image =========================== */}
+      {showPostImage && (
+        <>
+          {" "}
+          <div id="myModal" class="modal">
+            <div className="modal-content">
+              <span
+                className="close"
+                onClick={() => {
+                  setShowPostImage(false);
+                }}
+              >
+                &times;
+              </span>
+              <p></p>
+              <div>
+                <img src={userInfo.profileimage} />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {/* ================  to show cover image ====================================== */}
+      {showCoverImage && (
+        <>
+          {" "}
+          <div id="myModal" class="modal">
+            <div className="modal-contentCover">
+              <span
+                className="close"
+                onClick={() => {
+                  setShowCoverImage(false);
+                }}
+              >
+                &times;
+              </span>
+              <p></p>
+              <div>
+                <img className="h-96 w-full" src={userInfo.coverimage} />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
