@@ -13,6 +13,7 @@ const PuplishPost = () => {
   const [allFields, setAllFields] = useState([]);
   const [field_id, setField_id] = useState("");
   const [post, setPost] = useState("");
+  
   /* ========================================================== */
 
   const state = useSelector((state) => {

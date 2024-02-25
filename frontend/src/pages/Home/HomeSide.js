@@ -10,7 +10,10 @@ import { setAllLikedPosts } from "../../service/redux/reducers/posts/postsSlice"
 
 const HomeSide = () => {
   const [modal, setModal] = useState(false);
-
+  const [allFields, setAllFields] = useState([]);
+  const [field_id, setField_id] = useState("");
+  const [title, setTitle] = useState("");
+  const [discription, setDiscription] = useState("");
   /* ========================================== */
   const dispatch = useDispatch();
   const { userId, userInfo, token, userLikes } = useSelector((state) => {
@@ -36,7 +39,7 @@ const HomeSide = () => {
 
   // =======================================
 
-  useEffect(() => {
+  /*   useEffect(() => {
     axios
       .get("http://localhost:5000/posts/allLikedPosts/user", {
         headers: {
@@ -49,7 +52,44 @@ const HomeSide = () => {
       .catch((err) => {
         console.log(err);
       });
+  }, []); */
+
+  /* ======================================= */
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/roles/fields")
+      .then((result) => {
+        setAllFields(result.data.Fields);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  /* ============================================ */
+
+  const createJob = () => {
+    axios
+      .post(
+        "http://localhost:5000/jobs/create",
+        {
+          title,
+          discription,
+          field_id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // =========================================
   return (
     <div className="flex flex-col space-y-6 items-center w-72 ">
@@ -101,8 +141,8 @@ const HomeSide = () => {
       {modal && (
         <>
           {" "}
-          <div id="myModal" class="modal">
-            <div className="modal-content">
+          <div id="myModal" class="modalJob">
+            <div className="modal-contentJob">
               <span
                 className="close cursor-pointer"
                 onClick={() => {
@@ -111,27 +151,51 @@ const HomeSide = () => {
               >
                 &times;
               </span>
-              <p className="font-medium">Job Description</p>
-              <input
-                type="text"
-                placeholder="Job Tilte"
-                className="rounded border-2 mb-2"
-              />
-              <textarea
-                placeholder="Job Details"
-                className="p-2 w-full border-2"
-                rows={3}
-                style={{ outline: "none", resize: "none" }}
-                onChange={(e) => {
-                  // setPost(e.target.value);
-                }}
-              ></textarea>
-
+              <p className="font-medium border-b-4 pb-2">Job Description</p>
+              <div className="mt-3">
+                <input
+                  type="text"
+                  placeholder="Job Tilte"
+                  className="border-2 border-gray-400 mb-2 p-2 w-full"
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
+                />
+                <textarea
+                  placeholder="Job Details"
+                  className="p-2 w-full border-2 border-gray-400"
+                  rows={5}
+                  style={{ outline: "none" }}
+                  onChange={(e) => {
+                    setDiscription(e.target.value);
+                  }}
+                ></textarea>
+                <div className="mt-2 mb-2">
+                  <label className="me-2" style={{ outline: "none" }}>
+                    Job Field:
+                  </label>
+                  <select
+                    className="mb-2 w-24 h-8 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+                    onChange={(e) => {
+                      setField_id(e.target.value);
+                    }}
+                  >
+                    <option className=" text-slate-500">Choose</option>
+                    {allFields.map((field, i) => {
+                      return (
+                        <option value={field.field_id} key={field.field_id}>
+                          {field.field}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
               <div className="flex justify-end">
                 <button
                   className="bg-black text-white rounded-md shadow-lg w-28 h-10 mt-2"
                   onClick={() => {
-                    // createPost();
+                    createJob();
                     setModal(false);
                   }}
                 >
