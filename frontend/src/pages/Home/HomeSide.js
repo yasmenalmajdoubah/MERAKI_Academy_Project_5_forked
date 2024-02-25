@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo } from "../../service/redux/reducers/profile/profileSlice";
 import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 import { FaHeart } from "react-icons/fa";
+import { VscRequestChanges } from "react-icons/vsc";
+import { MdBorderColor } from "react-icons/md";
 import { setAllLikedPosts } from "../../service/redux/reducers/posts/postsSlice";
 
 const HomeSide = () => {
+  const [modal, setModal] = useState(false);
+
+  /* ========================================== */
   const dispatch = useDispatch();
   const { userId, userInfo, token, userLikes } = useSelector((state) => {
     return {
@@ -14,9 +19,8 @@ const HomeSide = () => {
       userInfo: state.profile.userInfo,
       token: state.log.token,
       userLikes: state.posts.userLikes,
-    }
+    };
   });
-
 
   // ======================================
   useEffect(() => {
@@ -58,7 +62,27 @@ const HomeSide = () => {
         </h1>
 
         {userInfo.role_id === 2 ? (
-          <div>Post A Job</div>
+          <div className="p-3 border-t-2">
+            <button
+              className="bg-black text-white w-full h-12 shadow-lg rounded font-medium text-xl"
+              onClick={() => {
+                setModal(true);
+              }}
+            >
+              Share New Job
+            </button>
+
+            <div className="flex mt-4">
+              <VscRequestChanges className="mt-0.5 ms-1 me-1" size={25} />
+              <p>All Open Jobs</p>
+            </div>
+
+            <div className="flex mt-2">
+              {" "}
+              <MdBorderColor className="mt-0.5 ms-1 me-1" size={25} />
+              <p>My All Applications</p>
+            </div>
+          </div>
         ) : (
           <div className="p-3">
             <p className="border-t font-medium pt-2 text-gray-500">
@@ -72,6 +96,53 @@ const HomeSide = () => {
           </div>
         )}
       </div>
+      {/* ===================== To Share Job ================ */}
+
+      {modal && (
+        <>
+          {" "}
+          <div id="myModal" class="modal">
+            <div className="modal-content">
+              <span
+                className="close cursor-pointer"
+                onClick={() => {
+                  setModal(false);
+                }}
+              >
+                &times;
+              </span>
+              <p className="font-medium">Job Description</p>
+              <input
+                type="text"
+                placeholder="Job Tilte"
+                className="rounded border-2 mb-2"
+              />
+              <textarea
+                placeholder="Job Details"
+                className="p-2 w-full border-2"
+                rows={3}
+                style={{ outline: "none", resize: "none" }}
+                onChange={(e) => {
+                  // setPost(e.target.value);
+                }}
+              ></textarea>
+
+              <div className="flex justify-end">
+                <button
+                  className="bg-black text-white rounded-md shadow-lg w-28 h-10 mt-2"
+                  onClick={() => {
+                    // createPost();
+                    setModal(false);
+                  }}
+                >
+                  Share Job
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {/* ====================================================== */}
       <div>
         <DiscoverFreind />
       </div>
