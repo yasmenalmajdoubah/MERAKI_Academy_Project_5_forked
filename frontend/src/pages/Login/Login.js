@@ -6,7 +6,8 @@ import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import axios from "axios";
 import "./Login.css";
 import CircleLoader from "../../components/Extra/CircleLoader";
-
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 const Login = () => {
   const [loginLoader, setLoginLoader] = useState(false);
 
@@ -56,7 +57,7 @@ const Login = () => {
       <div className="bg-zinc-100 h-screen flex items-center justify-evenly">
         <div className="flex-none ms-20">
           <h1 className="font-bold text-3xl text-center">Sign In</h1>
-          <div>
+          <div className=" mb-3">
             <form onSubmit={login}>
               <br />
 
@@ -87,7 +88,10 @@ const Login = () => {
               </button>
             </form>
           </div>
-          <div className="flex-col mt-4">
+            
+          
+          ;
+          <div className="flex-col mt-2">
             <p className="text-sm ms-2 mb-2">Don't have account?</p>
             <button
               className="bg-blue-950 text-white w-64 h-12 border-2 rounded-md shadow-lg"
@@ -98,6 +102,16 @@ const Login = () => {
               {" "}
               Register Here
             </button>
+            <div className=" mt-6 ml-3">   
+            <GoogleLogin
+  onSuccess={credentialResponse => {
+    const credentialResponsedecode=jwtDecode(credentialResponse.credential)
+    console.log("dataaa",credentialResponsedecode);
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/></div>
           </div>
         </div>
         <p></p>
@@ -113,7 +127,9 @@ const Login = () => {
             />
           </div>
         </div>
+        
       </div>
+      
     </>
   );
 };
