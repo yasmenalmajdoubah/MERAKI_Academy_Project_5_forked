@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setUserInfo,
-  setFollow,AddFollow
+  setFollow,AddFollow,setVisitUserInfo
 } from "../../service/redux/reducers/profile/profileSlice";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
@@ -14,13 +14,14 @@ export const VisitedHeader = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const { userInfo, token, follow, posts,workNow } = useSelector((state) => {
+  const {  token, follow, posts,workNow,visitUserInfo } = useSelector((state) => {
     return {
-      userInfo: state.profile.userInfo,
+      
       token: state.log.token,
       follow: state.profile.follow,
       posts: state.posts.posts,
-      workNow:state.profile.workNow
+      workNow:state.profile.workNow,
+      visitUserInfo:state.profile.visitUserInfo
     };
   });
   const followOrUnFollow=(innerText)=>{
@@ -59,7 +60,7 @@ export const VisitedHeader = () => {
         },
       })
       .then((result) => {
-        dispatch(setUserInfo(result.data.result));
+        dispatch(setVisitUserInfo(result.data.result));
       })
       .catch((err) => {
         console.log(err);
@@ -110,7 +111,7 @@ export const VisitedHeader = () => {
       )}{" "}
       <img
         class=" w-48 w- h-48  rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
-        src={userInfo.profileimage}
+        src={visitUserInfo.profileimage}
         alt="Profile image"
       />
       <div className=" flex flex-row">
@@ -119,7 +120,7 @@ export const VisitedHeader = () => {
             <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
               <div className=" ">
                 <img
-                  src={userInfo.coverimage}
+                  src={visitUserInfo.coverimage}
                   className=" w-full h-52 rounded-t-xl object-cover"
                 />
               </div>
@@ -128,9 +129,9 @@ export const VisitedHeader = () => {
                   
                   <div className=" py-10 pl-6 w-96 	 ">
                     <h1 className=" text-5xl">
-                      {userInfo.firstname} {userInfo.lastname}
+                      {visitUserInfo.firstname} {visitUserInfo.lastname}
                     </h1>
-                    <p>{userInfo.jobname}</p>
+                    <p>{visitUserInfo.jobname}</p>
                   </div>
                   <div>  
 
@@ -174,7 +175,7 @@ export const VisitedHeader = () => {
                 <button className="text-white text-lg">
                   <a href="#posts"> {posts.length} posts</a>
                 </button>
-                {userInfo.role_id===2&&<button className="text-white text-lg">Jobs </button>}
+                {visitUserInfo.role_id===2&&<button className="text-white text-lg">Jobs </button>}
 
                 
               </div>
