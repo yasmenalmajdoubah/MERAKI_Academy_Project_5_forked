@@ -7,6 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import { VscRequestChanges } from "react-icons/vsc";
 import { MdBorderColor } from "react-icons/md";
 import { setAllLikedPosts } from "../../service/redux/reducers/posts/postsSlice";
+import MyApp from "../../components/Extra/Calendar";
 
 const HomeSide = () => {
   const [modal, setModal] = useState(false);
@@ -208,7 +209,7 @@ const HomeSide = () => {
       )}
       {/* ====================================================== */}
       <div>
-        <DiscoverFreind />
+      <MyApp/>
       </div>
     </div>
   );

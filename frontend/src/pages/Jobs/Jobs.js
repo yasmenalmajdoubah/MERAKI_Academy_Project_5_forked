@@ -53,7 +53,7 @@ const Jobs = () => {
   }, []);
 
   return (
-    <div className="flex ">
+    <div className="flex bg-zinc-200">
       <div className="w-2/5">
         {jobs?.map((job, index) => {
           return (
@@ -65,7 +65,7 @@ const Jobs = () => {
               }}
             >
               <div class="">
-                <div class=" bg-gray-100">
+                <div class=" bg-zinc-200">
                   <div className="">
                     <div
                       className="container mx-auto p-3 "
@@ -118,7 +118,7 @@ const Jobs = () => {
             <>
               {showJob && jobId === job.job_id && (
                 <>
-                  <div class=" bg-gray-100">
+                  <div class=" bg-zinc-200">
                     <div className="container mx-auto p-3 relative">
                       <div class="bg-white  shadow-md rounded-md p-6 mb-6 max-w-2xl">
                         <div class="container mx-auto p-9">
@@ -249,12 +249,9 @@ const Jobs = () => {
             </>
           );
         })}
-        {!showJob && (
-          <img
-            src="https://www.promoshin.com/wp-content/uploads/2022/10/Job-offers.gif"
-            className="ml-20  mt-5 rounded-md"
-          />
-        )}
+
+        {!showJob && <div className="flex justify-center items-center"><img src="https://www.promoshin.com/wp-content/uploads/2022/10/Job-offers.gif" className="ml-20  mt-5 rounded-md" /></div>}
+
       </div>
     </div>
   );
