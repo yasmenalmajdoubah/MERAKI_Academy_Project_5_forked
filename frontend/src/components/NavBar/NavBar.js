@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../service/redux/reducers/log/logSlice";
 import { IoMdArrowDropup } from "react-icons/io";
 import { AiOutlinePoweroff } from "react-icons/ai";
+import { TbHelpHexagon } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const NavBar = () => {
@@ -38,9 +39,9 @@ const NavBar = () => {
           }}
         >
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/jobs">Jobs</NavLink>
           <NavLink to="/profile">Profile</NavLink>
-          <NavLink to="/global">Global</NavLink>
+          <NavLink to="/jobs">Jobs</NavLink>
+          <NavLink to="/global">Community</NavLink>
           {/* <NavLink to="/discover">Discover</NavLink>  */}
         </div>
         <div className="flex-none relative">
@@ -61,7 +62,7 @@ const NavBar = () => {
                 className="absolute top-11 right-3"
               />
 
-              <div className="absolute bg-white w-44 h-32 top-14 right-3 rounded-md shadow-2xl">
+              <div className="absolute bg-white w-44 h-40 top-14 right-3 rounded-md shadow-2xl">
                 <p
                   className="text-black font-mono ps-2 pt-2 h-10 border-b cursor-pointer"
                   onClick={() => {
@@ -69,12 +70,17 @@ const NavBar = () => {
                     setShowTab(false);
                   }}
                 >
-                  Hi {state.userInfo.lastname}
+                  Mr {state.userInfo.lastname}
                 </p>
                 <div className="flex ps-2 pt-1 mt-2 cursor-pointer">
                   {" "}
                   <IoSettingsOutline className="text-gray-700 mt-1 me-2" />{" "}
                   <p className="text-gray-800 font-mono">Settings</p>
+                </div>
+                <div className="flex ps-2 pt-1 mt-2 cursor-pointer">
+                  {" "}
+                  <TbHelpHexagon className="text-gray-700 mt-1 me-2" />{" "}
+                  <p className="text-gray-800 font-mono">Help center</p>
                 </div>
                 <div
                   className="flex ps-2 pt-1 mt-1 cursor-pointer"

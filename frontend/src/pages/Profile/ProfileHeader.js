@@ -237,7 +237,7 @@ export const ProfileHeader = () => {
           <div id="myModal" class="modal">
             <div className="modal-content">
               <span
-                className="close"
+                className="close cursor-pointer"
                 onClick={() => {
                   setShowPostImage(false);
                 }}
@@ -245,14 +245,14 @@ export const ProfileHeader = () => {
                 &times;
               </span>
               <div
-                className="flex cursor-pointer"
+                className="flex justify-center items-center cursor-pointer rounded shadow-md w-24 h-8 bg-black"
                 onClick={() => {
                   setModal(true);
                   setIsProfileUpdate(true);
                 }}
               >
-                <FiUpload className="me-1" size={25} />
-                <p>Update</p>
+                <FiUpload className="me-1" size={25} color="white"/>
+                <p className="text-white">Update</p>
               </div>
               <div>
                 <img className="relative" src={userInfo.profileimage} />
@@ -276,18 +276,21 @@ export const ProfileHeader = () => {
                 &times;
               </span>
               <div
-                className="flex cursor-pointer"
+                className="flex justify-center items-center cursor-pointer rounded shadow-md w-24 h-8 bg-black"
                 onClick={() => {
                   setModal(true);
                   setIsProfileUpdate(false);
                 }}
               >
-                <FiUpload className="me-1" size={25} />
-                <p>Update</p>
+                <FiUpload className="me-1" size={25} color="white" />
+                <p className="text-white">Update</p>
               </div>
               <p></p>
               <div>
-                <img className="h-96 w-full" src={userInfo.coverimage} />
+                <img
+                  className="h-96 w-full object-cover"
+                  src={userInfo.coverimage}
+                />
               </div>
             </div>
           </div>
