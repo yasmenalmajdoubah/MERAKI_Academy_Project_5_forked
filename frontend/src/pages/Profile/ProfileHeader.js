@@ -10,6 +10,8 @@ import {
 } from "../../service/redux/reducers/profile/profileSlice";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { FiUpload } from "react-icons/fi";
+
 export const ProfileHeader = () => {
   const [myFollow, setMyFollow] = useState(false);
   const [showPostImage, setShowPostImage] = useState(false);
@@ -28,6 +30,36 @@ export const ProfileHeader = () => {
         workNow: state.profile.workNow,
       };
     });
+  /* ================== For upload on cloudenary ================================ */
+  const [modal, setModal] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
+  const [isLoader, setIsLoader] = useState(true);
+
+  const [profileImage, setProfileImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [isProfileUpdate, setIsProfileUpdate] = useState(true);
+
+  const [image, setImage] = useState("");
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "szb3g9r3");
+    data.append("cloud_name", "drkox9efz");
+    fetch("https://api.cloudinary.com/v1_1/drkox9efz/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        {
+          isProfileUpdate ? setProfileImage(data.url) : setCoverImage(data.url);
+        }
+        console.log(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  /* ==================================================== */
   const getUser = () => {
     axios
       .get(`http://localhost:5000/users/search_1/${userId}`, {
@@ -61,6 +93,30 @@ export const ProfileHeader = () => {
     getUser();
     getfollows();
   }, []);
+  /* =================================================== */
+  const updateImages = (req, res) => {
+    axios
+      .put(
+        "http://localhost:5000/users/update/user",
+        {
+          profileImage,
+          coverImage,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.data.result);
+        dispatch(setUserInfo(result.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  /* ================================================= */
 
   return (
     <div className=" ">
@@ -188,9 +244,18 @@ export const ProfileHeader = () => {
               >
                 &times;
               </span>
-              <p></p>
+              <div
+                className="flex cursor-pointer"
+                onClick={() => {
+                  setModal(true);
+                  setIsProfileUpdate(true);
+                }}
+              >
+                <FiUpload className="me-1" size={25} />
+                <p>Update</p>
+              </div>
               <div>
-                <img src={userInfo.profileimage} />
+                <img className="relative" src={userInfo.profileimage} />
               </div>
             </div>
           </div>
@@ -210,9 +275,87 @@ export const ProfileHeader = () => {
               >
                 &times;
               </span>
+              <div
+                className="flex cursor-pointer"
+                onClick={() => {
+                  setModal(true);
+                  setIsProfileUpdate(false);
+                }}
+              >
+                <FiUpload className="me-1" size={25} />
+                <p>Update</p>
+              </div>
               <p></p>
               <div>
                 <img className="h-96 w-full" src={userInfo.coverimage} />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {/* =================== function update image ======================= */}
+      {modal && (
+        <>
+          {" "}
+          <div id="myModal" class="modalUploadImage">
+            <div className="modal-UploadImage">
+              <span
+                className="close  cursor-pointer"
+                onClick={() => {
+                  setModal(false);
+                  setIsLoader(true);
+                  setIsUpload(false);
+                }}
+              >
+                &times;
+              </span>
+              <p className="text-xl font-medium ms-2">Upload Image</p>
+
+              <div className="mt-5 pt-3 border-t-2 ">
+                <input
+                  type="file"
+                  className="borde"
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    setIsUpload(true);
+                  }}
+                ></input>
+
+                {isUpload && (
+                  <div className="mt-4">
+                    <button
+                      className="bg-black text-white rounded-md shadow-lg w-24 h-10 mt-2"
+                      onClick={() => {
+                        uploadImage();
+                        setIsLoader(false);
+                      }}
+                    >
+                      Upload
+                    </button>
+                  </div>
+                )}
+
+                <div className="flex justify-end">
+                  {isLoader ? (
+                    <></>
+                  ) : profileImage || coverImage ? (
+                    <button
+                      className="bg-blue-700 text-white rounded-md shadow-lg w-28 h-10 mt-8"
+                      onClick={() => {
+                        updateImages();
+                        setIsUpload(false);
+                        setIsLoader(true);
+                        setModal(false);
+                      }}
+                    >
+                      Done
+                    </button>
+                  ) : (
+                    <div className="flex justify-center items-center bg-blue-300 cursor-not-allowed text-white rounded-md shadow-lg w-28 h-10 mt-8">
+                      <div className="loader"></div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

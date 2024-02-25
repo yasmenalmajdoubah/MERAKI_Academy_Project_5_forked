@@ -237,8 +237,6 @@ const getAllFollowersByUserId = (req, res) => {
     });
 };
 
-
-
 /* ============================================= */
 const getUserById = (req, res) => {
   const id = req.params.id;
@@ -363,6 +361,54 @@ const getUserExperiences = (req, res) => {
     });
 };
 
+/* ================================================= */
+const updateUserInfo = (req, res) => {
+  const user_id = req.token.user_id;
+  const {
+    firstName,
+    lastName,
+    jobName,
+    country,
+    profileImage,
+    coverImage,
+    about,
+    phoneNumber,
+    skills,
+  } = req.body;
+  const placeholders = [
+    user_id,
+    firstName || null,
+    lastName || null,
+    jobName || null,
+    country || null,
+    profileImage || null,
+    coverImage || null,
+    about || null,
+    phoneNumber || null,
+    skills || null,
+  ];
+  const query = `UPDATE users SET firstName=COALESCE($2,firstName),lastName=COALESCE($3,lastName),jobName=COALESCE($4,jobName),country=COALESCE($5,country),profileImage=COALESCE($6,profileImage),coverImage=COALESCE($7,coverImage),about=COALESCE($8,about),phoneNumber=COALESCE($9,phoneNumber),skills=COALESCE($10,skills) WHERE user_id=$1 RETURNING *`;
+
+  pool
+    .query(query, placeholders)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `updated`,
+        result: result.rows[0],
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
+
+/* ==================================================== */
+
 module.exports = {
   register,
   login,
@@ -373,5 +419,6 @@ module.exports = {
   unFollow,
   createNewInstitutionUser,
   getUsersByInstitustion,
-  getUserExperiences
+  getUserExperiences,
+  updateUserInfo,
 };

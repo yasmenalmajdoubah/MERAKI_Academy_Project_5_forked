@@ -12,9 +12,13 @@ const {
   getUsersByInstitustion,
   createNewInstitutionUser,
   getUserExperiences,
+  updateUserInfo,
 } = require("../controllers/user");
 
 const authentication = require("../middlewares/authentication");
+
+// http://localhost:5000/users/update/user
+usersRouter.put("/update/user", authentication, updateUserInfo);
 
 // http://localhost:5000/users/register
 usersRouter.post("/register", register);
@@ -44,8 +48,8 @@ usersRouter.get("/institustion/:id", getUsersByInstitustion);
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
 // http://localhost:5000/users/experience/:user_id
-usersRouter.get("/experience/:user_id",authentication, getUserExperiences);
- 
+usersRouter.get("/experience/:user_id", authentication, getUserExperiences);
+
 module.exports = usersRouter;
 
 /* 

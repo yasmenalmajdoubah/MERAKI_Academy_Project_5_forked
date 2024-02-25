@@ -62,19 +62,26 @@ const PuplishPost = () => {
   /* ================================================================ */
 
   const createPost = () => {
-    axios.post(
-      "http://localhost:5000/posts/create",
-      {
-        body: post,
-        image: postImage,
-        field_id: field_id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${state.token}`,
+    axios
+      .post(
+        "http://localhost:5000/posts/create",
+        {
+          body: post,
+          image: postImage,
+          field_id: field_id,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   /* ========================================================= */
