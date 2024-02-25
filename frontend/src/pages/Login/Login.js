@@ -6,7 +6,8 @@ import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import axios from "axios";
 import "./Login.css";
 import CircleLoader from "../../components/Extra/CircleLoader";
-
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 const Login = () => {
   const [loginLoader, setLoginLoader] = useState(false);
 
@@ -53,11 +54,12 @@ const Login = () => {
   // ==========================================
   return (
     <>
+
+
       <div className="bg-zinc-100 h-screen flex-col overflow-hidden">
         <h1 className="flex font-bold pt-2 items-center  justify-center text-3xl">
           WorkedIn
         </h1>
-
         <div className="bg-zinc-100 h-screen flex items-center justify-around">
           {/* ============= inputs ==== left side ============== */}
           <div className="flex-none ms-20 mb-8">
@@ -104,7 +106,34 @@ const Login = () => {
                 {" "}
                 Register Here
               </button>
-            </div>
+
+            </form>
+          </div>
+            
+          
+          ;
+          <div className="flex-col mt-2">
+            <p className="text-sm ms-2 mb-2">Don't have account?</p>
+            <button
+              className="bg-blue-950 text-white w-64 h-12 border-2 rounded-md shadow-lg"
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              {" "}
+              Register Here
+            </button>
+            <div className=" mt-6 ml-3">   
+            <GoogleLogin
+  onSuccess={credentialResponse => {
+    const credentialResponsedecode=jwtDecode(credentialResponse.credential)
+    console.log("dataaa",credentialResponsedecode);
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/></div>
+      
           </div>
           <p></p>
           {/* ========== Image Right side ========= */}
@@ -119,7 +148,9 @@ const Login = () => {
             </div>
           </div>
         </div>
+        
       </div>
+      
     </>
   );
 };
