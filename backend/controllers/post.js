@@ -126,7 +126,7 @@ const getPostsByField = (req, res) => {
 const updatePostById = (req, res) => {
   const { title, body, image, field_id } = req.body;
   const { post_id } = req.params;
-  const placeholders = [title, body, image, field_id, post_id];
+  const placeholders = [title || null , body || null , image || null , field_id || null , post_id];
   const query = `UPDATE posts
     SET title = COALESCE($1,title), body=COALESCE($2,body), image=COALESCE($3,image), field_id=COALESCE($4,field_id)
     WHERE post_id=$5 RETURNING *;`;
