@@ -54,8 +54,6 @@ const Login = () => {
   // ==========================================
   return (
     <>
-
-
       <div className="bg-zinc-100 h-screen flex-col overflow-hidden">
         <h1 className="flex font-bold pt-2 items-center  justify-center text-3xl">
           WorkedIn
@@ -95,7 +93,8 @@ const Login = () => {
                 </button>
               </form>
             </div>
-            <div className="flex-col mt-4">
+
+            <div className="flex-col mt-2">
               <p className="text-sm ms-2 mb-2">Don't have account?</p>
               <button
                 className="bg-blue-950 text-white w-64 h-12 border-2 rounded-md shadow-lg"
@@ -106,35 +105,25 @@ const Login = () => {
                 {" "}
                 Register Here
               </button>
+              <div className=" mt-6 ml-3">
+                {
+                  <GoogleLogin
+                    size={100}
+                    onSuccess={(credentialResponse) => {
+                      const credentialResponsedecode = jwtDecode(
+                        credentialResponse.credential
+                      );
+                      console.log("dataaa", credentialResponsedecode);
+                    }}
+                    onError={() => {
+                      console.log("Login Failed");
+                    }}
+                  />
+                }
+              </div>
+            </div>
+          </div>
 
-            </form>
-          </div>
-            
-          
-          ;
-          <div className="flex-col mt-2">
-            <p className="text-sm ms-2 mb-2">Don't have account?</p>
-            <button
-              className="bg-blue-950 text-white w-64 h-12 border-2 rounded-md shadow-lg"
-              onClick={() => {
-                navigate("/register");
-              }}
-            >
-              {" "}
-              Register Here
-            </button>
-            <div className=" mt-6 ml-3">   
-            <GoogleLogin
-  onSuccess={credentialResponse => {
-    const credentialResponsedecode=jwtDecode(credentialResponse.credential)
-    console.log("dataaa",credentialResponsedecode);
-  }}
-  onError={() => {
-    console.log('Login Failed');
-  }}
-/></div>
-      
-          </div>
           <p></p>
           {/* ========== Image Right side ========= */}
           <div className="flex-none me-20">
@@ -148,9 +137,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        
       </div>
-      
     </>
   );
 };
