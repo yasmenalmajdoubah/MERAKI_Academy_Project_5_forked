@@ -8,6 +8,8 @@ import Profile from "../pages/Profile/Profile";
 import DiscoverPost from "../pages/DiscoverPost/DiscoverPost";
 import Visited from "../pages/Visited/Visited";
 import Jobs from "../pages/Jobs/Jobs";
+import Settings from "../pages/settings/Settings";
+import HelpCenter from "../pages/settings/HelpCenter";
 
 export const router = createBrowserRouter([
   {
@@ -22,10 +24,6 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
-/*       {
-        path: "/discover",
-        element: <DiscoverFreind />,
-      }, */
       {
         path: "/global",
         element: <DiscoverPost />,
@@ -37,6 +35,14 @@ export const router = createBrowserRouter([
       {
         path: "/friend/:id",
         element: <Visited />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+      {
+        path: "/help",
+        element: <HelpCenter />,
       },
     ],
   },
