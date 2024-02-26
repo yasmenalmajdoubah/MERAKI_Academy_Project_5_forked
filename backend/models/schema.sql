@@ -48,6 +48,20 @@ CREATE TABLE job_user (
   FOREIGN KEY (user_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
   PRIMARY KEY (job_user_id)
 );
+
+CREATE TABLE chat (
+  chat_id SERIAL NOT NULL,
+  from_id INT NOT NULL,
+  to_id INT NOT NULL,
+  message TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  is_deleted SMALLINT DEFAULT 0,
+  FOREIGN KEY (from_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (to_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  PRIMARY KEY (chat_id)
+);
+
+
 //
 CREATE TABLE users (
   user_id SERIAL NOT NULL,

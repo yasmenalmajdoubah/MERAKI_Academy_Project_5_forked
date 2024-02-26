@@ -8,21 +8,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-
 // ========== Routers ==============
 const rolesRouter = require("./route/role");
 const usersRouter = require("./route/user");
-const postRouter=require("./route/post");
+const postRouter = require("./route/post");
 const jobsRouter = require("./route/job");
-const commentRouter=require("./route/comment")
+const commentRouter = require("./route/comment");
+const chatRouter = require("./route/chat");
 
 //========== Routers Endpoints =============
 app.use("/roles", rolesRouter);
 app.use("/users", usersRouter);
-app.use("/posts",postRouter);
+app.use("/posts", postRouter);
 app.use("/jobs", jobsRouter);
-app.use("/comments",commentRouter)
+app.use("/comments", commentRouter);
+app.use("/chat", chatRouter);
 
 //=========================
 // * this for any wrong path
