@@ -4,54 +4,79 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setUserInfo,
-  setFollow,AddFollow,setVisitUserInfo
+  setFollow,
+  AddFollow,
+  setVisitUserInfo,
 } from "../../service/redux/reducers/profile/profileSlice";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+/* ================================================================ */
 export const VisitedHeader = () => {
   const [myFollow, setMyFollow] = useState(false);
   const dispatch = useDispatch();
-
   const { id } = useParams();
-  const {  token, follow, posts,workNow,visitUserInfo } = useSelector((state) => {
-    return {
-      
-      token: state.log.token,
-      follow: state.profile.follow,
-      posts: state.posts.posts,
-      workNow:state.profile.workNow,
-      visitUserInfo:state.profile.visitUserInfo
-    };
-  });
-  const followOrUnFollow=(innerText)=>{
-    if (innerText==="follow") {
-        document.getElementById("buttonFollow").innerHTML="unfollow"
-        Follow()
-    }else{
-        document.getElementById("buttonFollow").innerHTML="follow"
-        unFollow()
+/* ================================= */
+  const { token, follow, posts, workNow, visitUserInfo } = useSelector(
+    (state) => {
+      return {
+        token: state.log.token,
+        follow: state.profile.follow,
+        posts: state.posts.posts,
+        workNow: state.profile.workNow,
+        visitUserInfo: state.profile.visitUserInfo,
+      };
     }
-  }
-  const unFollow=()=>{
-    axios.delete(`http://localhost:5000/users/follows/${id}`,{
+  );
+
+  console.log(follow);
+
+  /* ==================================== */
+  const followOrUnFollow = (innerText) => {
+    if (innerText === "follow") {
+      document.getElementById("buttonFollow").innerHTML = "unfollow";
+      Follow();
+    } else {
+      document.getElementById("buttonFollow").innerHTML = "follow";
+      unFollow();
+    }
+  };
+
+  /* ==================================== */
+  const unFollow = () => {
+    axios
+      .delete(`http://localhost:5000/users/follows/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then((result)=>{
-    }).catch((err)=>{
+      })
+      .then((result) => {})
+      .catch((err) => {
         console.log(err);
-    })
-  }
-  const Follow=()=>{
-    axios.post(`http://localhost:5000/users/follows`,{followed_user_id:id},{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((result)=>{
-        dispatch(AddFollow(result.data.result))
-      }).catch((err)=>{console.log(err)})
-  }
+      });
+  };
+
+  /* =============================== */
+  const Follow = () => {
+    axios
+      .post(
+        `http://localhost:5000/users/follows`,
+        { followed_user_id: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        dispatch(AddFollow(result.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  /* ======================================= */
   const getUser = () => {
     axios
       .get(`http://localhost:5000/users/search_1/${id}`, {
@@ -66,6 +91,8 @@ export const VisitedHeader = () => {
         console.log(err);
       });
   };
+
+  /* ======================================== */
   const getfollows = () => {
     axios
       .get(`http://localhost:5000/users/follows/${id}`, {
@@ -80,10 +107,14 @@ export const VisitedHeader = () => {
         console.log("err from use effect function getfollows", err);
       });
   };
+
+  /* ===================================== */
   useEffect(() => {
     getUser();
     getfollows();
   }, []);
+
+  /* ======================================= */
   return (
     <div className=" ">
       {myFollow && (
@@ -116,69 +147,68 @@ export const VisitedHeader = () => {
       />
       <div className=" flex flex-row">
         <div className=" flex flex-row w-full   ">
-            {" "}
-            <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
-              <div className=" ">
-                <img
-                  src={visitUserInfo.coverimage}
-                  className=" w-full h-52 rounded-t-xl object-cover"
-                />
-              </div>
-              <div>
-                <div className="  flex flex-row justify-between">
-                  
-                  <div className=" py-10 pl-6 w-96 	 ">
-                    <h1 className=" text-5xl">
-                      {visitUserInfo.firstname} {visitUserInfo.lastname}
-                    </h1>
-                    <p>{visitUserInfo.jobname}</p>
-                  </div>
-                  <div>  
-
-
-                  {workNow[0]&&<div className="  max-w-96 	">
-                    <p className=" font-light text-3xl mt-12 mr-20 ">
-                      
-                      {workNow[0].workdiscription} in {workNow[0].institutionname}{" "}
-                    </p>
-                  </div>}
+          {" "}
+          <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
+            <div className=" ">
+              <img
+                src={visitUserInfo.coverimage}
+                className=" w-full h-52 rounded-t-xl object-cover"
+              />
+            </div>
+            <div>
+              <div className="  flex flex-row justify-between">
+                <div className=" py-10 pl-6 w-96 	 ">
+                  <h1 className=" text-5xl">
+                    {visitUserInfo.firstname} {visitUserInfo.lastname}
+                  </h1>
+                  <p>{visitUserInfo.jobname}</p>
+                </div>
+                <div>
+                  {workNow[0] && (
+                    <div className="  max-w-96 	">
+                      <p className=" font-light text-3xl mt-12 mr-20 ">
+                        {workNow[0].workdiscription} in{" "}
+                        {workNow[0].institutionname}{" "}
+                      </p>
+                    </div>
+                  )}
                   <div className="mr-10 mt-8 mb-5">
                     <Button
                       variant="primary"
                       id="buttonFollow"
                       className=" font-bold w-40 bg-blue-600 rounded-lg h-10 "
-                      onClick={function(e){
-                        followOrUnFollow(e.target.innerText)
+                      onClick={function (e) {
+                        followOrUnFollow(e.target.innerText);
                       }}
-
                     >
                       follow
                     </Button>
                   </div>
-                  </div>
-                 
-                  
                 </div>
+              </div>
 
-                {/*  <div className=" mt-8 ml-4 max-w-96">
+              {/*  <div className=" mt-8 ml-4 max-w-96">
                 <p>{userInfo.experience} </p>
               </div> */}
-              </div>
-              <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
-                <button className=" text-white text-lg">25 folowers</button>
+            </div>
+            <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
+              <button className=" text-white text-lg">25 folowers</button>
 
-                <button className="text-white text-lg" onClick={() => setMyFollow(true)}>
-                  {" "}
-                  {follow.length} follow
-                </button>
+              <button
+                className="text-white text-lg"
+                onClick={() => setMyFollow(true)}
+              >
+                {" "}
+                {follow.length} follow
+              </button>
 
-                <button className="text-white text-lg">
-                  <a href="#posts"> {posts.length} posts</a>
-                </button>
-                {visitUserInfo.role_id===2&&<button className="text-white text-lg">Jobs </button>}
-
-                
-              </div>
+              <button className="text-white text-lg">
+                <a href="#posts"> {posts.length} posts</a>
+              </button>
+              {visitUserInfo.role_id === 2 && (
+                <button className="text-white text-lg">Jobs </button>
+              )}
+            </div>
             {/* </div> */}
           </div>
         </div>
@@ -206,7 +236,7 @@ export const VisitedHeader = () => {
         </div>
       </div>
     </div>
-   /*  <div className=" ">
+    /*  <div className=" ">
       <img
         class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile"
         src={userInfo.profileimage}
