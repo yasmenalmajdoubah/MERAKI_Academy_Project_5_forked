@@ -5,9 +5,10 @@ import { setLogin, setUserId } from "../../service/redux/reducers/log/logSlice";
 import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import axios from "axios";
 import "./Login.css";
-import CircleLoader from "../../components/Extra/CircleLoader";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import "./Login.css";
+
 const Login = () => {
   const [loginLoader, setLoginLoader] = useState(false);
 
@@ -35,8 +36,8 @@ const Login = () => {
       });
       if (result.data) {
         {
+          setLoginLoader(false);
           dispatch(setLogin(result.data.token));
-
           dispatch(setUserId(result.data.user_id));
           dispatch(setPostURL("http://localhost:5000/posts/search_2"));
         }
@@ -44,7 +45,7 @@ const Login = () => {
     } catch (error) {
       if (error.response && error.response.data) {
         console.log(error.response.data.message);
-
+        setLoginLoader(false);
         return setMessage(error.response.data.message);
       }
       setMessage("Error happened while Login, please try again");
@@ -87,6 +88,7 @@ const Login = () => {
                   className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
                   onClick={(e) => {
                     login(e);
+                    setLoginLoader(true);
                   }}
                 >
                   Login
@@ -137,6 +139,20 @@ const Login = () => {
             </div>
           </div>
         </div>
+
+        {/* ============= loader login ================= */}
+        {loginLoader && (
+          <>
+            {" "}
+            <div
+              id="myModal"
+              className="modalLogin flex justify-center items-center pb-28"
+            >
+              <div className="loaderLogin"></div>
+            </div>
+          </>
+        )}
+        {/* ========================================================= */}
       </div>
     </>
   );
