@@ -4,9 +4,11 @@ import React from "react";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
 import "./Jobs.css";
+import { useNavigate } from "react-router-dom";
+
 const Jobs = () => {
   const form = useRef();
-
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [jobId, setJobId] = useState("");
   const [showJob, setShowJob] = useState(false);
@@ -51,10 +53,10 @@ const Jobs = () => {
         console.log(err.message);
       });
   }, []);
-
+  /* ========================================================= */
   return (
     <div className="flex bg-zinc-200">
-      <div className="w-2/5">
+      <div className="w-2/5 border-e-2 border-gray-600">
         {jobs?.map((job, index) => {
           return (
             <div
@@ -72,21 +74,29 @@ const Jobs = () => {
                       style={{ width: "400px" }}
                     >
                       <div
-                        className="bg-white rounded-lg shadow p-4"
+                        className="bg-white rounded-md shadow p-3"
                         style={{ width: "400px" }}
                       >
-                        <div className="flex items-center">
+                        <div className="flex">
                           <img
                             src={job.profileimage}
                             alt="Profile Picture"
-                            className="w-12 h-12 rounded-full"
+                            className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                            onClick={() => {
+                              navigate(`/friend/${job.user_id}`);
+                            }}
                           />
                           <div className="ml-2">
-                            <p className="font-semibold">
+                            <p
+                              className="font-semibold cursor-pointer"
+                              onClick={() => {
+                                navigate(`/friend/${job.user_id}`);
+                              }}
+                            >
                               {job.firstname} {job.lastname}
                             </p>
 
-                            <h6>Amman,Jordan(Onsite)</h6>
+                            {/*  <h6>Amman,Jordan(Onsite)</h6> */}
                             <p className="text-gray-500 text-xs">
                               {" "}
                               Published{" "}
@@ -97,7 +107,10 @@ const Jobs = () => {
                                 .reverse()
                                 .join("-")}
                             </p>
-                            <p className="font-semibold text-3xl">
+                            <p className="font-semibold text-xl mt-3 cursor-pointer">
+                              <span className="me-2 font-medium text-blue-600">
+                                Hiring:
+                              </span>
                               {job.title}
                             </p>
                           </div>
@@ -120,47 +133,62 @@ const Jobs = () => {
                 <>
                   <div class=" bg-zinc-200">
                     <div className="container mx-auto p-3 relative">
-                      <div class="bg-white  shadow-md rounded-md p-6 mb-6 max-w-2xl">
-                        <div class="container mx-auto p-9">
-                          <div class="bg-white rounded-lg shadow p-4">
-                            <div class="flex items-center">
-                              <img
-                                src={job.profileimage}
-                                alt="Profile Picture"
-                                class="w-12 h-12 rounded-full"
-                              />
-                              <div class="ml-2">
-                                <p class="font-semibold">
-                                  {job.firstname} {job.lastname}
-                                </p>
-                              </div>
-                            </div>
+                      <div class="bg-white  shadow rounded-md p-7 mb-6 max-w-2xl">
+                        <div class="flex items-center justify-between container mx-auto border-b-4 pb-3">
+                          <div className="flex w-96 items-center">
+                            <img
+                              src={job.profileimage}
+                              alt="Profile Picture"
+                              class="w-12 h-12 rounded-full object-cover"
+                            />
+                            <p class="font-semibold ms-2">
+                              {job.firstname} {job.lastname}
+                            </p>
+                          </div>
+
+                          <div>
+                            <button className="bg-black rounded-md shadow-md w-20 h-8 text-white">
+                              Follow
+                            </button>
                           </div>
                         </div>
-                        <h2 className="text-2xl font-bold mb-4"> JOB TITLE</h2>
-                        <div className="bg-white shadow-md rounded-md p-6 mb-6 max-w-2xl">
-                          <p className="text-gray-600 text-lg mb-4">
+                        {/* ********** */}
+                        <h2 className="text-2xl font-bold mt-3 mb-2">
+                          {" "}
+                          JOB TITLE
+                        </h2>
+                        <div className="bg-white shadow rounded-md p-3 mb-6 max-w-2xl">
+                          <p className="text-gray-800 text-lg mb-4">
                             {" "}
                             {job.title}
                           </p>
                         </div>
-                        <h2 className="text-2xl font-bold mb-4">
+                        {/* ********** */}
+                        <h2 className="text-xl font-bold mt-1 mb-2">
                           {" "}
                           JOB DESCRIPITON{" "}
                         </h2>
-                        <div className="bg-white shadow-md rounded-md p-6 mb-6 max-w-2xl">
-                          <p className="text-gray-600 text-lg mb-4">
+                        <div className="bg-white shadow rounded-md p-3 mb-6 max-w-2xl">
+                          <p className="text-gray-800 text-lg mb-4">
                             {" "}
                             {job.discription}
                           </p>
                         </div>
+                        {/* *********** */}
                         {console.log(job)}
-                        <button
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                          onClick={() => setAPPLY(true)}
-                        >
-                          APPLY
-                        </button>
+
+                        <div className="flex justify-between">
+                          <div>
+                            <button
+                              className="bg-blue-600 hover:bg-blue-700 w-40 text-white font-bold py-2 px-4 rounded"
+                              onClick={() => setAPPLY(true)}
+                            >
+                              APPLY Now
+                            </button>
+                          </div>
+                          <button className="bg-gray-500 w-24 h-10 rounded text-center text-white">Save Later</button>
+
+                        </div>
                         {aPPLY && (
                           <div id="myModal" class="modal2">
                             <div
@@ -201,7 +229,6 @@ const Jobs = () => {
                                   value="file:///C:/Users/Mahmoud/Mid%20Contracting/AZRAQSLF%20-%20Documents/Out%20box/Submittals/ST%20-%20Structural/153.%20ST-C-MS-153-04%20Method%20Statement%20for%20Stone%20Cladding%20Works/ST-C-MS-153-04%20signed.pdf"
                                 />
 
-                                
                                 <label className="inputForm">from</label>
                                 <input
                                   type="text"
@@ -235,7 +262,6 @@ const Jobs = () => {
                                   type="submit"
                                   value="apply"
                                   className="mt-2 ms-2 mb-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                  
                                 />
                               </form>
                             </div>
@@ -250,8 +276,14 @@ const Jobs = () => {
           );
         })}
 
-        {!showJob && <div className="flex justify-center items-center"><img src="https://www.promoshin.com/wp-content/uploads/2022/10/Job-offers.gif" className="ml-20  mt-5 rounded-md" /></div>}
-
+        {!showJob && (
+          <div className="flex justify-center items-center">
+            <img
+              src="https://www.promoshin.com/wp-content/uploads/2022/10/Job-offers.gif"
+              className="ml-20  mt-5 rounded-md"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
