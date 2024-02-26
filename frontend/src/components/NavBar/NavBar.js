@@ -42,7 +42,6 @@ const NavBar = () => {
           <NavLink to="/profile">Profile</NavLink>
           <NavLink to="/jobs">Jobs</NavLink>
           <NavLink to="/global">Community</NavLink>
-          {/* <NavLink to="/discover">Discover</NavLink>  */}
         </div>
         <div className="flex-none relative">
           <img
@@ -72,12 +71,24 @@ const NavBar = () => {
                 >
                   Mr {state.userInfo.lastname}
                 </p>
-                <div className="flex ps-2 pt-1 mt-2 cursor-pointer">
+                <div
+                  className="flex ps-2 pt-1 mt-2 cursor-pointer"
+                  onClick={() => {
+                    navigate("/settings");
+                    setShowTab(false);
+                  }}
+                >
                   {" "}
                   <IoSettingsOutline className="text-gray-700 mt-1 me-2" />{" "}
                   <p className="text-gray-800 font-mono">Settings</p>
                 </div>
-                <div className="flex ps-2 pt-1 mt-2 cursor-pointer">
+                <div
+                  className="flex ps-2 pt-1 mt-2 cursor-pointer"
+                  onClick={() => {
+                    navigate("/help");
+                    setShowTab(false);
+                  }}
+                >
                   {" "}
                   <TbHelpHexagon className="text-gray-700 mt-1 me-2" />{" "}
                   <p className="text-gray-800 font-mono">Help center</p>

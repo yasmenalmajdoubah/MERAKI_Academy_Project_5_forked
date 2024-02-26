@@ -209,7 +209,11 @@ const HomeSide = () => {
       )}
       {/* ====================================================== */}
       <div>
-      <MyApp/>
+        <div className="">
+          <p className="mb-1 text-center font-semibold text-slate-600 text-lg">Daily Reminders</p>
+        <MyApp/>
+
+        </div>
       </div>
     </div>
   );

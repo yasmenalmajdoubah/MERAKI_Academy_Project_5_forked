@@ -30,6 +30,7 @@ export const ProfileHeader = () => {
         workNow: state.profile.workNow,
       };
     });
+    console.log("prfile", follow);
   /* ================== For upload on cloudenary ================================ */
   const [modal, setModal] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
@@ -119,7 +120,7 @@ export const ProfileHeader = () => {
   /* ================================================= */
 
   return (
-    <div className=" ">
+    <div className="">
       {myFollow && (
         <div
           className="modal show"
@@ -144,27 +145,27 @@ export const ProfileHeader = () => {
         </div>
       )}{" "}
       <img
-        class=" w-48 w- h-48 bg-slate-50 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
+        class=" w-48 w- h-48 bg-slate-200 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={userInfo.profileimage}
         alt="Profile image"
         onClick={() => {
           setShowPostImage(true);
         }}
       />
-      <div className=" flex flex-row">
+      <div className="flex flex-row">
         <div className=" flex flex-row w-full   ">
           {/* <div className="  w-11/12  "> */}{" "}
-          <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-2xl rounded-xl  ">
+          <div className="flex flex-col mt-10 ml-16  w-11/12  shadow-xl rounded ">
             <div className=" ">
               <img
                 src={userInfo.coverimage}
-                className=" w-full h-52 rounded-t-xl object-cover"
+                className=" w-full h-52 rounded object-cover rounded-b-none"
                 onClick={() => {
                   setShowCoverImage(true);
                 }}
               />
             </div>
-            <div>
+            <div className="bg-white">
               <div className="  flex flex-row justify-between">
                 <div className=" py-10 pl-6 w-96 	 ">
                   <h1 className=" text-5xl">
@@ -186,7 +187,7 @@ export const ProfileHeader = () => {
                 <p>{userInfo.experience} </p>
               </div> */}
             </div>
-            <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
+            <div className=" flex flex-row justify-around h-12 pl-6 rounded-b bg-black">
               <button className=" text-white text-lg">25 folowers</button>
 
               <button

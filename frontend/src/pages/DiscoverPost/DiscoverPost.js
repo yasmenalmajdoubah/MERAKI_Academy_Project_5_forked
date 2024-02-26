@@ -74,11 +74,8 @@ const Global = () => {
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
-            <div key={post.post_id} className="">
-              <div
-                className="container mt-3 relative"
-                style={{ width: "650px" }}
-              >
+            <div key={post.post_id} className="flex justify-center">
+              <div className="container mt-3" style={{ width: "650px" }}>
                 <div
                   className="bg-white rounded-lg shadow p-4"
                   style={{ width: "650px" }}
@@ -201,7 +198,10 @@ const Global = () => {
           <div className="text-gray-500 text-2xl">"No Posts Yet"</div>
         </div>
       ) : (
-        <PostLoader />
+        <div className="flex justify-center">
+          {" "}
+          <PostLoader />
+        </div>
       )}
     </div>
   );

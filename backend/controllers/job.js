@@ -118,7 +118,7 @@ const getAllUsersOfJobId = (req, res) => {
 const getAllJobsbyField = (req, res) => {
   const field_id = req.token.field_id;
   const placeholder = [field_id];
-  const query = `SELECT jobs.title, jobs.job_id, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE jobs.field_id=$1`; // ! AND users.role_id=2
+  const query = `SELECT jobs.title, jobs.job_id, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email, users.user_id FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE jobs.field_id=$1 ORDER BY created_at DESC`; // ! AND users.role_id=2
 
   pool
     .query(query, placeholder)
