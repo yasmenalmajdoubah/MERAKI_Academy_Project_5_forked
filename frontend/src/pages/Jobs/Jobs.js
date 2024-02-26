@@ -193,7 +193,7 @@ const Jobs = () => {
                           <div id="myModal" class="modal2">
                             <div
                               className="modal-content2 "
-                              style={{ width: "500px" }}
+                              id="app"
                             >
                               <span
                                 className="close2"

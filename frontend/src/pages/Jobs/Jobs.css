@@ -1,3 +1,6 @@
 .inputForm{
     visibility: hidden;
 }
+#app{
+    width: 35%;
+}
