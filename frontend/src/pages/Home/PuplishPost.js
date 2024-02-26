@@ -13,7 +13,7 @@ const PuplishPost = () => {
   const [allFields, setAllFields] = useState([]);
   const [field_id, setField_id] = useState("");
   const [post, setPost] = useState("");
-  
+
   /* ========================================================== */
 
   const state = useSelector((state) => {
@@ -91,7 +91,7 @@ const PuplishPost = () => {
     <div className="container relative" style={{ width: "650px" }}>
       {" "}
       <div
-        className="bg-white rounded h-28 flex-col "
+        className="bg-white rounded h-36 flex-col "
         style={{ width: "650px" }}
         onClick={() => {
           setModal(true);
@@ -100,24 +100,24 @@ const PuplishPost = () => {
         <div className="flex-none">
           <textarea
             rows="1"
-            className="p-2 mt-1 w-full cursor-pointer"
+            className="p-5 mt-1 w-full cursor-pointer"
             style={{ outline: "none", resize: "none" }}
-            placeholder="Puplish Here"
+            placeholder="Ask, Search, Share Here.."
           ></textarea>
         </div>
 
-        <div className="flex mt-3">
-          <div className="bg-gray-50 h-8 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
-            <IoVideocamOutline size="20" className="text-slate-600 me-1" />{" "}
-            <div className="text-slate-500">Video</div>
+        <div className="flex justify-center mt-3">
+          <div className="bg-black h-9 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
+            <IoVideocamOutline size="30" className="text-white me-1" />{" "}
+            <div className=" text-white">Video</div>
           </div>
 
-          <div className="bg-gray-50 h-8 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
-            <MdOutlinePhotoCamera size="20" className="text-rose-800 me-1" />
-            <div className="text-slate-500">Photo</div>
+          <div className="bg-black h-9 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
+            <MdOutlinePhotoCamera size="26" className="text-rose-800 me-1" />
+            <div className="text-white">Photo</div>
           </div>
 
-          <div className="bg-gray-50 h-8 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
+          <div className="bg-black h-8 text-white rounded-3xl flex items-center p-2 ms-2 mt-3 cursor-pointer">
             <HiDotsHorizontal />
           </div>
         </div>
@@ -254,7 +254,7 @@ const PuplishPost = () => {
                     </button>
                   ) : (
                     <div className="flex justify-center items-center bg-blue-300 cursor-not-allowed text-white rounded-md shadow-lg w-28 h-10 mt-8">
-                      <div className="loader"></div>
+                      <div className="loaderHome"></div>
                     </div>
                   )}
                 </div>

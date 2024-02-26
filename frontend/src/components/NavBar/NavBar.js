@@ -22,7 +22,7 @@ const NavBar = () => {
   // ===========================================
   return (
     <div>
-      <div className="flex justify-around md:flex-auto bg-black text-white shadow-lg h-16 items-center">
+      <div className="flex justify-around md:flex-auto bg-black text-white shadow-lg h-16 items-center relative">
         <h1 className="flex-none text-xl ">WorkedIn</h1>
         <div className="flex-none space-x-2">
           <input
@@ -43,6 +43,7 @@ const NavBar = () => {
           <NavLink to="/jobs">Jobs</NavLink>
           <NavLink to="/global">Community</NavLink>
         </div>
+
         <div className="flex-none relative">
           <img
             src={state.userInfo.profileimage}
@@ -61,7 +62,7 @@ const NavBar = () => {
                 className="absolute top-11 right-3"
               />
 
-              <div className="absolute bg-white w-44 h-40 top-14 right-3 rounded-md shadow-2xl">
+              <div className="absolute z-10 bg-white w-44 h-40 top-14 right-3 rounded-md shadow-2xl">
                 <p
                   className="text-black font-mono ps-2 pt-2 h-10 border-b cursor-pointer"
                   onClick={() => {
