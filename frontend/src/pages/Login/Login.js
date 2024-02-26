@@ -56,9 +56,12 @@ const Login = () => {
   return (
     <>
       <div className="bg-zinc-100 h-screen flex-col overflow-hidden">
-        <h1 className="flex font-bold pt-2 items-center  justify-center text-3xl">
+        <div className="flex items-center pt-1 pb-1 ps-3 bg-slate-50">
+        <h1 className="flex font-bold text-3xl">
           WorkedIn
         </h1>
+        </div>
+       
         <div className="bg-zinc-100 h-screen flex items-center justify-around">
           {/* ============= inputs ==== left side ============== */}
           <div className="flex-none ms-20 mb-8">
@@ -107,10 +110,11 @@ const Login = () => {
                 {" "}
                 Register Here
               </button>
-              <div className=" mt-6 ml-3">
+
+              <div className=" mt-4 w-full h-20">
                 {
                   <GoogleLogin
-                    size={100}
+                    size={60}
                     onSuccess={(credentialResponse) => {
                       const credentialResponsedecode = jwtDecode(
                         credentialResponse.credential
