@@ -55,14 +55,12 @@ const Login = () => {
   // ==========================================
   return (
     <>
-      <div className="bg-zinc-100 h-screen flex-col overflow-hidden">
-        <div className="flex items-center pt-1 pb-1 ps-3 bg-slate-50">
-        <h1 className="flex font-bold text-3xl">
-          WorkedIn
-        </h1>
+      <div className="bg-zinc-200 h-screen flex-col overflow-hidden">
+        <div className="flex items-center pt-2 pb-1 ps-5">
+          <h1 className="flex font-bold text-4xl">WorkedIn</h1>
         </div>
-       
-        <div className="bg-zinc-100 h-screen flex items-center justify-around">
+
+        <div className="bg-zinc-200 h-screen flex items-center justify-around">
           {/* ============= inputs ==== left side ============== */}
           <div className="flex-none ms-20 mb-8">
             <h1 className="font-bold text-3xl text-center">Sign In</h1>
@@ -132,7 +130,7 @@ const Login = () => {
 
           <p></p>
           {/* ========== Image Right side ========= */}
-          <div className="flex-none me-20">
+          <div className="flex mb-4 me-20">
             <div className=""></div>
             <div className="">
               <img
