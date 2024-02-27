@@ -3,6 +3,10 @@ const cors = require("cors");
 require("dotenv").config();
 require("./models/db");
 const {Server} =require ("socket.io")
+const auth = require("./middlewares/auth");
+const socketMiddleWare = require("./middlewares/check");
+const messageHndler = require("./controllers/message");
+
 
 const app = express();
 
