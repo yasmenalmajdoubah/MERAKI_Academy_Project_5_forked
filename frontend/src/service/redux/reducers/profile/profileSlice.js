@@ -9,6 +9,7 @@ const profileSlice = createSlice({
     experience: [],
     workNow:{},
     institution:[]
+
   },
 
   reducers: {

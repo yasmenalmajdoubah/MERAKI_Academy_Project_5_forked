@@ -1,61 +1,67 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState, useRef } from "react";
-import React from "react";
-import axios from "axios";
-import emailjs from "@emailjs/browser";
-import "./Jobs.css";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { setJobInstitution } from '../../service/redux/reducers/posts/postsSlice';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useRef } from 'react';
+import emailjs from "@emailjs/browser";
+import "../Jobs/Jobs.css";
+const VisitedJobs = () => {
+    const { id } = useParams()
+    const dispatch=useDispatch()
+    const form = useRef();
+    const navigate = useNavigate()
+    const [jobId, setJobId] = useState("");
+    const [showJob, setShowJob] = useState(false);
+    const [aPPLY, setAPPLY] = useState(false);
+    const {token,visitUserInfo,jobs,userInfo} = useSelector((state) => {
+        return {
+          token: state.log.token,
+          visitUserInfo: state.profile.visitUserInfo,
+          jobs:state.posts.jobs,
+          userInfo: state.profile.userInfo,
 
-const Jobs = () => {
-  const form = useRef();
-  const navigate = useNavigate();
-  const [jobs, setJobs] = useState([]);
-  const [jobId, setJobId] = useState("");
-  const [showJob, setShowJob] = useState(false);
-  const [aPPLY, setAPPLY] = useState(false);
-  const state = useSelector((state) => {
-    return {
-      token: state.log.token,
-      postURL: state.posts.postURL,
-      posts: state.posts.posts,
-      userInfo: state.profile.userInfo,
-    };
-  });
-  const sendEmail = (e) => {
-    e.preventDefault();
-    const serviceId = "service_tclbful";
-    const templateId = "template_qhkw6b1";
-    const publicKey = "3Z6VLfroPrdEEhWm8";
-    emailjs
-      .sendForm(serviceId, templateId, form.current, {
-        publicKey: publicKey,
-      })
-      .then(
-        () => {
-          console.log("SUCCESS!");
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
-  };
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/jobs/", {
+        };
+      });
+      const sendEmail = (e) => {
+        e.preventDefault();
+        const serviceId = "service_tclbful";
+        const templateId = "template_qhkw6b1";
+        const publicKey = "3Z6VLfroPrdEEhWm8";
+        emailjs
+          .sendForm(serviceId, templateId, form.current, {
+            publicKey: publicKey,
+          })
+          .then(
+            () => {
+              console.log("SUCCESS!");
+            },
+            (error) => {
+              console.log("FAILED...", error.text);
+            }
+          );
+      };
+      useEffect(() => {    
+        axios
+      .get(`http://localhost:5000/jobs/${id}`, {
         headers: {
-          Authorization: `Bearer ${state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((result) => {
-        setJobs(result.data.jobs);
+        dispatch(setJobInstitution(result.data.jobs))
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
-  /* ========================================================= */
+        
+      }, [])
+      
   return (
-    <div className="flex bg-zinc-200">
+    <div className="p-6 ml-3 w-full mb-8 mt-3 mx-auto bg-slate-400 rounded-xl shadow-lg   " id='jobs'>
+
+    <div className="flex  mb-5 ">
       <div className="w-2/5 border-e-2 border-gray-600">
         {jobs?.map((job, index) => {
           return (
@@ -64,13 +70,13 @@ const Jobs = () => {
               onClick={() => {
                 setShowJob(true);
                 setJobId(job.job_id);
-              }}
+              }} 
             >
               <div class="">
-                <div class=" bg-zinc-200">
+                <div class=" ">
                   <div className="">
                     <div
-                      className="container mx-auto p-3 "
+                      className="container mx-auto p-3  "
                       style={{ width: "400px" }}
                     >
                       <div
@@ -82,16 +88,12 @@ const Jobs = () => {
                             src={job.profileimage}
                             alt="Profile Picture"
                             className="w-12 h-12 rounded-full object-cover cursor-pointer"
-                            onClick={() => {
-                              navigate(`/friend/${job.user_id}`);
-                            }}
+                           
                           />
                           <div className="ml-2">
                             <p
                               className="font-semibold cursor-pointer"
-                              onClick={() => {
-                                navigate(`/friend/${job.user_id}`);
-                              }}
+                             
                             >
                               {job.firstname} {job.lastname}
                             </p>
@@ -131,27 +133,10 @@ const Jobs = () => {
             <>
               {showJob && jobId === job.job_id && (
                 <>
-                  <div class=" bg-zinc-200">
+                  <div class=" ">
                     <div className="container mx-auto p-3 relative">
                       <div class="bg-white  shadow rounded-md p-7 mb-6 max-w-2xl">
-                        <div class="flex items-center justify-between container mx-auto border-b-4 pb-3">
-                          <div className="flex w-96 items-center">
-                            <img
-                              src={job.profileimage}
-                              alt="Profile Picture"
-                              class="w-12 h-12 rounded-full object-cover"
-                            />
-                            <p class="font-semibold ms-2">
-                              {job.firstname} {job.lastname}
-                            </p>
-                          </div>
-
-                          <div>
-                            <button className="bg-black rounded-md shadow-md w-20 h-8 text-white">
-                              Follow
-                            </button>
-                          </div>
-                        </div>
+                        
                         {/* ********** */}
                         <h2 className="text-2xl font-bold mt-3 mb-2">
                           {" "}
@@ -226,7 +211,7 @@ const Jobs = () => {
                                   type="text"
                                   name="CV"
                                   className="inputForm w-6"
-                                  value="http://res.cloudinary.com/drkox9efz/image/upload/v1709064504/jsllldjm6l5wo3b1qfqa.pdf"
+                                  value="file:///C:/Users/Mahmoud/Mid%20Contracting/AZRAQSLF%20-%20Documents/Out%20box/Submittals/ST%20-%20Structural/153.%20ST-C-MS-153-04%20Method%20Statement%20for%20Stone%20Cladding%20Works/ST-C-MS-153-04%20signed.pdf"
                                 />
 
                                 <label className="inputForm">from</label>
@@ -234,7 +219,7 @@ const Jobs = () => {
                                   type="text"
                                   name="from_name"
                                   className="inputForm w-6"
-                                  value={state.userInfo.firstname}
+                                  value={userInfo.firstname}
                                 />
 
                                 <label className="inputForm">email to</label>
@@ -249,7 +234,7 @@ const Jobs = () => {
                                   type="text"
                                   name="from_email"
                                   className="inputForm w-6"
-                                  value={state.userInfo.email}
+                                  value={userInfo.email}
                                 />
                                 <label className="inputForm">Message</label>
 
@@ -285,8 +270,9 @@ const Jobs = () => {
           </div>
         )}
       </div>
-    </div>
-  );
-};
+    </div>    </div>
 
-export default Jobs;
+  )
+}
+
+export default VisitedJobs
