@@ -54,6 +54,7 @@ dispatch(addChat(result))
        // setTo_id(to_id)
         const newChat = result.data.results;
         dispatch(addChat({ newChat, to_id }));
+        
        
       }
       }
@@ -105,11 +106,50 @@ const allMsgById=  async (to_id) => {
       }, [chat]);
     
     
+///===============
+useEffect(() => {
+  // add a an event listener on message events
+  socket.on("message", reciveData);
+  // remove all listeners on clean up
+  return () => socket.off("message",reciveData);
+}, [chat]);
+const sendMessage = () => {
+  // emit a `message` event with the value of the message
+  socket.emit("message", {to,from:user_id,messages});
+};
+const reciveData =(data) => {
+  console.log(data)
+dispatch(allChat(data))
+}
+
+
+
+
+
+
+
+
+
+
+
+
   return (
    <>
-   <input type="text"/>
-   <input type="text"/>
-   <button>send</button>
+     <h1>Message</h1>
+        <input type = "text" placeholder="message" onChange={(e)=>{
+           setMessage(e.target.value)
+        }}/>
+        <input type = "text" placeholder="to" onChange={(e)=>{
+            setTo_id(e.target.value)
+        }}/>
+        <button onClick={()=>{
+sendMessage()
+        }}>send</button>
+        {chat.length>0 && chat.map(message=>{
+return <p><small> from {message.from_id} {message.message
+}</small></p>
+        })}
+
    
    </>
   )
