@@ -3,6 +3,7 @@ import { ProfileBody } from "./ProfileBody";
 import { ProfileHeader } from "./ProfileHeader";
 import PorfilePosts from "./PorfilePosts";
 import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
+import ChatIcon from "../../components/Extra/ChatIcon";
 
 const Profile = () => {
   return (
@@ -27,6 +28,9 @@ const Profile = () => {
             {" "}
             <DiscoverFreind />
           </div>
+        </div>
+        <div className="fixed bottom-2 right-5 cursor-pointer">
+          <ChatIcon />
         </div>
       </div>
     </div>

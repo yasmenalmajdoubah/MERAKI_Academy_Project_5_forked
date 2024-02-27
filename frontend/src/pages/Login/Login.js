@@ -55,14 +55,20 @@ const Login = () => {
   // ==========================================
   return (
     <>
-      <div className="bg-zinc-100 h-screen flex-col overflow-hidden">
-        <div className="flex items-center pt-1 pb-1 ps-3 bg-slate-50">
-        <h1 className="flex font-bold text-3xl">
-          WorkedIn
-        </h1>
+      <div className="bg-zinc-200 h-screen flex-col overflow-hidden">
+        <div className="flex items-center pt-2 pb-1 ps-5">
+          <div>
+            <img
+              width={50}
+              height={50}
+              className="rounded mt-1 ms-2 me-2"
+              src="https://logopond.com/logos/e5621829d529b5af38ac12f9447e8388.png"
+            />
+          </div>
+          <h1 className="flex font-bold text-3xl">WorkedIn</h1>
         </div>
-       
-        <div className="bg-zinc-100 h-screen flex items-center justify-around">
+
+        <div className="bg-zinc-200 h-screen flex items-center justify-around">
           {/* ============= inputs ==== left side ============== */}
           <div className="flex-none ms-20 mb-8">
             <h1 className="font-bold text-3xl text-center">Sign In</h1>
@@ -111,10 +117,9 @@ const Login = () => {
                 Register Here
               </button>
 
-              <div className=" mt-4 w-full h-20">
+              <div className="flex justify-center items-center mt-4 w-full h-8">
                 {
                   <GoogleLogin
-                    size={60}
                     onSuccess={(credentialResponse) => {
                       const credentialResponsedecode = jwtDecode(
                         credentialResponse.credential
@@ -132,7 +137,7 @@ const Login = () => {
 
           <p></p>
           {/* ========== Image Right side ========= */}
-          <div className="flex-none me-20">
+          <div className="flex mb-4 me-20">
             <div className=""></div>
             <div className="">
               <img
