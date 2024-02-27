@@ -3,6 +3,7 @@ import { ProfileBody } from "./ProfileBody";
 import { ProfileHeader } from "./ProfileHeader";
 import PorfilePosts from "./PorfilePosts";
 import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
+import ProfileJobs from "./ProfileJobs";
 
 const Profile = () => {
   return (
@@ -11,13 +12,16 @@ const Profile = () => {
         <ProfileHeader />
       </div>
       <div className="  flex flex-col justify-between mt-6 ">
-        <div className=" ml-12 w-8/12">
+        <div className=" ml-12 w-10/12 pr-24">
           {" "}
-          <div>
+          
             <ProfileBody />{" "}
+            
           </div>
+          <div className=" ml-12  w-10/12 pr-24">
+          <ProfileJobs/>
         </div>
-
+         
         <div className=" flex flex-row   ">
           {" "}
           <div className=" ml-12">

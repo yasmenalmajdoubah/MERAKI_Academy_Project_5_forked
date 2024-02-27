@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { setJobInstitution } from '../../service/redux/reducers/posts/postsSlice';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import { useRef } from 'react';
 import emailjs from "@emailjs/browser";
 import "../Jobs/Jobs.css";
@@ -11,14 +10,12 @@ const VisitedJobs = () => {
     const { id } = useParams()
     const dispatch=useDispatch()
     const form = useRef();
-    const navigate = useNavigate()
     const [jobId, setJobId] = useState("");
     const [showJob, setShowJob] = useState(false);
     const [aPPLY, setAPPLY] = useState(false);
-    const {token,visitUserInfo,jobs,userInfo} = useSelector((state) => {
+    const {token,jobs,userInfo} = useSelector((state) => {
         return {
           token: state.log.token,
-          visitUserInfo: state.profile.visitUserInfo,
           jobs:state.posts.jobs,
           userInfo: state.profile.userInfo,
 
