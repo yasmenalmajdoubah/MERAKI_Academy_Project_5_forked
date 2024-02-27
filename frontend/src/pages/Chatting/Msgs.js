@@ -27,8 +27,8 @@ const Msgs = ({socket}) => {
       }
     ).then((result)=>  {
 ///result.
-dispatch(addChat(result))
-      console.log(result);
+dispatch(addChat(result.data.message))
+      console.log(result.data.message);
       }
 ). catch ((error)=> {
       console.log(error);}
@@ -46,7 +46,7 @@ dispatch(addChat(result))
         },
         {
           headers: {
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -84,7 +84,6 @@ const allMsgById=  async (to_id) => {
 
 
 
-
       useEffect(() => {
       getAllMsgs()
   
@@ -95,7 +94,7 @@ const allMsgById=  async (to_id) => {
     
     
       return()=>{
-        socket?.off("messag",()=>{
+        socket?.off("message",()=>{
             socket?.on("message",(data)=>{
                 dispatch(addChat(data))
               });  
@@ -111,24 +110,18 @@ useEffect(() => {
   // add a an event listener on message events
   socket.on("message", reciveData);
   // remove all listeners on clean up
+  /////////////////////////////=====================
+  //dipatch(addChat(reciveData))
   return () => socket.off("message",reciveData);
 }, [chat]);
 const sendMessage = () => {
   // emit a `message` event with the value of the message
-  socket.emit("message", {to,from:user_id,messages});
+  socket.emit("message", {to_id, from_id: userId,message});
 };
 const reciveData =(data) => {
   console.log(data)
 dispatch(allChat(data))
 }
-
-
-
-
-
-
-
-
 
 
 
