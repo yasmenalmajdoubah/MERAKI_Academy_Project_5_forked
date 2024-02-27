@@ -40,7 +40,7 @@ app.listen(PORT, () => {
   console.log(`Server run on http://localhost${PORT}`);
 });
 //==================================
-const io = new Server (server, { cors: { origin: "*", 
+/* const io = new Server (server, { cors: { origin: "*", 
 methods:["GET", "POST"] },
  })//allow any one
  const clients={}
@@ -80,4 +80,4 @@ socket.on("disconnect",()=>{
 })
 
 
-})
+}) */
