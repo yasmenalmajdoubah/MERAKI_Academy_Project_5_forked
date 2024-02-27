@@ -93,170 +93,171 @@ const Register = () => {
   useEffect(() => {
     getAllFields();
   }, []);
-console.log(role_id);
+  console.log(role_id);
   /* ===================================================================== */
   return (
     <div className="bg-zinc-200 h-screen">
       <p className=" font-bold text-3xl text-center pt-2">Register</p>
 
-      <div className="flex">
-        <p className="ms-2 mb-3 text font-medium text-gray-900 dark:text-gray-300">
-          Company Account ?
-        </p>
-        <div className="flex items-center mb-3 ms-3" >
-          <input
-            id="default-radio-1"
-            type="radio"
-            value="yes"
-            name="default-radio"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            onClick={(e) => {
-              setRole_id(2)
-              console.log("click", e.target.value);
-            }}
-          />
-          <label
-            htmlFor="default-radio-1"
-            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Yes
-          </label>
-        </div>
-        <div className="flex items-center mb-3 ms-3">
-          <input
-            id="default-radio-2"
-            type="radio"
-            value="no"
-            name="default-radio"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            onClick={(e) => {
-              setRole_id(1)
-              console.log("click", e.target.value);
-            }}
-          />
-          <label
-            htmlFor="default-radio-2"
-            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            No
-          </label>
-        </div>
-      </div>
-
       <div className="bg-zinc-200">
-        <div className="flex-none ms-2 me-3">
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="First Name"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="Education"
-            onChange={(e) => setEducation(e.target.value)}
-          />
-          <br />{" "}
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="Skills"
-            onChange={(e) => setSkills(e.target.value)}
-          />
-          <br />
-          <button
-            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login Page
-          </button>
+        <div className="flex">
+          {/* ===================== Left ======================================================== */}
+          <div>
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="PhoneNumber"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />{" "}
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />{" "}
+            <br />
+          </div>
+          {/* ================  Right ============================================================= */}
+          <div>
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="Country"
+              onChange={(e) => setCountry(e.target.value)}
+            />{" "}
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="Education"
+              onChange={(e) => setEducation(e.target.value)}
+            />
+            <br />{" "}
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="Recent Job Name"
+              onChange={(e) => setJobName(e.target.value)}
+            />
+            <br />
+            <input
+              className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none"
+              type="text"
+              placeholder="Skills"
+              onChange={(e) => setSkills(e.target.value)}
+            />
+            <br />
+            <div className="flex">
+              <p className="flex items-center w-40 h-10 bg-white border-2 border-slate-300 rounded-md pl-2.5 shadow-lg outline-none">
+                Your Field{" "}
+              </p>
+              <select
+                className="mb-2 w-24 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
+                onChange={(e) => {
+                  setField_id(e.target.value);
+                }}
+              >
+                <option className=" text-slate-300">Choose</option>
+                {allFields.map((field, i) => {
+                  return (
+                    <option value={field.field_id} key={field.field_id}>
+                      {field.field}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+          {/* ================================================================================== */}
         </div>
-
-        <div className="flex-none">
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="Last Name"
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="Job Name"
-            onChange={(e) => setJobName(e.target.value)}
-          />
-          <br />
-          <label>Your Field: </label>
-          <select
-            className="mb-2 w-24 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            onChange={(e) => {
-              setField_id(e.target.value);
-            }}
-          >
-            <option className=" text-slate-300">Choose</option>
-            {allFields.map((field, i) => {
-              return (
-                <option value={field.field_id} key={field.field_id}>
-                  {field.field}
-                </option>
-              );
-            })}
-          </select>
-          <br />
+        <input
+          className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
+          type="text"
+          placeholder="CV"
+          onChange={(e) => setCV(e.target.value)}
+        />{" "}
+        <br />
+        {/* ************************** Check if company ******************************************/}
+        <div className="flex">
+          <p className="ms-2 mb-3 text font-medium text-gray-900 dark:text-gray-300">
+            Company Account ?
+          </p>
+          <div className="flex items-center mb-3 ms-3">
+            <input
+              id="default-radio-1"
+              type="radio"
+              value="yes"
+              name="default-radio"
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              onClick={(e) => {
+                setRole_id(2);
+                console.log("click", e.target.value);
+              }}
+            />
+            <label
+              htmlFor="default-radio-1"
+              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              Yes
+            </label>
+          </div>
+          <div className="flex items-center mb-3 ms-3">
+            <input
+              id="default-radio-2"
+              type="radio"
+              value="no"
+              name="default-radio"
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              onClick={(e) => {
+                setRole_id(1);
+                console.log("click", e.target.value);
+              }}
+            />
+            <label
+              htmlFor="default-radio-2"
+              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              No
+            </label>
+          </div>
         </div>
-        <div className="flex-none ms-2 me-3">
-          
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="PhoneNumber"
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />{" "}
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-        </div>
-
-        <div className="flex-none">
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="CV"
-            onChange={(e) => setCV(e.target.value)}
-          />{" "}
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="Country"
-            onChange={(e) => setCountry(e.target.value)}
-          />{" "}
-          <br />
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />{" "}
-          <br />
-          <button
-            onClick={addNewUser}
-            className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
-          >
-            Register Now
-          </button>{" "}
-        </div>
+        {/* ************************************************** */}
+        <button
+          onClick={addNewUser}
+          className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
+        >
+          Register Now
+        </button>{" "}
+        <button
+          className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Login Page
+        </button>
       </div>
     </div>
   );
