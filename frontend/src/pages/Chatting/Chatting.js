@@ -1,48 +1,47 @@
-
-import React from 'react'
+import React from "react";
 import { useState, UseEffect, useEffect } from "react";
 import { UseSelector, useDispatch, useSelector } from "react-redux";
-import SocketServer from './SocketServer';
+import SocketServer from "./SocketServer";
 import axios from "axios";
- import Msgs from './Msgs';
-import Button from 'react-bootstrap/esm/Button';
+import Msgs from "./Msgs";
+import Button from "react-bootstrap/esm/Button";
 const Chatting = () => {
-    const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(null);
 
-    const { token, userId, chat } = useSelector((state) => {
-      return {
-        token: state.log.token,
-        userId: state.log.userId,
-        chat: state.chat.chat,
-      };
+  const { token, userId, chat } = useSelector((state) => {
+    return {
+      token: state.log.token,
+      userId: state.log.userId,
+      chat: state.chat.chat,
+    };
+  });
+
+  useEffect(() => {
+    socket?.on("connect", () => {
+      console.log("connected");
     });
 
-    useEffect(() => {
-      
-  
-      socket?.on("connect",()=>{
-          console.log("connected")
-      });
-  
-    socket?.on("connect_error",(error)=>{
-      console.log(error.message)
+    socket?.on("connect_error", (error) => {
+      console.log(error.message);
     });
-    return()=>{
-      socket?.close()
-      socket?.removeAllListeners()
+    return () => {
+      socket?.close();
+      socket?.removeAllListeners();
       console.log("closed");
-    }
-  
-    }, [socket]);
+    };
+  }, [socket]);
   return (
     <>
-    <button onClick={()=>{
-        setSocket(SocketServer( userId ));
-    }}>Chatting</button>
-    <Msgs sokcet={socket}/>
+      <button
+        onClick={() => {
+          setSocket(SocketServer(userId));
+        }}
+      >
+        Chatting
+      </button>
+      <Msgs sokcet={socket} />
     </>
-  )
-}
+  );
+};
 
-export default Chatting
-
+export default Chatting;
