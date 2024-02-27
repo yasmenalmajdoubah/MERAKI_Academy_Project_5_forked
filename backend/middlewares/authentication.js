@@ -15,6 +15,7 @@ const authentication = (req, res, next) => {
         });
       } else {
         req.token = result;
+        
         next();
       }
     });

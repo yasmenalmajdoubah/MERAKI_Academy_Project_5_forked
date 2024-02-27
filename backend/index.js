@@ -1,4 +1,6 @@
 const express = require("express");
+const {Server} =require ("socket.io")
+
 const cors = require("cors");
 require("dotenv").config();
 require("./models/db");
