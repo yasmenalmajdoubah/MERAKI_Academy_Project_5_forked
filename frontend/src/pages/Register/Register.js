@@ -39,7 +39,6 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [nextPage, setNextPage] = useState(false);
-  
 
   /* ============================================================= */
   const addNewUser = async (e) => {
@@ -97,161 +96,139 @@ const Register = () => {
 
   /* ===================================================================== */
   return (
-    <div className=" h-screen">
-      <p className=" font-bold text-3xl text-center mt-3">Register</p>
-      {nextPage ? (
-        <div className="h-screen bg-white flex items-center justify-center">
-          <div className="flex-none ms-2 me-3">
-            <label>Type of account: </label>
-            <select
-              className="mb-2 w-30 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              onChange={(e) => {
-                if (e.target.value === "User") {
-                  setRole_id(1);
-                }
-                if (e.target.value === "Institution") {
-                  setRole_id(2);
-                }
-              }}
-            >
-              <option className="text-gray-500">Choose</option>
-              <option value="User">User</option>
-              <option value="Institution">Institution</option>
-            </select>
-            <br />
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="PhoneNumber"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />{" "}
-            <br />
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br />
-            <button
-              onClick={() => {
-                setNextPage(false);
-              }}
-              className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-            >
-              Back
-            </button>
-          </div>
+    <div className="bg-zinc-200 h-screen">
+      <p className=" font-bold text-3xl text-center pt-2">Register</p>
 
-          <div className="flex-none">
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="CV"
-              onChange={(e) => setCV(e.target.value)}
-            />{" "}
-            <br />
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="Country"
-              onChange={(e) => setCountry(e.target.value)}
-            />{" "}
-            <br />
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />{" "}
-            <br />
-            <button
-              onClick={addNewUser}
-              className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
-            >
-              Register Now
-            </button>{" "}
-          </div>
+      <div className="bg-zinc-200">
+        <div className="flex-none ms-2 me-3">
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="First Name"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <br />
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="Education"
+            onChange={(e) => setEducation(e.target.value)}
+          />
+          <br />{" "}
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="Skills"
+            onChange={(e) => setSkills(e.target.value)}
+          />
+          <br />
+          <button
+            className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Login Page
+          </button>
         </div>
-      ) : (
-        /* =================================================== */
-        /* ===================================================== */
-        <div className="h-screen bg-white flex items-center justify-center">
-          <div className="flex-none ms-2 me-3">
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="First Name"
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <br />
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="Education"
-              onChange={(e) => setEducation(e.target.value)}
-            />
-            <br />{" "}
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="Skills"
-              onChange={(e) => setSkills(e.target.value)}
-            />
-            <br />
-            <button
-              className=" mt-3 bg-black text-white w-64 h-10 border-2 rounded-md shadow-lg"
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Login Page
-            </button>
-          </div>
 
-          <div className="flex-none">
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="Last Name"
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <br />
-            <input
-              className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              type="text"
-              placeholder="Job Name"
-              onChange={(e) => setJobName(e.target.value)}
-            />
-            <br />
-            <label>Your Field: </label>
-            <select
-              className="mb-2 w-24 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
-              onChange={(e) => {
-                setField_id(e.target.value);
-              }}
-            >
-              <option className=" text-slate-500">Choose</option>
-              {allFields.map((field, i) => {
-                return (
-                  <option value={field.field_id} key={field.field_id}>
-                    {field.field}
-                  </option>
-                );
-              })}
-            </select>
-            <br />
-            <button
-              onClick={() => {
-                setNextPage(true);
-              }}
-              className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
-            >
-              next
-            </button>
-          </div>
+        <div className="flex-none">
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="Last Name"
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <br />
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="Job Name"
+            onChange={(e) => setJobName(e.target.value)}
+          />
+          <br />
+          <label>Your Field: </label>
+          <select
+            className="mb-2 w-24 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            onChange={(e) => {
+              setField_id(e.target.value);
+            }}
+          >
+            <option className=" text-slate-500">Choose</option>
+            {allFields.map((field, i) => {
+              return (
+                <option value={field.field_id} key={field.field_id}>
+                  {field.field}
+                </option>
+              );
+            })}
+          </select>
+          <br />
         </div>
-      )}
+        <div className="flex-none ms-2 me-3">
+          <label>Type of account: </label>
+          <select
+            className="mb-2 w-30 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            onChange={(e) => {
+              if (e.target.value === "User") {
+                setRole_id(1);
+              }
+              if (e.target.value === "Institution") {
+                setRole_id(2);
+              }
+            }}
+          >
+            <option className="text-gray-500">Choose</option>
+            <option value="User">User</option>
+            <option value="Institution">Institution</option>
+          </select>
+          <br />
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="PhoneNumber"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />{" "}
+          <br />
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+        </div>
+
+        <div className="flex-none">
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="CV"
+            onChange={(e) => setCV(e.target.value)}
+          />{" "}
+          <br />
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="text"
+            placeholder="Country"
+            onChange={(e) => setCountry(e.target.value)}
+          />{" "}
+          <br />
+          <input
+            className="mb-2 w-64 h-10 border-2 border-slate-500 rounded-md pl-2.5 shadow-lg"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />{" "}
+          <br />
+          <button
+            onClick={addNewUser}
+            className=" mt-3 bg-blue-950 text-white w-64 h-10 border-2 rounded-md shadow-lg"
+          >
+            Register Now
+          </button>{" "}
+        </div>
+      </div>
     </div>
   );
 };
