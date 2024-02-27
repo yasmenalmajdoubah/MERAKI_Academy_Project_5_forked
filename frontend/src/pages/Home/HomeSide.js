@@ -8,6 +8,8 @@ import { VscRequestChanges } from "react-icons/vsc";
 import { MdBorderColor } from "react-icons/md";
 import { setAllLikedPosts } from "../../service/redux/reducers/posts/postsSlice";
 import MyApp from "../../components/Extra/Calendar";
+import { IoPeople } from "react-icons/io5";
+import { BsSaveFill } from "react-icons/bs";
 
 const HomeSide = () => {
   const [modal, setModal] = useState(false);
@@ -126,13 +128,25 @@ const HomeSide = () => {
           </div>
         ) : (
           <div className="p-3">
-            <p className="border-t font-medium pt-2 text-gray-500">
+            <p className="border-t font-medium pt-2 text-gray-600 text-xl mb-2">
               Last Activity
             </p>
             <div className="flex mt-2">
-              <FaHeart size={25} className="text-red-800 me-1 mt-1" />
+              <FaHeart size={25} className="text-red-800 me-2 mt-1" />
               <p className=" text-gray-900">Interested Posts</p>
-              <div className=" text-gray-700 ms-8">'{userLikes.length}'</div>
+              {/*   <div className=" text-gray-700 ms-8">'{userLikes.length}'</div> */}
+            </div>
+            <div className="flex mt-2">
+              <IoPeople size={25} className="text-red-800 me-2 mt-1" />
+              <p className=" text-gray-900">My Follows</p>
+            </div>
+            <div className="flex mt-2">
+              <MdBorderColor size={25} className="text-red-800 me-2 mt-1" />
+              <p className=" text-gray-900">My Applied Jobs</p>
+            </div>
+            <div className="flex mt-2">
+              <BsSaveFill size={25} className="text-red-800 me-2 mt-1" />
+              <p className=" text-gray-900">Saved Later</p>
             </div>
           </div>
         )}
@@ -210,9 +224,10 @@ const HomeSide = () => {
       {/* ====================================================== */}
       <div>
         <div className="">
-          <p className="mb-1 text-center font-semibold text-slate-600 text-lg">Daily Reminders</p>
-        <MyApp/>
-
+          <p className="flex items-center justify-center rounded-b-none text-center shadow-md bg-white rounded-md h-10 font-semibold text-black text-xl">
+            Daily Reminders
+          </p>
+          <MyApp />
         </div>
       </div>
     </div>

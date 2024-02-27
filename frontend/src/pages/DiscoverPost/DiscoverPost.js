@@ -15,6 +15,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TfiCommentAlt } from "react-icons/tfi";
 import PostLoader from "../../components/PostsLoader/PostLoader";
+import ChatIcon from "../../components/Extra/ChatIcon";
 
 const Global = () => {
   const [comment, setComment] = useState(""); //
@@ -70,12 +71,12 @@ const Global = () => {
   };
 
   return (
-    <div className="bg-zinc-200 mt-5 ml-20">
+    <div className="bg-zinc-200 mt-5">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
             <div key={post.post_id} className="flex justify-center">
-              <div className="container mt-3" style={{ width: "650px" }}>
+              <div className=" mt-3" style={{ width: "650px" }}>
                 <div
                   className="bg-white rounded-lg shadow p-4"
                   style={{ width: "650px" }}
@@ -203,6 +204,14 @@ const Global = () => {
           <PostLoader />
         </div>
       )}
+
+     {/*  <div>
+        <img src=""/>
+      </div> */}
+
+      <div className="fixed bottom-2 right-5 cursor-pointer">
+        <ChatIcon />
+      </div>
     </div>
   );
 };

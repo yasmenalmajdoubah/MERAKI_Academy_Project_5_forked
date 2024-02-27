@@ -30,7 +30,7 @@ export const ProfileHeader = () => {
         workNow: state.profile.workNow,
       };
     });
-    console.log("prfile", follow);
+  console.log("prfile", follow);
   /* ================== For upload on cloudenary ================================ */
   const [modal, setModal] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
@@ -252,7 +252,7 @@ export const ProfileHeader = () => {
                   setIsProfileUpdate(true);
                 }}
               >
-                <FiUpload className="me-1" size={25} color="white"/>
+                <FiUpload className="me-1" size={25} color="white" />
                 <p className="text-white">Update</p>
               </div>
               <div>
@@ -356,7 +356,7 @@ export const ProfileHeader = () => {
                     </button>
                   ) : (
                     <div className="flex justify-center items-center bg-blue-300 cursor-not-allowed text-white rounded-md shadow-lg w-28 h-10 mt-8">
-                      <div className="loader"></div>
+                      <div className="loaderHome"></div>
                     </div>
                   )}
                 </div>
