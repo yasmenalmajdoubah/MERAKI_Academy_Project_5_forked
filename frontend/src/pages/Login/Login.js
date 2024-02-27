@@ -65,7 +65,7 @@ const Login = () => {
               src="https://logopond.com/logos/e5621829d529b5af38ac12f9447e8388.png"
             />
           </div>
-          <h1 className="flex font-bold text-4xl">WorkedIn</h1>
+          <h1 className="flex font-bold text-3xl">WorkedIn</h1>
         </div>
 
         <div className="bg-zinc-200 h-screen flex items-center justify-around">

@@ -70,7 +70,7 @@ const Jobs = () => {
                 <div class=" bg-zinc-200">
                   <div className="">
                     <div
-                      className="container mx-auto p-3 "
+                      className="container mx-auto p-2 "
                       style={{ width: "400px" }}
                     >
                       <div
@@ -107,8 +107,8 @@ const Jobs = () => {
                                 .reverse()
                                 .join("-")}
                             </p>
-                            <p className="font-semibold text-xl mt-3 cursor-pointer">
-                              <span className="me-2 font-medium text-blue-600">
+                            <p className="font-medium mt-1 cursor-pointer">
+                              <span className="me-1 font-medium text-blue-600">
                                 Hiring:
                               </span>
                               {job.title}

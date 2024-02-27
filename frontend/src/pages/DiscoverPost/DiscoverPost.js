@@ -205,6 +205,10 @@ const Global = () => {
         </div>
       )}
 
+     {/*  <div>
+        <img src=""/>
+      </div> */}
+
       <div className="fixed bottom-2 right-5 cursor-pointer">
         <ChatIcon />
       </div>

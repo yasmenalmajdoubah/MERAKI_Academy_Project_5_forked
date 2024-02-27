@@ -91,7 +91,7 @@ const PuplishPost = () => {
     <div className="container relative" style={{ width: "650px" }}>
       {" "}
       <div
-        className="bg-white rounded h-36 flex-col "
+        className="bg-white border-2 shadow-md border-gray-200 rounded h-48 flex-col "
         style={{ width: "650px" }}
         onClick={() => {
           setModal(true);

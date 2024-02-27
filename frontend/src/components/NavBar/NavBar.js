@@ -22,15 +22,15 @@ const NavBar = () => {
   // ===========================================
   return (
     <div>
-      <div className="flex justify-around md:flex-auto bg-black text-white shadow-lg h-16 items-center relative">
-        <h1 className="flex-none text-xl ">WorkedIn</h1>
+      <div className="flex justify-around md:flex-auto bg-black shadow-lg h-16 items-center relative">
+        <h1 className="flex-none text-xl text-white">WorkedIn</h1>
         <div className="flex-none space-x-2">
           <input
-            className="rounded-lg ps-1 h-7"
+            className="rounded ps-1 h-7 w-48 outline-none"
             type="text"
             placeholder="Search"
           />
-          <button>Search</button>
+          <button className="text-white">Search</button>
         </div>
         <div
           className="flex-none w-48 space-x-3 "
@@ -38,10 +38,10 @@ const NavBar = () => {
             setShowTab(false);
           }}
         >
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/profile">Profile</NavLink>
-          <NavLink to="/jobs">Jobs</NavLink>
-          <NavLink to="/global">Community</NavLink>
+          <NavLink className="text-white" to="/">Home</NavLink>
+          <NavLink className="text-white" to="/profile">Profile</NavLink>
+          <NavLink className="text-white" to="/jobs">Jobs</NavLink>
+          <NavLink className="text-white" to="/global">Community</NavLink>
         </div>
 
         <div className="flex-none relative">

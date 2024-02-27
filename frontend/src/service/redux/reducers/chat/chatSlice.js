@@ -5,7 +5,6 @@ const chatSlice = createSlice({
 
   initialState: {
     chat: [],
-   
   },
 
   reducers: {
@@ -17,12 +16,9 @@ const chatSlice = createSlice({
     addChat: (state, action) => {
       state.posts.push(action.payload);
     },
-    
   },
 });
 
-export const {
- addChat,allChat
-} = chatSlice.actions;
+export const { addChat, allChat } = chatSlice.actions;
 
 export default chatSlice.reducer;
