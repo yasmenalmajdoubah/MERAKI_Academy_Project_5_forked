@@ -10,7 +10,7 @@ import Visited from "../pages/Visited/Visited";
 import Jobs from "../pages/Jobs/Jobs";
 import Settings from "../pages/settings/Settings";
 import HelpCenter from "../pages/settings/HelpCenter";
-import Chat from "../pages/Chat/Chat";
+import Chatting from "../pages/Chatting/Chatting";
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/chat",
-        element: <Chat/>,
+        element: <Chatting/>,
       },
     ],
   },
