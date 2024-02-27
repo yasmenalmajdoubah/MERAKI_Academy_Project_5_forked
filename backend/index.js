@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 require("./models/db");
+const {Server} =require ("socket.io")
 
 const app = express();
 
@@ -34,3 +35,45 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server run on http://localhost${PORT}`);
 });
+//==================================
+const io = new Server (server, { cors: { origin: "*", 
+methods:["GET", "POST"] },
+ })//allow any one
+ const clients={}
+ io.use (auth)
+
+io.on("connection", (socket) => {
+  
+  console.log(socket)
+  console.log(`${socket.id} is connected`);
+ console.log(socket.handshake.headers.user_id);
+const user_id =socket.handshake.headers.user_id
+
+
+socket.use (socketMiddleWare)
+clients[user_id]={
+  socket_id :socket.id,
+  user_id
+}
+
+messageHndler(socket,io)
+socket.on("error",(error)=>{
+  socket.emit("error",{error: error.message})
+})
+
+
+
+
+socket.on("disconnect",()=>{
+  console.log(`${socket.id} is connected`) 
+  for (const key in clients) {
+    if (clients[key].socket_id===socket.id) {
+      delete clients[key]
+      
+    }
+  }
+  console.log(clients);
+})
+
+
+})
