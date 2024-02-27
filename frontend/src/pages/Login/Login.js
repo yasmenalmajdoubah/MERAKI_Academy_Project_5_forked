@@ -5,6 +5,7 @@ import { setLogin, setUserId } from "../../service/redux/reducers/log/logSlice";
 import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import axios from "axios";
 import "./Login.css";
+import { MdOutlineHorizontalRule } from "react-icons/md";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import "./Login.css";
@@ -106,7 +107,11 @@ const Login = () => {
             </div>
 
             <div className="flex-col mt-2">
-              <p className="text-sm ms-2 mb-2">Don't have account?</p>
+              <div className="flex justify-center items-center mb-2">
+                <div className="border-t-2 border-gray-600 w-24 h-0 p-0"></div>
+                <p className="text-sm ms-2 mb-1.5 me-2">OR</p>
+                <div className="border-t-2 border-gray-600 w-24 h-0 p-0"></div>
+              </div>
               <button
                 className="bg-blue-950 text-white w-64 h-12 border-2 rounded-md shadow-lg"
                 onClick={() => {
@@ -114,7 +119,7 @@ const Login = () => {
                 }}
               >
                 {" "}
-                Register Here
+                Create Account
               </button>
 
               <div className="flex justify-center items-center mt-4 w-full h-8">
