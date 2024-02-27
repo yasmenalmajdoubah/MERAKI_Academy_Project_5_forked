@@ -1,24 +1,48 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import React from "react";
+
+import React from 'react'
+import { useState, UseEffect, useEffect } from "react";
+import { UseSelector, useDispatch, useSelector } from "react-redux";
+import SocketServer from './SocketServer';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { addChat, allChat } from "../../service/redux/reducers/chat/chatSlice";
-// const authentication = require("../middlewares/authentication");
-// const authorization = require("../middlewares/authorization");
-
+ import Msgs from './Msgs';
+import Button from 'react-bootstrap/esm/Button';
 const Chatting = () => {
-  const dispatch = useDispatch();
+    const [socket, setSocket] = useState(null);
 
-  const state = useSelector((state) => {
-    return {
-      token: state.log.token,
-      chat: state.chat.chat,
-    };
-  });
+    const { token, userId, chat } = useSelector((state) => {
+      return {
+        token: state.log.token,
+        userId: state.log.userId,
+        chat: state.chat.chat,
+      };
+    });
 
+    useEffect(() => {
+      
   
-  return <div>Chatting</div>;
-};
+      socket?.on("connect",()=>{
+          console.log("connected")
+      });
+  
+    socket?.on("connect_error",(error)=>{
+      console.log(error.message)
+    });
+    return()=>{
+      socket?.close()
+      socket?.removeAllListeners()
+      console.log("closed");
+    }
+  
+    }, [socket]);
+  return (
+    <>
+    <button onClick={()=>{
+        setSocket(SocketServer( userId ));
+    }}>Chatting</button>
+    <Msgs sokcet={socket}/>
+    </>
+  )
+}
 
-export default Chatting;
+export default Chatting
+

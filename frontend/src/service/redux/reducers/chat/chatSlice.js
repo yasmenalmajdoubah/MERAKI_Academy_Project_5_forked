@@ -10,11 +10,11 @@ const chatSlice = createSlice({
   reducers: {
     //*  get all posts
     allChat: (state, action) => {
-      state.posts = action.payload;
+      state.chat = action.payload;
     },
     //* add new post to posts array
     addChat: (state, action) => {
-      state.posts.push(action.payload);
+      state.chat.push(action.payload);
     },
   },
 });
