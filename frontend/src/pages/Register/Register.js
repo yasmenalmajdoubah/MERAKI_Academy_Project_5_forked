@@ -5,23 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
-  /*
-   firstName,
-    lastName,
-    jobName,
-    country,
-    email,
-    password,
-    about,
-    CV,
-    phoneNumber,
-    skills,
-    education,
-    field_id,
-    role_id,
-  */
 
-  //const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [jobName, setJobName] = useState("");
@@ -41,8 +25,7 @@ const Register = () => {
   const [message, setMessage] = useState("");
 
   /* ============================================================= */
-  const addNewUser = async (e) => {
-    e.preventDefault();
+  const addNewUser = async () => {
     try {
       const result = await axios.post("http://localhost:5000/users/register", {
         firstName,
@@ -59,10 +42,12 @@ const Register = () => {
         role_id,
       });
       if (result.data.success) {
+        setRegisterLoader(false);
         navigate("/login");
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
+        setRegisterLoader(false);
         console.log(error.response.data.message);
         return setMessage(error.response.data.message);
       }
@@ -89,7 +74,7 @@ const Register = () => {
   useEffect(() => {
     getAllFields();
   }, []);
-  console.log(role_id);
+
   /* ===================================================================== */
   return (
     <div className="bg-zinc-200 h-screen">
@@ -210,7 +195,6 @@ const Register = () => {
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onClick={(e) => {
                   setRole_id(2);
-                  console.log("click", e.target.value);
                 }}
               />
               <label
@@ -229,7 +213,6 @@ const Register = () => {
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onClick={(e) => {
                   setRole_id(1);
-                  console.log("click", e.target.value);
                 }}
               />
               <label
@@ -243,7 +226,10 @@ const Register = () => {
           {/* ************************************************** */}
           <p className="text-red-600 text-sm font-bold">{message}</p>
           <button
-            onClick={addNewUser}
+            onClick={() => {
+              addNewUser();
+              setRegisterLoader(true);
+            }}
             className=" mt-3 bg-blue-950 text-white w-full h-10 border-2 rounded-md shadow-lg"
           >
             Register Now
@@ -257,6 +243,19 @@ const Register = () => {
             Login Page
           </button>
         </div>
+        {/* ============= loader login ================= */}
+        {registerLoader && (
+          <>
+            {" "}
+            <div
+              id="myModal"
+              className="modalLogin flex justify-center items-center pb-28"
+            >
+              <div className="loaderLogin"></div>
+            </div>
+          </>
+        )}
+        {/* ========================================================= */}
       </div>
     </div>
   );
