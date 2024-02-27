@@ -8,6 +8,7 @@ const postsSlice = createSlice({
     postURL: "",
     comments: [],
     userLikes: [],
+    jobs:[]
   },
 
   reducers: {
@@ -92,6 +93,10 @@ const postsSlice = createSlice({
     setAllLikedPosts: (state, action) => {
       state.userLikes = action.payload;
     },
+    setJobInstitution:(state,action)=>{
+      console.log("action",action.payload);
+      state.jobs=action.payload
+    }
   },
 });
 
@@ -107,6 +112,7 @@ export const {
   addLike,
   removeLike,
   setAllLikedPosts,
+  setJobInstitution
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

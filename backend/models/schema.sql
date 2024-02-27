@@ -73,7 +73,7 @@ CREATE TABLE users (
   password VARCHAR(255),
   country VARCHAR(255),
   jobName VARCHAR(255),
-  about VARCHAR(255),
+  about TEXT,
   skills TEXT,
   education TEXT,
   CV TEXT,

@@ -28,8 +28,8 @@ const createNewJob = (req, res) => {
 
 const getJobsByInstitustionId = (req, res) => {
   const { institution_user_id } = req.params;
-  const placeholder = [institution_user_id, 0];
-  const query = `SELECT * FROM jobs WHERE institution_user_id=$1 AND is_deleted=$2`;
+  const placeholder = [institution_user_id];
+  const query = `SELECT jobs.title, jobs.job_id, jobs.discription, jobs.created_at, users.firstName, users.lastName, users.profileImage, users.email, users.user_id FROM jobs INNER JOIN users ON jobs.institution_user_id=users.user_id WHERE jobs.institution_user_id=$1 ORDER BY created_at DESC`;
 
   pool
     .query(query, placeholder)
