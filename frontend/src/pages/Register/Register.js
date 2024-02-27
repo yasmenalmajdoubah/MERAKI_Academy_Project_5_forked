@@ -93,51 +93,50 @@ const Register = () => {
   useEffect(() => {
     getAllFields();
   }, []);
-
+console.log(role_id);
   /* ===================================================================== */
   return (
     <div className="bg-zinc-200 h-screen">
       <p className=" font-bold text-3xl text-center pt-2">Register</p>
 
-      <div>
-        <div className="flex items-center mb-4">
+      <div className="flex">
+        <p className="ms-2 mb-3 text font-medium text-gray-900 dark:text-gray-300">
+          Company Account ?
+        </p>
+        <div className="flex items-center mb-3 ms-3" >
           <input
             id="default-radio-1"
             type="radio"
             value="yes"
             name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             onClick={(e) => {
+              setRole_id(2)
               console.log("click", e.target.value);
-            }}
-            onChange={(e) => {
-              console.log("change", e.target.value);
             }}
           />
           <label
-            for="default-radio-1"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            htmlFor="default-radio-1"
+            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Yes
           </label>
         </div>
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-3 ms-3">
           <input
             id="default-radio-2"
             type="radio"
             value="no"
             name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             onClick={(e) => {
+              setRole_id(1)
               console.log("click", e.target.value);
-            }}
-            onChange={(e) => {
-              console.log("change", e.target.value);
             }}
           />
           <label
-            for="default-radio-2"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            htmlFor="default-radio-2"
+            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             No
           </label>
@@ -211,22 +210,7 @@ const Register = () => {
           <br />
         </div>
         <div className="flex-none ms-2 me-3">
-          <label>Type of account: </label>
-          <select
-            className="mb-2 w-30 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            onChange={(e) => {
-              if (e.target.value === "User") {
-                setRole_id(1);
-              }
-              if (e.target.value === "Institution") {
-                setRole_id(2);
-              }
-            }}
-          >
-            <option className="text-gray-300">Choose</option>
-            <option value="User">User</option>
-            <option value="Institution">Institution</option>
-          </select>
+          
           <br />
           <input
             className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
