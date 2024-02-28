@@ -24,13 +24,6 @@ const createNewPost = (req, res) => {
     });
 };
 
-/*  for search >>
-const values = [fname.toLowerCase() + "%"];
-  const query = `SELECT * FROM  providers INNER JOIN categories ON providers.category_id = categories.category_id WHERE fname LIKE $1 OR lname LIKE $1 ;`;
-
-  https://www.w3schools.com/sql/sql_wildcards.asp
-
- */
 
 /* ============================================= */
 // SELECT * FROM follows INNER JOIN posts ON user_id=follows.followed_user_id WHERE following_user_id=2

@@ -415,7 +415,36 @@ const updateUserInfo = (req, res) => {
 };
 
 /* ==================================================== */
+/*  for search >>
+const values = [fname.toLowerCase() + "%"];
+  const query = `SELECT * FROM  providers INNER JOIN categories ON providers.category_id = categories.category_id WHERE fname LIKE $1 OR lname LIKE $1 ;`;
 
+  https://www.w3schools.com/sql/sql_wildcards.asp
+
+ */
+
+const userSearch = (req, res) => {
+  const searchInput = req.body.searchInput.toLowerCase();
+  const placeholder = [searchInput];
+  const query = `SELECT * FROM users WHERE lowCaseFN LIKE $1 OR lowCaseLN LIKE $1`;
+
+  pool
+    .query(query, placeholder)
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `success`,
+        result: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err.message,
+      });
+    });
+};
 /* ======================================================= */
 
 module.exports = {
@@ -430,4 +459,5 @@ module.exports = {
   getUsersByInstitustion,
   getUserExperiences,
   updateUserInfo,
+  userSearch,
 };
