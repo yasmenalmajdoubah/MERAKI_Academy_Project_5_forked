@@ -26,7 +26,8 @@ const Msgs = ({socket}) => {
         }
       }
     ).then((result)=>  {
-
+///result.
+dispatch(addChat(result))
       console.log(result);
       }
 ). catch ((error)=> {
@@ -41,6 +42,7 @@ const Msgs = ({socket}) => {
         `http://localhost:5000/chat/create`,
         {
           message, to_id ,
+          ///to_do from state when i press on converstion
         },
         {
           headers: {
@@ -68,8 +70,8 @@ const allMsgById=  async (to_id) => {
       `http://localhost:5000/chat/messages/user/${to_id}`
     );
     if (result.data.success) {
-      const comments = result.data.comments;
-      dispatch(allChat({ comments, post_id }));
+      const chat = result.data.chats;
+      dispatch(allChat({ chat, to_id }));
     } else throw Error;
   } catch (error) {
     if (!error.response.data) {
@@ -101,8 +103,7 @@ const allMsgById=  async (to_id) => {
       }
     
       }, [chat]);
-      const sendMsg=axios.post("")
-      
+    
     
   return (
    <>
