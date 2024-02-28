@@ -15,7 +15,6 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TfiCommentAlt } from "react-icons/tfi";
 import PostLoader from "../../components/PostsLoader/PostLoader";
-import ChatIcon from "../../components/Extra/ChatIcon";
 
 const Global = () => {
   const [comment, setComment] = useState(""); //
@@ -205,13 +204,9 @@ const Global = () => {
         </div>
       )}
 
-     {/*  <div>
+      {/*  <div>
         <img src=""/>
       </div> */}
-
-      <div className="fixed bottom-2 right-5 cursor-pointer">
-        <ChatIcon />
-      </div>
     </div>
   );
 };

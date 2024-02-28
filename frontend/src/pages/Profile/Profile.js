@@ -6,9 +6,6 @@ import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 
 import ProfileJobs from "./ProfileJobs";
 
-import ChatIcon from "../../components/Extra/ChatIcon";
-
-
 const Profile = () => {
   return (
     <div className=" flex flex-col bg-zinc-200">
@@ -18,14 +15,12 @@ const Profile = () => {
       <div className="  flex flex-col justify-between mt-6 ">
         <div className=" ml-12 w-10/12 pr-24">
           {" "}
-          
-            <ProfileBody />{" "}
-            
-          </div>
-          <div className=" ml-12  w-10/12 pr-24">
-          <ProfileJobs/>
+          <ProfileBody />{" "}
         </div>
-         
+        <div className=" ml-12  w-10/12 pr-24">
+          <ProfileJobs />
+        </div>
+
         <div className=" flex flex-row   ">
           {" "}
           <div className=" ml-12">
@@ -35,9 +30,6 @@ const Profile = () => {
             {" "}
             <DiscoverFreind />
           </div>
-        </div>
-        <div className="fixed bottom-2 right-5 cursor-pointer">
-          <ChatIcon />
         </div>
       </div>
     </div>
