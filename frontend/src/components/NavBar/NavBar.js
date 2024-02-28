@@ -6,11 +6,14 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { TbHelpHexagon } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
+import "./NavBar.css";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showTab, setShowTab] = useState(false);
+  const [showSrearch, setShowSrearch] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   const state = useSelector((state) => {
     return {
@@ -24,18 +27,54 @@ const NavBar = () => {
     <div>
       <div className="flex justify-around md:flex-auto bg-black shadow-lg h-16 items-center relative">
         <h1 className="flex-none text-xl text-white">WorkedIn</h1>
-        <div className="flex-none space-x-2">
+
+        {/* ************* search ****************************************** */}
+        <div className="flex-none space-x-2 search">
           <input
-            className="rounded ps-1 h-7 w-48 outline-none"
+            className="rounded ps-1 h-7 w-56 outline-none"
             type="text"
             placeholder="Search"
           />
-          <button className="text-white">Search</button>
+          <button
+            className="text-white"
+            onClick={() => {
+              setShowSrearch(true);
+            }}
+          >
+            Search
+          </button>
+          {/* -- search result window -- */}
+          {showSrearch && (
+            <div className="modal-Search z-10">
+              <div className="pb-1 border-b-2 border-gray-400">
+                <span
+                  className="close  cursor-pointer"
+                  onClick={() => {
+                    setShowSrearch(false);
+                  }}
+                >
+                  &times;
+                </span>
+                <p>Results</p>
+              </div>
+              {showLoader ? (
+                <div className="flex justify-center p-3">
+                  <div className="loaderSrearch"></div>
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          )}
+          {/* ------------------------- */}
         </div>
+
+        {/* ************************************************************ */}
         <div
           className="flex-none w-48 space-x-3 "
           onClick={() => {
             setShowTab(false);
+            setShowSrearch(false);
           }}
         >
           <NavLink className="text-white" to="/">
@@ -62,6 +101,7 @@ const NavBar = () => {
               {
                 showTab ? setShowTab(false) : setShowTab(true);
               }
+              setShowSrearch(false);
             }}
           />
           {showTab && (
