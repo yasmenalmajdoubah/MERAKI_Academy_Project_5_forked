@@ -38,10 +38,20 @@ const NavBar = () => {
             setShowTab(false);
           }}
         >
-          <NavLink className="text-white" to="/">Home</NavLink>
-          <NavLink className="text-white" to="/profile">Profile</NavLink>
-          <NavLink className="text-white" to="/jobs">Jobs</NavLink>
-          <NavLink className="text-white" to="/global">Community</NavLink>
+          <NavLink className="text-white" to="/">
+            Home
+          </NavLink>
+          <NavLink className="text-white" to="/profile">
+            Profile
+          </NavLink>
+          {state.userInfo.role_id === 1 && (
+            <NavLink className="text-white" to="/jobs">
+              Jobs
+            </NavLink>
+          )}
+          <NavLink className="text-white" to="/global">
+            Community
+          </NavLink>
         </div>
 
         <div className="flex-none relative">
