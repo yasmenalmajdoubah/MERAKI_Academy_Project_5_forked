@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const Register = () => {
   const [allFields, setAllFields] = useState([]);
 
   const [registerLoader, setRegisterLoader] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const [message, setMessage] = useState("");
 
@@ -195,6 +197,7 @@ const Register = () => {
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onClick={(e) => {
                   setRole_id(2);
+                  setModal(true);
                 }}
               />
               <label
@@ -251,11 +254,46 @@ const Register = () => {
               id="myModal"
               className="modalLogin flex justify-center items-center pb-28"
             >
-              <div className="loaderLogin"></div>
+              <div className="loaderReg"></div>
             </div>
           </>
         )}
-        {/* ========================================================= */}
+        {/* ===================== pop up to fill about ==================================== */}
+        {modal && (
+          <>
+            {" "}
+            <div id="myModal" className="modalReg">
+              <div className="modal-contentReg">
+                {/*     <span
+                className="close cursor-pointer"
+                onClick={() => {
+                  setModal(false);
+                }}
+              >
+                &times;
+              </span> */}
+                <p className="font-medium border-b-2 pb-2">Write about your company</p>
+                <textarea
+                  placeholder="General description"
+                  className="p-2 w-full border-2 mt-3"
+                  rows={4}
+                  style={{ outline: "none", resize: "none" }}
+                  onChange={(e) => {
+                    // setPost(e.target.value);
+                  }}
+                ></textarea>
+                <div className="flex justify-end mt-2">
+                  <button className=" bg-black rounded shadow-lg w-28 h-10 text-white" onClick={()=>{
+                    setModal(false)
+                  }}>
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {/* ============================================================================= */}
       </div>
     </div>
   );
