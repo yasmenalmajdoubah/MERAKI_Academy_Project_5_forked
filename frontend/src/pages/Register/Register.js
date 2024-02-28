@@ -25,6 +25,7 @@ const Register = () => {
   const [registerLoader, setRegisterLoader] = useState(false);
   const [modal, setModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
+  const [uploadDone, setUploadDone] = useState(false);
 
   const [message, setMessage] = useState("");
 
@@ -48,6 +49,7 @@ const Register = () => {
       .then((resp) => resp.json())
       .then((data) => {
         setCV(data.url);
+        setUploadDone(true);
         console.log(data.url);
       })
       .catch((err) => console.log(err));
@@ -216,9 +218,15 @@ const Register = () => {
               <p className="flex justify-center items-center rounded-md rounded-e-none w-28 p-1 h-10  text-sm font-medium text-white dark:text-white bg-black">
                 Upload CV
               </p>
-              <p className="flex justify-start ps-3 items-center rounded-md rounded-s-none w-full p-1 h-10  text-sm font-medium text-gray-400 bg-white">
-                PDF , WORD (MAX. 2MG).
-              </p>
+              {uploadDone ? (
+                <p className="flex justify-start ps-3 items-center rounded-md rounded-s-none w-full p-1 h-10  text-sm font-medium text-gray-700 bg-white">
+                  CV Uploaded Successfully
+                </p>
+              ) : (
+                <p className="flex justify-start ps-3 items-center rounded-md rounded-s-none w-full p-1 h-10  text-sm font-medium text-gray-400 bg-white">
+                  PDF , WORD (MAX. 2MG).
+                </p>
+              )}
             </div>
           </div>
           {/* ************************** Check if company ******************************************/}
@@ -276,12 +284,12 @@ const Register = () => {
             Register Now
           </button>{" "}
           <button
-            className="mt-3 bg-black text-white w-48 h-10 border-2 rounded-md shadow-lg"
+            className="mt-3 bg-black text-white w-full h-10 border-2 rounded-md shadow-lg"
             onClick={() => {
               navigate("/");
             }}
           >
-            Login Page
+            Back to Login
           </button>
         </div>
         {/* ============= loader login ================= */}
