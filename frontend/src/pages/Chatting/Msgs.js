@@ -46,7 +46,7 @@ dispatch(addChat(result))
         },
         {
           headers: {
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -95,7 +95,7 @@ const allMsgById=  async (to_id) => {
     
     
       return()=>{
-        socket?.off("messag",()=>{
+        socket?.off("message",()=>{
             socket?.on("message",(data)=>{
                 dispatch(addChat(data))
               });  
@@ -115,7 +115,7 @@ useEffect(() => {
 }, [chat]);
 const sendMessage = () => {
   // emit a `message` event with the value of the message
-  socket.emit("message", {to,from:user_id,messages});
+  socket.emit("message", {to_id, from_id: userId,message});
 };
 const reciveData =(data) => {
   console.log(data)
