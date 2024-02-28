@@ -16,7 +16,7 @@ export const VisitedHeader = () => {
   const [myFollow, setMyFollow] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
-/* ================================= */
+  /* ================================= */
   const { token, follow, posts, workNow, visitUserInfo } = useSelector(
     (state) => {
       return {
@@ -181,7 +181,7 @@ export const VisitedHeader = () => {
                         followOrUnFollow(e.target.innerText);
                       }}
                     >
-                      follow
+                      {visitUserInfo.role_id === 2 ? "intrest" : "follow"}
                     </Button>
                   </div>
                 </div>
@@ -191,49 +191,75 @@ export const VisitedHeader = () => {
                 <p>{userInfo.experience} </p>
               </div> */}
             </div>
-            <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
-              <button className=" text-white text-lg">25 folowers</button>
+            {visitUserInfo.role_id === 1 && (
+              <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
+                <button className="text-white text-lg">
+                  <a href="#posts"> {posts.length} posts</a>
+                </button>
+                {visitUserInfo.role_id === 1 && (
+                  <button
+                    className="text-white text-lg"
+                    onClick={() => setMyFollow(true)}
+                  >
+                    {" "}
+                    {follow.length} follow
+                  </button>
+                )}
 
-              <button
-                className="text-white text-lg"
-                onClick={() => setMyFollow(true)}
-              >
-                {" "}
-                {follow.length} follow
-              </button>
+                <button className=" text-white text-lg">
+                  25 folowers
+                </button>
+              </div>
+            )}
 
-              <button className="text-white text-lg">
-                <a href="#posts"> {posts.length} posts</a>
-              </button>
-              {visitUserInfo.role_id === 2 && (
-                <button className="text-white text-lg">Jobs </button>
-              )}
-            </div>
             {/* </div> */}
           </div>
         </div>
-
-        <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
-          <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
-            <button>
-              <a href="#interests">interests</a>
-            </button>
+        {visitUserInfo.role_id === 2 ? (
+          <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
+            <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#jobs">Jobs</a>
+              </button>
+            </div>
+            <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>
+                {" "}
+                <a href="#postVisit">posts </a>
+              </button>
+            </div>
+            <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>interested</button>
+            </div>
+            <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#About">About</a>
+              </button>
+            </div>
           </div>
-          <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-            <button>
-              {" "}
-              <a href="#Experience">Experience </a>
-            </button>
+        ) : (
+          <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
+            <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#interests">interests</a>
+              </button>
+            </div>
+            <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>
+                {" "}
+                <a href="#Experience">Experience </a>
+              </button>
+            </div>
+            <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>Education</button>
+            </div>
+            <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#Skills">Skills</a>
+              </button>
+            </div>
           </div>
-          <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-            <button>Education</button>
-          </div>
-          <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
-            <button>
-              <a href="#Skills">Skills</a>
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
     /*  <div className=" ">

@@ -104,7 +104,7 @@ export const VisitedPosts = () => {
 
   // ================================
   return (
-    <div className=" rounded-2xl mt-5 ml-3 ">
+    <div className=" rounded-2xl mt-5 ml-3 " id="postVisit">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
