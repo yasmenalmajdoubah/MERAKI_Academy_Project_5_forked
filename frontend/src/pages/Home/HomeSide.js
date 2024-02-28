@@ -132,20 +132,20 @@ const HomeSide = () => {
               Last Activity
             </p>
             <div className="flex mt-2">
-              <FaHeart size={25} className="text-red-800 me-2 mt-1" />
+              <FaHeart size={25} className="text-slate-800 me-2 mt-1" />
               <p className=" text-gray-900">Interested Posts</p>
               {/*   <div className=" text-gray-700 ms-8">'{userLikes.length}'</div> */}
             </div>
             <div className="flex mt-2">
-              <IoPeople size={25} className="text-red-800 me-2 mt-1" />
+              <IoPeople size={25} className="text-slate-800 me-2 mt-1" />
               <p className=" text-gray-900">My Follows</p>
             </div>
             <div className="flex mt-2">
-              <MdBorderColor size={25} className="text-red-800 me-2 mt-1" />
+              <MdBorderColor size={25} className="text-slate-800 me-2 mt-1" />
               <p className=" text-gray-900">My Applied Jobs</p>
             </div>
             <div className="flex mt-2">
-              <BsSaveFill size={25} className="text-red-800 me-2 mt-1" />
+              <BsSaveFill size={25} className="text-slate-800 me-2 mt-1" />
               <p className=" text-gray-900">Saved Later</p>
             </div>
           </div>

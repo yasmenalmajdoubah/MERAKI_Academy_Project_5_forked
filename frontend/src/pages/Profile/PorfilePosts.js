@@ -95,12 +95,12 @@ const PorfilePosts = () => {
   };
   /* ================================================= */
   return (
-    <div className=" rounded-2xl mt-5 ml-3 " id="postProfile">
+    <div className="rounded-2xl mt-5 ml-3 " id="postProfile">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
             <div key={post.post_id} className="  ">
-              <div className=" container mt-3 relative "
+              <div className=" container mt-3 relative"
               style={{ width: "750px" }}>
                 <div
                   className="bg-white rounded-2xl shadow p-4"

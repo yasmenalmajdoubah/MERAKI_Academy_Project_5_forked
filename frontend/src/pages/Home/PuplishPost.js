@@ -91,7 +91,7 @@ const PuplishPost = () => {
     <div className="container relative" style={{ width: "650px" }}>
       {" "}
       <div
-        className="bg-white border-2 shadow-md border-gray-200 rounded h-48 flex-col "
+        className="bg-white border-2 shadow-md border-gray-200 rounded flex-col "
         style={{ width: "650px" }}
         onClick={() => {
           setModal(true);
@@ -106,18 +106,18 @@ const PuplishPost = () => {
           ></textarea>
         </div>
 
-        <div className="flex justify-center mt-3">
+        <div className="flex justify-end mt-3 mb-2">
           <div className="bg-black h-9 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
             <IoVideocamOutline size="30" className="text-white me-1" />{" "}
             <div className=" text-white">Video</div>
           </div>
 
-          <div className="bg-black h-9 rounded-3xl flex items-center p-2 ms-2 mt-2 cursor-pointer">
+          <div className="bg-black h-9 rounded-3xl flex items-end p-2 ms-2 mt-2 cursor-pointer">
             <MdOutlinePhotoCamera size="26" className="text-rose-800 me-1" />
             <div className="text-white">Photo</div>
           </div>
 
-          <div className="bg-black h-8 text-white rounded-3xl flex items-center p-2 ms-2 mt-3 cursor-pointer">
+          <div className="bg-black h-8 text-white rounded-3xl flex items-center p-2 ms-2 mt-3 me-3 cursor-pointer">
             <HiDotsHorizontal />
           </div>
         </div>
