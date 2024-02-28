@@ -6,7 +6,6 @@ import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 
 import ProfileJobs from "./ProfileJobs";
 
-import ChatIcon from "../../components/Extra/ChatIcon";
 import { useSelector } from "react-redux";
 
 
