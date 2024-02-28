@@ -19,9 +19,14 @@ const register = async (req, res) => {
     role_id,
   } = req.body;
 
+  const lowCaseFN = firstName.toLowerCase();
+  const lowCaseLN = lastName.toLowerCase();
+
   const encryptedPassword = await bcrypt.hash(password, 7); //salt = 7
   const query = `INSERT INTO users (firstName,
         lastName,
+        lowCaseFN,
+        lowCaseLN,
         jobName,
         country,
         email,
@@ -32,10 +37,12 @@ const register = async (req, res) => {
         skills,
         education,
         field_id,
-        role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *`;
+        role_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *`;
   const placeholders = [
     firstName,
     lastName,
+    lowCaseFN,
+    lowCaseLN,
     jobName,
     country,
     email.toLowerCase(),
