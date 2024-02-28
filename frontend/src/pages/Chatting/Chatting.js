@@ -39,7 +39,7 @@ const Chatting = () => {
       >
         Chatting
       </button>
-      <Msgs sokcet={socket} />
+      <Msgs socket={socket} />
     </>
   );
 };

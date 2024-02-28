@@ -3,9 +3,12 @@ import { useState, UseEffect, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addChat, allChat } from "../../service/redux/reducers/chat/chatSlice";
 import axios from "axios";
+import { IoLogoBitcoin } from "react-icons/io";
+import io from "socket.io-client";
 
 /* ========================================================================== */
-const Msgs = ({ socket }) => {
+const Msgs = () => {
+ 
   const [openConver, setOpenConver] = useState(false); //* to open conversation right side
   const [convUserId, setConvUserId] = useState(""); //* with above to check which conversation open
 
@@ -20,7 +23,10 @@ const Msgs = ({ socket }) => {
       chat: state.chat.chat,
     };
   });
-
+  const socket=io("http://localhost:5000/",{extraHeaders:{
+    user_id:userId
+  }})
+  console.log(socket, "11111111111");
   /* ========================================================================== */
   const getAllMsgs = () => {
     axios
@@ -41,6 +47,7 @@ const Msgs = ({ socket }) => {
 
   /* ========================================================================== */
   const sendMsg = async () => {
+    
     try {
       const result = await axios.post(
         `http://localhost:5000/chat/create`,
@@ -84,50 +91,55 @@ const Msgs = ({ socket }) => {
   };
 
   /* ========================================================================== */
-  useEffect(
-    () => {
-      getAllMsgs();
+  useEffect(() => {
+    const socket=io("http://localhost:5000/",{extraHeaders:{
+    user_id:userId
+  }})
+    getAllMsgs();
 
-      socket?.on("message", (data) => {
-        dispatch(allChat(data));
+    socket?.on("message", (data) => {
+      dispatch(addChat([...chat, data]));
+    });
+
+    return () => {
+      socket?.off("message", (data) => {
+        dispatch(allChat([...chat, data]));
       });
-
-      return () => {
-        socket?.off("message", () => {
-          socket?.on("message", (data) => {
-            dispatch(addChat(data));
-          });
-        });
-      };
-    },
-    [
-      /* chat */
-    ]
-  );
+    };
+  }, [userId]);
 
   /* ========================================================================== */
-  useEffect(
-    () => {
-      // add a an event listener on message events
-      socket?.on("message", reciveData);
-      // remove all listeners on clean up
-      /////////////////////////////=====================
-      //dipatch(addChat(reciveData))
-      return () => socket?.off("message", reciveData);
-    },
-    [
-      /* chat */
-    ]
-  );
+  // useEffect(
+  //   () => {
+  //     // add a an event listener on message events
+  //     socket?.on("message", reciveData);
+  //     // remove all listeners on clean up
+  //     /////////////////////////////=====================
+  //     //dipatch(addChat(reciveData))
+  //     return () => socket?.off("message", reciveData);
+  //   },
+  //   [
+  //     /* chat */
+  //   ]
+  // );
   const sendMessage = () => {
+    const socket=io("http://localhost:5000/",{extraHeaders:{
+      user_id:userId
+    }})
     // emit a `message` event with the value of the message
-    socket.emit("message", { to_id, from_id: userId, message });
+
+    const newMSG={ to_id, from_id: userId, message }
+
+    socket?.emit("message", (newMSG) => {
+      console.log( newMSG);
+      // dispatch(addChat(data));
+    });
   };
-  const reciveData = (data) => {
-    console.log(data);
-    dispatch(allChat(data));
-  };
-  console.log(chat);
+  // const reciveData = (data) => {
+  //   // console.log(data);
+  //   dispatch(allChat(data));
+  // };
+  // console.log(chat);
   /* ============================================================================== */
   return (
     <>
@@ -142,12 +154,13 @@ const Msgs = ({ socket }) => {
             chat[0].map((elem, i) => {
               console.log(elem);
               return (
-                <dev key={elem.to_id}>
+                <div key={elem.to_id}>
                   <div
                     className="flex p-3 items-center cursor-pointer"
                     onClick={() => {
                       setOpenConver(true);
                       setConvUserId(elem.to_id);
+                      setTo_id(elem.to_id)
                     }}
                   >
                     <img
@@ -158,7 +171,7 @@ const Msgs = ({ socket }) => {
                       {elem.firstname} {elem.lastname}
                     </p>
                   </div>
-                </dev>
+                </div>
               );
             })
           ) : (
@@ -203,8 +216,17 @@ const Msgs = ({ socket }) => {
           <input
             placeholder="write a message"
             className="rounded rounded-r-none p-2 w-96 h-10 border-2 border-gray-400 outline-none"
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
           />
-          <button className="bg-black text-white w-28 h-10 rounded rounded-l-none">
+          <button
+            className="bg-black text-white w-28 h-10 rounded rounded-l-none"
+            onClick={() => {
+              sendMsg()
+              sendMessage();
+            }}
+          >
             send
           </button>
         </div>
