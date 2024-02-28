@@ -9,7 +9,6 @@ const profileSlice = createSlice({
     experience: [],
     workNow:{},
     institution:[]
-
   },
 
   reducers: {
@@ -38,10 +37,11 @@ const profileSlice = createSlice({
       return elem.role_id===2
      })
     }
-
+   
   },
+ 
 });
 
-export const { setUserInfo,setFollow,AddFollow,setExperience,setWorkNow,setInstitutionFollow,setVisitUserInfo } = profileSlice.actions;
+export const { setUserInfo,setFollow,AddFollow,setExperience,setWorkNow,setInstitutionFollow,setVisitUserInfo,setAllField } = profileSlice.actions;
 
 export default profileSlice.reducer;

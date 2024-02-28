@@ -6,7 +6,7 @@ import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
-
+   const dispatch =useDispatch()
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [jobName, setJobName] = useState("");
