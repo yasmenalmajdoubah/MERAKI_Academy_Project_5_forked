@@ -13,9 +13,13 @@ const {
   createNewInstitutionUser,
   getUserExperiences,
   updateUserInfo,
+  userSearch,
 } = require("../controllers/user");
 
 const authentication = require("../middlewares/authentication");
+
+// http://localhost:5000/users/search
+usersRouter.put("/search", userSearch);
 
 // http://localhost:5000/users/update/user
 usersRouter.put("/update/user", authentication, updateUserInfo);

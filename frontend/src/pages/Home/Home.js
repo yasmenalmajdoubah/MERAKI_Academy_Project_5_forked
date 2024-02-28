@@ -3,24 +3,41 @@ import HomeSide from "./HomeSide";
 import HomeMain from "./HomeMain";
 import HomeRight from "./HomeRight";
 import axios from "axios";
-import ChatIcon from "../../components/Extra/ChatIcon";
+import { useSelector } from "react-redux";
 
 function Home() {
+  const state = useSelector((state) => {
+    return {
+      userInfo: state.profile.userInfo,
+    };
+  });
+
+  // ========================================
   return (
-    <div className="flex flex-row justify-around mt-5 bg-zinc-200">
-      <div className="">
-        <HomeSide />
-      </div>
-      <div className="">
-        <HomeMain />
-      </div>{" "}
-      <div className="">
-        <HomeRight />
-      </div>
-      <div className="fixed bottom-2 right-5 cursor-pointer">
-        <ChatIcon />
-      </div>
-    </div>
+    <>
+      {state.userInfo.role_id === 1 ? (
+        <div className="flex flex-row justify-around mt-5 bg-zinc-200">
+          <div className="">
+            <HomeSide />
+          </div>
+          <div className="">
+            <HomeMain />
+          </div>{" "}
+          <div className="">
+            <HomeRight />
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-row justify-center space-x-10 mt-5 bg-zinc-200">
+          <div className="">
+            <HomeSide />
+          </div>
+          <div className="">
+            <HomeMain />
+          </div>{" "}
+        </div>
+      )}
+    </>
   );
 }
 

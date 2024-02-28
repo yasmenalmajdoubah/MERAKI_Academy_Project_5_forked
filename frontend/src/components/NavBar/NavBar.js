@@ -6,11 +6,17 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { TbHelpHexagon } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
+import axios from "axios";
+import "./NavBar.css";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showTab, setShowTab] = useState(false);
+  const [showSrearch, setShowSrearch] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
 
   const state = useSelector((state) => {
     return {
@@ -19,29 +25,118 @@ const NavBar = () => {
     };
   });
 
+  // ======== search function ===================
+  const userSearch = () => {
+    axios
+      .put("http://localhost:5000/users/search", {
+        searchInput,
+      })
+      .then((result) => {
+        setShowLoader(false);
+        setSearchResult(result.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // ===========================================
   return (
     <div>
       <div className="flex justify-around md:flex-auto bg-black shadow-lg h-16 items-center relative">
         <h1 className="flex-none text-xl text-white">WorkedIn</h1>
-        <div className="flex-none space-x-2">
+
+        {/* ************* search ****************************************** */}
+        <div className="flex-none space-x-2 search">
           <input
-            className="rounded ps-1 h-7 w-48 outline-none"
+            className="rounded ps-1 h-7 w-56 outline-none"
             type="text"
             placeholder="Search"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
           />
-          <button className="text-white">Search</button>
+          <button
+            className="text-white"
+            onClick={() => {
+              setShowSrearch(true);
+              userSearch();
+            }}
+          >
+            Search
+          </button>
+          {/* -- search result window -- */}
+          {showSrearch && (
+            <div className="modal-Search z-10">
+              <div className="pb-1 border-b-2 border-gray-400">
+                <span
+                  className="close  cursor-pointer"
+                  onClick={() => {
+                    setShowSrearch(false);
+                  }}
+                >
+                  &times;
+                </span>
+                <p>Results</p>
+              </div>
+              {showLoader ? (
+                <div className="flex justify-center p-3">
+                  <div className="loaderSrearch"></div>
+                </div>
+              ) : searchResult.length !== 0 ? (
+                <div>
+                  {searchResult.map((elem, i) => {
+                    return (
+                      <div key={elem.user_id}>
+                        <div
+                          className="flex mt-2 items-center cursor-pointer"
+                          onClick={() => {
+                            navigate(`/friend/${elem.user_id}`);
+                            setShowSrearch(false);
+                          }}
+                        >
+                          <img
+                            className="rounded-full w-12 h-12"
+                            src={elem.profileimage}
+                          />
+                          <p className="ms-2">
+                            {elem.firstname} {elem.lastname}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="mt-2">No Match Result</p>
+              )}
+            </div>
+          )}
+          {/* ------------------------- */}
         </div>
+
+        {/* ************************************************************ */}
         <div
           className="flex-none w-48 space-x-3 "
           onClick={() => {
             setShowTab(false);
+            setShowSrearch(false);
           }}
         >
-          <NavLink className="text-white" to="/">Home</NavLink>
-          <NavLink className="text-white" to="/profile">Profile</NavLink>
-          <NavLink className="text-white" to="/jobs">Jobs</NavLink>
-          <NavLink className="text-white" to="/global">Community</NavLink>
+          <NavLink className="text-white" to="/">
+            Home
+          </NavLink>
+          <NavLink className="text-white" to="/profile">
+            Profile
+          </NavLink>
+          {state.userInfo.role_id === 1 && (
+            <NavLink className="text-white" to="/jobs">
+              Jobs
+            </NavLink>
+          )}
+          <NavLink className="text-white" to="/global">
+            Community
+          </NavLink>
         </div>
 
         <div className="flex-none relative">
@@ -52,6 +147,7 @@ const NavBar = () => {
               {
                 showTab ? setShowTab(false) : setShowTab(true);
               }
+              setShowSrearch(false);
             }}
           />
           {showTab && (
