@@ -14,16 +14,17 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [about, setAbout] = useState("");
   const [CV, setCV] = useState("");
   const [skills, setSkills] = useState("");
   const [education, setEducation] = useState("");
   const [field_id, setField_id] = useState("");
   const [role_id, setRole_id] = useState(1);
+
   const [allFields, setAllFields] = useState([]);
 
   const [registerLoader, setRegisterLoader] = useState(false);
   const [modal, setModal] = useState(false);
-
   const [message, setMessage] = useState("");
 
   /* ============================================================= */
@@ -36,6 +37,7 @@ const Register = () => {
         country,
         email,
         password,
+        about,
         CV,
         phoneNumber,
         skills,
@@ -264,28 +266,25 @@ const Register = () => {
             {" "}
             <div id="myModal" className="modalReg">
               <div className="modal-contentReg">
-                {/*     <span
-                className="close cursor-pointer"
-                onClick={() => {
-                  setModal(false);
-                }}
-              >
-                &times;
-              </span> */}
-                <p className="font-medium border-b-2 pb-2">Write about your company</p>
+                <p className="font-medium border-b-2 pb-2">
+                  Write about your company
+                </p>
                 <textarea
                   placeholder="General description"
                   className="p-2 w-full border-2 mt-3"
                   rows={4}
                   style={{ outline: "none", resize: "none" }}
                   onChange={(e) => {
-                    // setPost(e.target.value);
+                    setAbout(e.target.value);
                   }}
                 ></textarea>
                 <div className="flex justify-end mt-2">
-                  <button className=" bg-black rounded shadow-lg w-28 h-10 text-white" onClick={()=>{
-                    setModal(false)
-                  }}>
+                  <button
+                    className=" bg-black rounded shadow-lg w-28 h-10 text-white"
+                    onClick={() => {
+                      setModal(false);
+                    }}
+                  >
                     Add
                   </button>
                 </div>
