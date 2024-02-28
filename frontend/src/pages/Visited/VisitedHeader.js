@@ -181,7 +181,17 @@ export const VisitedHeader = () => {
                       </p>
                     </div>
                   )}
-                  <div className="mr-10 mt-8 mb-5">
+                  <div className="mr-10 mt-11 mb-5">
+                    <button
+                      className="bg-black rounded-lg shadow-md w-40 h-10 text-white"
+                      id="buttonFollow"
+                      onClick={function (e) {
+                        followOrUnFollow(e.target.innerText);
+                      }}
+                    >
+                      {visitUserInfo.role_id === 2 ? "intrest" : "follow"}{" "}
+                    </button>
+                    {/*        
                     <Button
                       variant="primary"
                       id="buttonFollow"
@@ -191,7 +201,7 @@ export const VisitedHeader = () => {
                       }}
                     >
                       {visitUserInfo.role_id === 2 ? "intrest" : "follow"}
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>
@@ -226,21 +236,21 @@ export const VisitedHeader = () => {
           <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
             <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
               <button>
-                <a href="#jobs">Jobs</a>
+                <a href="#jobsVisit">Jobs</a>
               </button>
             </div>
             <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
               <button>
                 {" "}
-                <a href="#postVisit">posts </a>
+                <a href="#postVisit">Posts </a>
               </button>
             </div>
             <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-              <button>interested</button>
+              <button>Interested</button>
             </div>
             <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
               <button>
-                <a href="#About">About</a>
+                <a href="#AboutVisit">About</a>
               </button>
             </div>
           </div>

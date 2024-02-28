@@ -187,9 +187,11 @@ export const ProfileHeader = () => {
                 <p>{userInfo.experience} </p>
               </div> */}
             </div>
-            <div className=" flex flex-row justify-around h-12 pl-6 rounded-b bg-black">
-              <button className=" text-white text-lg">25 folowers</button>
-
+            {userInfo.role_id===1&&( 
+              <div className=" flex flex-row justify-around h-12 pl-6 rounded-b bg-black">
+ <button className="text-white text-lg">
+                <a href="#postProfile"> {posts.length} posts</a>
+              </button>
               <button
                 className="text-white text-lg"
                 onClick={() => setMyFollow(true)}
@@ -197,39 +199,64 @@ export const ProfileHeader = () => {
                 {" "}
                 {follow.length} follow
               </button>
+              <button className=" text-white text-lg">25 folowers</button>
+</div>
+            )}
+            
+             
 
-              <button className="text-white text-lg">
-                <a href="#postProfile"> {posts.length} posts</a>
-              </button>
-              {userInfo.role_id === 2 && (
-                <button className="text-white text-lg">Jobs </button>
-              )}
-            </div>
+              
+
+             
+              
+            
             {/* </div> */}
           </div>
         </div>
-
-        <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
-          <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
-            <button>
-              <a href="#interests">interests</a>
-            </button>
-          </div>
-          <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-            <button>
-              {" "}
-              <a href="#Experience">Experience </a>
-            </button>
-          </div>
-          <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-            <button>Education</button>
-          </div>
-          <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
-            <button>
-              <a href="#Skills">Skills</a>
-            </button>
-          </div>
-        </div>
+        {userInfo.role_id === 2 ? (
+                <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
+                <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
+                  <button>
+                    <a href="#jobsProfile">Jobs</a>
+                  </button>
+                </div>
+                <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+                  <button>
+                    {" "}
+                    <a href="#postProfile">Posts </a>
+                  </button>
+                </div>
+                <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+                  <button>Interested</button>
+                </div>
+                <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
+                  <button>
+                    <a href="#AboutProfile">About</a>
+                  </button>
+                </div>
+              </div>
+               ): <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
+               <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
+                 <button>
+                   <a href="#interests">interests</a>
+                 </button>
+               </div>
+               <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+                 <button>
+                   {" "}
+                   <a href="#Experience">Experience </a>
+                 </button>
+               </div>
+               <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+                 <button>Education</button>
+               </div>
+               <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
+                 <button>
+                   <a href="#Skills">Skills</a>
+                 </button>
+               </div>
+             </div>}
+       
       </div>
       {/* ====================== to show profile image =========================== */}
       {showPostImage && (

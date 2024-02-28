@@ -25,7 +25,7 @@ const Visited = () => {
          
         </div>
         {visitUserInfo.role_id === 2 && (
-            <div className="  ml-11 mr-16">
+            <div className=" ml-12  w-10/12 pr-24">
               {" "}
               <VisitedJobs />
             </div>

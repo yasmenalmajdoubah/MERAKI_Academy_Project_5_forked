@@ -6,7 +6,16 @@ import DiscoverFreind from "../../components/DiscoverFreind/DiscoverFreind";
 
 import ProfileJobs from "./ProfileJobs";
 
+import ChatIcon from "../../components/Extra/ChatIcon";
+import { useSelector } from "react-redux";
+
+
 const Profile = () => {
+  const { userInfo } = useSelector((state) => {
+    return {
+      userInfo: state.profile.userInfo,
+    };
+  });
   return (
     <div className=" flex flex-col bg-zinc-200">
       <div className="   ">
@@ -15,11 +24,18 @@ const Profile = () => {
       <div className="  flex flex-col justify-between mt-6 ">
         <div className=" ml-12 w-10/12 pr-24">
           {" "}
-          <ProfileBody />{" "}
-        </div>
-        <div className=" ml-12  w-10/12 pr-24">
-          <ProfileJobs />
-        </div>
+          
+            <ProfileBody />{" "}
+            
+          </div>
+          
+          {userInfo.role_id === 2 && (
+            <div className=" ml-12  w-10/12 pr-24">
+              {" "}
+              <ProfileJobs/>
+            </div>
+          )}
+          
 
         <div className=" flex flex-row   ">
           {" "}

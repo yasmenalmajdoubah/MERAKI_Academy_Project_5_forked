@@ -30,13 +30,14 @@ const ProfileJobs = () => {
         
       }, [])
   return (
-    <div className="p-6 ml-3 w-full mb-8 mt-3 mx-auto bg-white rounded-xl shadow-lg   " id='jobs'>
+    <div className="p-6 ml-3 w-full mb-8 mt-3 mx-auto bg-white rounded-xl shadow-lg   " id='jobsProfile'>
+    <h1 className=' text-6xl ml-96 mb-10 pl-8'>Jobs</h1>
 
     <div className="  mb-5 ">
       <div className="w-full ">
         {jobs?.map((job, index) => {
           return (
-          <div className=' bg-gray-400 mx-28 rounded-xl shadow-lg my-3'>   
+          <div className=' bg-zinc-300 mx-28 rounded-xl shadow-lg my-3'>   
             <div
               key={index}
               onClick={() => {
@@ -52,7 +53,7 @@ const ProfileJobs = () => {
                       style={{ width: "650px" }}
                     >
                       <div
-                        className="bg-white rounded-md shadow p-3"
+                        className="bg-white rounded-md shadow p-3 mt-5"
                         style={{ width: "400px" }}
                       >
                         <div className="flex">
