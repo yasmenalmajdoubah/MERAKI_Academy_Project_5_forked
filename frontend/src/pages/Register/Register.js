@@ -15,7 +15,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [about, setAbout] = useState("");
-  const [CV, setCV] = useState("");
   const [skills, setSkills] = useState("");
   const [education, setEducation] = useState("");
   const [field_id, setField_id] = useState("");
@@ -25,7 +24,35 @@ const Register = () => {
 
   const [registerLoader, setRegisterLoader] = useState(false);
   const [modal, setModal] = useState(false);
+  const [uploadModal, setUploadModal] = useState(false);
+
   const [message, setMessage] = useState("");
+
+  /* ================== For upload on CV cloudenary ================================ */
+  const [isUpload, setIsUpload] = useState(false);
+
+  const [isLoader, setIsLoader] = useState(true);
+
+  const [CV, setCV] = useState("");
+
+  const [image, setImage] = useState("");
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "szb3g9r3");
+    data.append("cloud_name", "drkox9efz");
+    fetch("https://api.cloudinary.com/v1_1/drkox9efz/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setCV(data.url);
+        console.log(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+  /* ==================================================== */
 
   /* ============================================================= */
   const addNewUser = async () => {
@@ -178,16 +205,25 @@ const Register = () => {
             </div>
             {/* ================================================================================== */}
           </div>
-          <input
-            className="mb-2 w-64 h-10 border-2 border-slate-300 rounded-md pl-2.5 shadow-lg"
-            type="text"
-            placeholder="CV"
-            onChange={(e) => setCV(e.target.value)}
-          />{" "}
-          <br />
+          {/* ********************** upload CV ******************************************* */}
+          <div
+            className="mb-3 cursor-pointer"
+            onClick={() => {
+              setUploadModal(true);
+            }}
+          >
+            <div className="flex">
+              <p className="flex justify-center items-center rounded-md rounded-e-none w-28 p-1 h-10  text-sm font-medium text-white dark:text-white bg-black">
+                Upload CV
+              </p>
+              <p className="flex justify-start ps-3 items-center rounded-md rounded-s-none w-full p-1 h-10  text-sm font-medium text-gray-400 bg-white">
+                PDF , WORD (MAX. 2MG).
+              </p>
+            </div>
+          </div>
           {/* ************************** Check if company ******************************************/}
           <div className="flex">
-            <p className="ms-2 mb-3 text font-medium text-gray-900 dark:text-gray-300">
+            <p className="mb-2 text font-medium text-gray-900 dark:text-gray-300">
               Company Account ?
             </p>
             <div className="flex items-center mb-3 ms-3">
@@ -292,7 +328,74 @@ const Register = () => {
             </div>
           </>
         )}
-        {/* ============================================================================= */}
+        {/* ========================== upload CV =================================================== */}
+        {uploadModal && (
+          <>
+            {" "}
+            <div id="myModal" class="modalUploadImage">
+              <div className="modal-UploadImage">
+                <span
+                  className="close  cursor-pointer"
+                  onClick={() => {
+                    setUploadModal(false);
+                    setIsLoader(true);
+                    setIsUpload(false);
+                  }}
+                >
+                  &times;
+                </span>
+                <p className="text-xl font-medium ms-2">Upload CV</p>
+
+                <div className="mt-5 pt-3 border-t-2 ">
+                  <input
+                    type="file"
+                    className="borde"
+                    onChange={(e) => {
+                      setImage(e.target.files[0]);
+                      setIsUpload(true);
+                    }}
+                  ></input>
+
+                  {isUpload && (
+                    <div className="mt-4">
+                      <button
+                        className="bg-black text-white rounded-md shadow-lg w-24 h-10 mt-2"
+                        onClick={() => {
+                          uploadImage();
+                          setIsLoader(false);
+                        }}
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  )}
+
+                  <div className="flex justify-end">
+                    {isLoader ? (
+                      <></>
+                    ) : CV ? (
+                      <button
+                        className="bg-blue-700 text-white rounded-md shadow-lg w-28 h-10 mt-8"
+                        onClick={() => {
+                          setIsUpload(false);
+                          setIsLoader(true);
+                          setUploadModal(false);
+                        }}
+                      >
+                        Done
+                      </button>
+                    ) : (
+                      <div className="flex justify-center items-center bg-blue-300 cursor-not-allowed text-white rounded-md shadow-lg w-28 h-10 mt-8">
+                        <div className="loaderHome"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {/* ========================================================================================= */}
       </div>
     </div>
   );
