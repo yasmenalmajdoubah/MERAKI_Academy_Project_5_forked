@@ -9,6 +9,7 @@ import ProfileJobs from "./ProfileJobs";
 import ChatIcon from "../../components/Extra/ChatIcon";
 import { useSelector } from "react-redux";
 
+
 const Profile = () => {
   const { userInfo } = useSelector((state) => {
     return {
@@ -35,8 +36,7 @@ const Profile = () => {
             </div>
           )}
           
-       
-         
+
         <div className=" flex flex-row   ">
           {" "}
           <div className=" ml-12">
@@ -46,9 +46,6 @@ const Profile = () => {
             {" "}
             <DiscoverFreind />
           </div>
-        </div>
-        <div className="fixed bottom-2 right-5 cursor-pointer">
-          <ChatIcon />
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import HomeSide from "./HomeSide";
 import HomeMain from "./HomeMain";
 import HomeRight from "./HomeRight";
 import axios from "axios";
-import ChatIcon from "../../components/Extra/ChatIcon";
 
 function Home() {
   return (
@@ -16,9 +15,6 @@ function Home() {
       </div>{" "}
       <div className="">
         <HomeRight />
-      </div>
-      <div className="fixed bottom-2 right-5 cursor-pointer">
-        <ChatIcon />
       </div>
     </div>
   );

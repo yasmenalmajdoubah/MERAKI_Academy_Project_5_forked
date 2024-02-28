@@ -46,8 +46,8 @@ export const router = createBrowserRouter([
         element: <HelpCenter />,
       },
       {
-        path: "/chat",
-        element: <Chatting/>
+        path: "/chat/:id",
+        element: <Chatting />,
       },
     ],
   },
