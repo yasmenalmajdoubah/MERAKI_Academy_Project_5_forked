@@ -56,31 +56,33 @@ const VisitedJobs = () => {
       }, [])
       
   return (
-    <div className="p-6 ml-3 w-full mb-8 mt-3 mx-auto bg-slate-400 rounded-xl shadow-lg   " id='jobs'>
-
-    <div className="flex  mb-5 ">
-      <div className="w-2/5 border-e-2 border-gray-600">
+    <div className="p-6 ml-3 w-full mb-8 mt-3 mx-auto bg-white rounded-xl shadow-lg   " id='jobsVisit'>
+    <h1 className=' text-6xl ml-96 mb-10 pl-8'>Jobs</h1>
+    <div className=" mb-5 ">
+      <div className="w-full ">
         {jobs?.map((job, index) => {
           return (
+            <div className=' bg-zinc-300 mx-28 rounded-xl shadow-lg my-3'>   
+
             <div
               key={index}
               onClick={() => {
                 setShowJob(true);
                 setJobId(job.job_id);
-              }} 
+              }} className=' ml-40'
             >
               <div class="">
                 <div class=" ">
                   <div className="">
                     <div
                       className="container mx-auto p-3  "
-                      style={{ width: "400px" }}
+                      style={{ width: "650px" }}
                     >
                       <div
-                        className="bg-white rounded-md shadow p-3"
+                        className="bg-white rounded-md shadow p-3 mt-5"
                         style={{ width: "400px" }}
                       >
-                        <div className="flex">
+                        <div className="flex ">
                           <img
                             src={job.profileimage}
                             alt="Profile Picture"
@@ -119,39 +121,21 @@ const VisitedJobs = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-      {/* =================    Form Job  Add (Email.Js here )  ======================== */}
-      <div className="w-3/5">
-        {jobs.map((job, index) => {
-          return (
-            <>
-              {showJob && jobId === job.job_id && (
-                <>
-                  <div class=" ">
-                    <div className="container mx-auto p-3 relative">
-                      <div class="bg-white  shadow rounded-md p-7 mb-6 max-w-2xl">
+
+            </div>   
+            <div className=" mx-32  ">
+            <div className="container mx-auto p-3 relative">
+              <div class="bg-white  shadow rounded-md p-7 mb-6 flex flex-col items-center ">
                         
                         {/* ********** */}
-                        <h2 className="text-2xl font-bold mt-3 mb-2">
-                          {" "}
-                          JOB TITLE
-                        </h2>
-                        <div className="bg-white shadow rounded-md p-3 mb-6 max-w-2xl">
-                          <p className="text-gray-800 text-lg mb-4">
-                            {" "}
-                            {job.title}
-                          </p>
-                        </div>
+                       
                         {/* ********** */}
                         <h2 className="text-xl font-bold mt-1 mb-2">
                           {" "}
                           JOB DESCRIPITON{" "}
                         </h2>
                         <div className="bg-white shadow rounded-md p-3 mb-6 max-w-2xl">
-                          <p className="text-gray-800 text-lg mb-4">
+                  <p className="text-gray-800 text-lg mb-4">
                             {" "}
                             {job.discription}
                           </p>
@@ -159,8 +143,8 @@ const VisitedJobs = () => {
                         {/* *********** */}
                         {console.log(job)}
 
-                        <div className="flex justify-between">
-                          <div>
+                        <div className="flex ">
+                          <div className=' mr-32'>
                             <button
                               className="bg-blue-600 hover:bg-blue-700 w-40 text-white font-bold py-2 px-4 rounded"
                               onClick={() => setAPPLY(true)}
@@ -168,7 +152,9 @@ const VisitedJobs = () => {
                               APPLY Now
                             </button>
                           </div>
+                          <div>
                           <button className="bg-gray-500 w-24 h-10 rounded text-center text-white">Save Later</button>
+                          </div>
 
                         </div>
                         {aPPLY && (
@@ -251,22 +237,13 @@ const VisitedJobs = () => {
                         )}
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
-            </>
+                  </div>       </div>
+
           );
         })}
-
-        {!showJob && (
-          <div className="flex justify-center items-center mt-6">
-            <img
-              src="https://www.promoshin.com/wp-content/uploads/2022/10/Job-offers.gif"
-              className="ml-20  mt-5 rounded-md"
-            />
-          </div>
-        )}
       </div>
+      {/* =================    Form Job  Add (Email.Js here )  ======================== */}
+      
     </div>    </div>
 
   )
