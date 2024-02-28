@@ -5,6 +5,7 @@ const chatSlice = createSlice({
 
   initialState: {
     chat: [],
+    userChat:[]
   },
 
   reducers: {
@@ -16,9 +17,21 @@ const chatSlice = createSlice({
     addChat: (state, action) => {
       state.chat.push(action.payload);
     },
+    setUserChat:(state,action)=> {
+      state.userChat = action.payload;
+    },
+    addUserChat: (state, action) => {
+      state.userChat = state.userChat.map((elem, i) => {
+        if (elem.user_id === action.payload.to_id) {
+          elem.userChat.push(action.payload.messages);
+        }
+        return elem;
+      });
+    },
   },
 });
 
-export const { addChat, allChat } = chatSlice.actions;
+export const { addChat, allChat,setUserChat,
+  addUserChat } = chatSlice.actions;
 
 export default chatSlice.reducer;
