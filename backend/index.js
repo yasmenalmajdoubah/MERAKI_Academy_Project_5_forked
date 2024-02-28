@@ -36,7 +36,7 @@ app.use("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+const server =app.listen(PORT, () => {
   console.log(`Server run on http://localhost${PORT}`);
 });
 //==================================
@@ -60,7 +60,7 @@ clients[user_id]={
   user_id
 }
 
-messageHndler(socket,io)
+messageHndler(socket,io,clients)
 socket.on("error",(error)=>{
   socket.emit("error",{error: error.message})
 })

@@ -10,6 +10,7 @@ import Visited from "../pages/Visited/Visited";
 import Jobs from "../pages/Jobs/Jobs";
 import Settings from "../pages/settings/Settings";
 import HelpCenter from "../pages/settings/HelpCenter";
+import Chatting from "../pages/Chatting/Chatting";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/help",
         element: <HelpCenter />,
+      },
+      {
+        path: "/chat",
+        element: <Chatting/>
       },
     ],
   },

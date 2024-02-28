@@ -1,6 +1,6 @@
 const auth =(socket,next)=>{
     const headers = socket.handshake.headers
-    if (!headers.token){
+    if (!headers.user_id){
       next (new Error("InValid"))
     }else {
       //add new key
