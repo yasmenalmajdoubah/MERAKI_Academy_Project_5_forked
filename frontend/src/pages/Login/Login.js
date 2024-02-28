@@ -6,9 +6,9 @@ import { setPostURL } from "../../service/redux/reducers/posts/postsSlice";
 import axios from "axios";
 import "./Login.css";
 import { MdOutlineHorizontalRule } from "react-icons/md";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+
 import "./Login.css";
+import LoginGoogle from "../LoginGoogle/LoginGoogle";
 
 const Login = () => {
   const [loginLoader, setLoginLoader] = useState(false);
@@ -123,19 +123,9 @@ const Login = () => {
               </button>
 
               <div className="flex justify-center items-center mt-4 w-full h-8">
-                {
-                  <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      const credentialResponsedecode = jwtDecode(
-                        credentialResponse.credential
-                      );
-                      console.log("dataaa", credentialResponsedecode);
-                    }}
-                    onError={() => {
-                      console.log("Login Failed");
-                    }}
-                  />
-                }
+                
+                  <LoginGoogle/>
+                
               </div>
             </div>
           </div>
