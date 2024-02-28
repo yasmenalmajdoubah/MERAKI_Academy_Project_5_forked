@@ -247,7 +247,7 @@ const getAllFollowersByUserId = (req, res) => {
 /* ============================================= */
 const getUserById = (req, res) => {
   const id = req.params.id;
-  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about,skills,experience,education, role_id, field_id FROM users WHERE user_id=$1`;
+  const query = `SELECT firstName,lastName,email,CV, profileImage,coverImage,jobName,country,about,skills,experience,education, role_id, user_id, field_id FROM users WHERE user_id=$1`;
   const placeholders = [id];
 
   pool

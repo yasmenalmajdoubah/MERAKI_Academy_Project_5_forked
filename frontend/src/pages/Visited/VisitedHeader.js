@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +14,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 /* ================================================================ */
 export const VisitedHeader = () => {
+  const navigate = useNavigate();
   const [myFollow, setMyFollow] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -28,8 +30,6 @@ export const VisitedHeader = () => {
       };
     }
   );
-
-  console.log(follow);
 
   /* ==================================== */
   const followOrUnFollow = (innerText) => {
@@ -156,13 +156,22 @@ export const VisitedHeader = () => {
               />
             </div>
             <div>
-              <div className="  flex flex-row justify-between">
+              <div className="bg-white  flex flex-row justify-between">
                 <div className=" py-10 pl-6 w-96 	 ">
                   <h1 className=" text-5xl">
                     {visitUserInfo.firstname} {visitUserInfo.lastname}
                   </h1>
                   <p>{visitUserInfo.jobname}</p>
+                  <p
+                    className="flex justify-center rounded-md shadow-md items-center bg-gray-700 w-32 h-10 mt-3 text-white cursor-pointer"
+                    onClick={() => {
+                      navigate(`/chat/${visitUserInfo.user_id}`);
+                    }}
+                  >
+                    Message
+                  </p>
                 </div>
+
                 <div>
                   {workNow[0] && (
                     <div className="  max-w-96 	">
@@ -206,9 +215,7 @@ export const VisitedHeader = () => {
                   </button>
                 )}
 
-                <button className=" text-white text-lg">
-                  25 folowers
-                </button>
+                <button className=" text-white text-lg">25 folowers</button>
               </div>
             )}
 
