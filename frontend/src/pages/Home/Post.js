@@ -226,11 +226,28 @@ export const Post = () => {
 
                   <div className="items-center mt-4 pt-2 border-t-2">
                     <div className="flex justify-around">
-                      <div className="flex items-center cursor-pointe">
-                        <div className="mt-1 me-1" onClick={() => {}}>
-                          {" "}
-                          <FaHeart />
-                        </div>
+                      <div
+                        className="flex items-center cursor-pointer"
+                        onClick={() => {
+                          {
+                            interested
+                              ? setInterested(false)
+                              : setInterested(true);
+                            setPost_id(post.post_id);
+                          }
+                        }}
+                      >
+                        {interested && post_id === post.post_id ? (
+                          <div className="mt-1 me-1" onClick={() => {}}>
+                            {" "}
+                            <FaHeart />
+                          </div>
+                        ) : (
+                          <div className="mt-1 me-1" onClick={() => {}}>
+                            {" "}
+                            <FaRegHeart />
+                          </div>
+                        )}
                         <div>Interested</div>
                       </div>
 

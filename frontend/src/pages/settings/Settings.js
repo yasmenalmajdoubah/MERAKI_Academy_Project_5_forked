@@ -1,13 +1,55 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CiSquarePlus } from "react-icons/ci";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Settings = () => {
   const navigate = useNavigate();
 
   const [showSetting, setShowSetting] = useState("jobInfo");
   const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [workDiscription, setWorkDiscription] = useState("");
+  const [InstitutionName, setInstitutionName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [loader, setLoader] = useState(false);
 
+  const { userId, token } = useSelector((state) => {
+    return {
+      userId: state.log.userId,
+      token: state.log.token,
+    };
+  });
+
+  /* ---------------------------------------------------------------------- */
+  const addExperience = () => {
+    axios
+      .post(
+        "http://localhost:5000/users/institution_user",
+        {
+          workDiscription,
+          InstitutionName,
+          startDate,
+          endDate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        // console.log(result.data.result);
+        setMessage(result.data.message);
+        setLoader(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  /* ---------------------------------------------------------------------- */
   return (
     <>
       <div className="bg-white h-screen space-y-8">
@@ -219,6 +261,7 @@ const Settings = () => {
                   className="close cursor-pointer"
                   onClick={() => {
                     setModal(false);
+                    setLoader(false);
                   }}
                 >
                   &times;
@@ -228,38 +271,67 @@ const Settings = () => {
                 </p>
                 <input
                   type="text"
+                  id="Company_Name"
                   placeholder="Company Name"
                   className="p-2 w-full border-2 mt-3 outline-none"
+                  onChange={(e) => {
+                    setInstitutionName(e.target.value);
+                  }}
                 />
                 <textarea
+                  id="Position_Title"
                   placeholder="Position Title"
                   className="p-2 w-full border-2 mt-3"
                   rows={2}
                   style={{ outline: "none", resize: "none" }}
-                  onChange={(e) => {}}
+                  onChange={(e) => {
+                    setWorkDiscription(e.target.value);
+                  }}
                 ></textarea>
                 <label>From:</label>
                 <input
+                  id="from"
                   type="text"
                   placeholder="mm/yy"
                   className="ms-2 p-2 w-36 border-2 mt-3 outline-none"
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                  }}
                 />
                 <label className="ms-5">To:</label>
                 <input
+                  id="to"
                   type="text"
                   placeholder="mm/yy"
                   className="ms-2 p-2 w-36 border-2 mt-3 outline-none"
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                  }}
                 />
 
-                <div className="flex justify-end mt-3 border-t-4 pt-3">
+                <div className="flex justify-start mt-3 border-t-4 pt-3">
                   <button
                     className=" bg-black rounded shadow-lg w-28 h-10 text-white"
                     onClick={() => {
-                      setModal(false);
+                      addExperience();
+                      document.getElementById("Company_Name").value = "";
+                      document.getElementById("Position_Title").value = "";
+                      document.getElementById("from").value = "";
+                      document.getElementById("to").value = "";
+                      setLoader(true);
                     }}
                   >
                     Add
                   </button>
+                  {message ? (
+                    <p className="flex items-center text-center text-green-600 font-medium ms-3 ">
+                      {message}
+                    </p>
+                  ) : (
+                    loader && (
+                      <div className=" ms-4 flex items-center text-center loaderSrearch"></div>
+                    )
+                  )}
                 </div>
               </div>
             </div>

@@ -348,7 +348,7 @@ const PuplishPost = () => {
                       <div className="flex items-center cursor-pointer">
                         <div className="mt-1 me-1">
                           {" "}
-                          <FaHeart />
+                          <FaRegHeart />
                         </div>
                         <div>Interested</div>
                       </div>
