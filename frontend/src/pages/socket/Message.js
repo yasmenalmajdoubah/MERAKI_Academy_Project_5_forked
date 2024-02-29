@@ -10,7 +10,7 @@ const Message = ({socket,toId}) => {
     const [messages, setMessages] = useState("");
     const [allMessage, setAllMessage] = useState([]);
     const [to, setTo] = useState({});
-
+const [from,setFrom]= useState({});
     const { userId,token } = useSelector((state) => {
         return {
          
@@ -20,7 +20,7 @@ const Message = ({socket,toId}) => {
         };
       });
 
-
+console.log('token', token)
       const getUser = () => {
         axios
           .get(`http://localhost:5000/users/search_1/${toId}`, {
@@ -37,7 +37,22 @@ const Message = ({socket,toId}) => {
             console.log(err);
           });
       };
-
+      const getfrom = () => {
+        axios
+          .get(`http://localhost:5000/users/search_1/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((result) => {
+            console.log('result', result.data.result)
+           setFrom(result.data.result);
+           console.log ("from",from)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
 
 
 
@@ -46,6 +61,7 @@ const Message = ({socket,toId}) => {
 
 
     useEffect(() => {
+        getfrom()
         getUser()
         // add a an event listener on message events
         socket.on("message", reciveData);
