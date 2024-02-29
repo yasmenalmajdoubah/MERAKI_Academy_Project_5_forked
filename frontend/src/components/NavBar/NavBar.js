@@ -49,6 +49,7 @@ const NavBar = () => {
         {/* ************* search ****************************************** */}
         <div className="flex-none space-x-2 search">
           <input
+            id="search"
             className="rounded ps-1 h-7 w-56 outline-none"
             type="text"
             placeholder="Search"
@@ -61,6 +62,7 @@ const NavBar = () => {
             onClick={() => {
               setShowSrearch(true);
               userSearch();
+              document.getElementById("search").value = "";
             }}
           >
             Search
