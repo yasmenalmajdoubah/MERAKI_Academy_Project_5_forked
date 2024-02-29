@@ -95,7 +95,7 @@ export const Post = () => {
   };
 
   /* =============================== */
-  const getlikes = async (post_id) => {
+/*   const getlikes = async (post_id) => {
     try {
       const result = await axios.get(
         `http://localhost:5000/posts/getLikes/${post_id}`,
@@ -116,11 +116,11 @@ export const Post = () => {
       }
       setMessage("Error happened while Get Data, please try again");
     }
-  };
+  }; */
 
   /* ============================================== */
 
-  const like = async (post_id) => {
+/*   const like = async (post_id) => {
     try {
       const result = await axios.post(
         `http://localhost:5000/posts/addLike`,
@@ -140,10 +140,10 @@ export const Post = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
   /* ============================================== */
-
+/* 
   const unlike = async (like_id) => {
     try {
       const result = await axios.post(
@@ -166,7 +166,7 @@ export const Post = () => {
 
   setTimeout(() => {
     setNoPosts(true);
-  }, 3000);
+  }, 3000); */
   // ================================
 
   return (

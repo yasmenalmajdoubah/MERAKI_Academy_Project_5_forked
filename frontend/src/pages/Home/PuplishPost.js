@@ -49,7 +49,7 @@ const PuplishPost = () => {
 
   /* ==================================================== */
 
-  useEffect(() => {
+  const getAllFields = () => {
     axios
       .get("http://localhost:5000/roles/fields")
       .then((result) => {
@@ -58,7 +58,7 @@ const PuplishPost = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   /* ================================================================ */
 
@@ -87,6 +87,9 @@ const PuplishPost = () => {
 
   /* ========================================================= */
 
+
+  /* ========================================================= */
+
   return (
     <div className="container relative" style={{ width: "650px" }}>
       {" "}
@@ -95,6 +98,7 @@ const PuplishPost = () => {
         style={{ width: "650px" }}
         onClick={() => {
           setModal(true);
+          getAllFields();
         }}
       >
         <div className="flex-none">
@@ -263,6 +267,8 @@ const PuplishPost = () => {
           </div>
         </>
       )}
+
+      
     </div>
   );
 };
