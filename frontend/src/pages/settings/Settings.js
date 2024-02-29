@@ -9,7 +9,7 @@ const Settings = () => {
   const [modal, setModal] = useState(false);
 
   return (
-    <div className="bg-white h-screen flex flex-col space-y-16">
+    <div className="bg-white h-screen flex flex-col space-y-16 overflow-hidden">
       <p className="text-2xl pt-2 ps-4 font-bold">Settings</p>
 
       <div>
