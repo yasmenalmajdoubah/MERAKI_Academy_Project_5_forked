@@ -11,6 +11,7 @@ import Jobs from "../pages/Jobs/Jobs";
 import Settings from "../pages/settings/Settings";
 import HelpCenter from "../pages/settings/HelpCenter";
 import Chatting from "../pages/Chatting/Chatting";
+import Chat from "../pages/socket/Chat";
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/chat",
-        element: <Chatting/>
+        element: <Chat/>
       },
     ],
   },

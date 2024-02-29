@@ -1,14 +1,18 @@
 import React from "react";
 import { useState, UseEffect, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addChat, allChat } from "../../service/redux/reducers/chat/chatSlice";
+import {
+  addChat,
+  allChat,
+  setUserChat,
+  addUserChat,
+} from "../../service/redux/reducers/chat/chatSlice";
 import axios from "axios";
 import { IoLogoBitcoin } from "react-icons/io";
 import io from "socket.io-client";
 
 /* ========================================================================== */
-const Msgs = () => {
- 
+const Msgs = ({ socket }) => {
   const [openConver, setOpenConver] = useState(false); //* to open conversation right side
   const [convUserId, setConvUserId] = useState(""); //* with above to check which conversation open
 
@@ -16,17 +20,19 @@ const Msgs = () => {
   const [to_id, setTo_id] = useState(""); //
 
   const dispatch = useDispatch();
-  const { token, userId, chat } = useSelector((state) => {
+  const { token, userId, chat,userChat } = useSelector((state) => {
     return {
       token: state.log.token,
       userId: state.log.userId,
       chat: state.chat.chat,
+      userChat: state.chat.userChat,
+
     };
   });
-  const socket=io("http://localhost:5000/",{extraHeaders:{
-    user_id:userId
-  }})
-  console.log(socket, "11111111111");
+  // const socket=io("http://localhost:5000/",{extraHeaders:{
+  //   user_id:userId
+  // }})
+  // console.log(socket, "11111111111");
   /* ========================================================================== */
   const getAllMsgs = () => {
     axios
@@ -37,8 +43,8 @@ const Msgs = () => {
       })
       .then((result) => {
         ///result.
-        dispatch(addChat(result.data.message));
-        console.log(result.data.message);
+        dispatch(allChat(result.data.message));
+        // console.log(result.data.message);
       })
       .catch((error) => {
         console.log(error);
@@ -47,7 +53,6 @@ const Msgs = () => {
 
   /* ========================================================================== */
   const sendMsg = async () => {
-    
     try {
       const result = await axios.post(
         `http://localhost:5000/chat/create`,
@@ -64,8 +69,8 @@ const Msgs = () => {
       );
       if (result.data.success) {
         // setTo_id(to_id)
-        const newChat = result.data.results;
-        dispatch(addChat({ newChat, to_id }));
+        const messages = result.data.message;
+        dispatch(addUserChat({ messages, to_id }));
       }
     } catch (error) {
       console.log(error);
@@ -79,8 +84,8 @@ const Msgs = () => {
         `http://localhost:5000/chat/messages/user/${to_id}`
       );
       if (result.data.success) {
-        const chat = result.data.chats;
-        dispatch(allChat({ chat, to_id }));
+        const chat = result.data.message;
+        dispatch(setUserChat(chat));
       } else throw Error;
     } catch (error) {
       if (!error.response.data) {
@@ -92,13 +97,14 @@ const Msgs = () => {
 
   /* ========================================================================== */
   useEffect(() => {
-    const socket=io("http://localhost:5000/",{extraHeaders:{
-    user_id:userId
-  }})
+    //   const socket=io("http://localhost:5000/",{extraHeaders:{
+    //   user_id:userId
+    // }})
     getAllMsgs();
 
     socket?.on("message", (data) => {
-      dispatch(addChat([...chat, data]));
+      console.log("message=============>", data);
+      dispatch(allChat([...chat, data]));
     });
 
     return () => {
@@ -106,7 +112,7 @@ const Msgs = () => {
         dispatch(allChat([...chat, data]));
       });
     };
-  }, [userId]);
+  }, [chat]);
 
   /* ========================================================================== */
   // useEffect(
@@ -123,18 +129,16 @@ const Msgs = () => {
   //   ]
   // );
   const sendMessage = () => {
-    const socket=io("http://localhost:5000/",{extraHeaders:{
-      user_id:userId
-    }})
+    // const socket=io("http://localhost:5000/",{extraHeaders:{
+    //   user_id:userId
+    // }})
     // emit a `message` event with the value of the message
 
-    const newMSG={ to_id, from_id: userId, message }
+    const newMSG = { to_id, from_id: userId, message };
 
-    socket?.emit("message", (newMSG) => {
-      console.log( newMSG);
-      // dispatch(addChat(data));
-    });
+    socket?.emit("message", newMSG);
   };
+  const chats=[]
   // const reciveData = (data) => {
   //   // console.log(data);
   //   dispatch(allChat(data));
@@ -151,28 +155,53 @@ const Msgs = () => {
           </p>
 
           {chat.length !== 0 ? (
-            chat[0].map((elem, i) => {
-              console.log(elem);
-              return (
-                <div key={elem.to_id}>
-                  <div
-                    className="flex p-3 items-center cursor-pointer"
-                    onClick={() => {
-                      setOpenConver(true);
-                      setConvUserId(elem.to_id);
-                      setTo_id(elem.to_id)
-                    }}
-                  >
-                    <img
-                      className="rounded-full w-14 h-14 object-cover"
-                      src={elem.profileimage}
-                    />
-                    <p className="ms-2">
-                      {elem.firstname} {elem.lastname}
-                    </p>
+            chat.map((elem, i) => {
+            
+                  return(
+                    <div key={elem.user_id}>
+                    <div
+                      className="flex p-3 items-center cursor-pointer"
+                      onClick={() => {
+                        setOpenConver(true);
+                        setConvUserId(elem.user_id);
+                        setTo_id(elem.user_id);
+                      }}
+                    >
+                      <img
+                        className="rounded-full w-14 h-14 object-cover"
+                        src={elem.profileimage}
+                      />
+                      <p className="ms-2">
+                        {elem.firstname} {elem.lastname}
+                      </p>
+                    </div>
                   </div>
+                  )
+             
+             
+            { /*chats.map((elem,i)=>{
+              return(
+                <div key={elem.user_id}>
+                <div
+                  className="flex p-3 items-center cursor-pointer"
+                  onClick={() => {
+                    setOpenConver(true);
+                    setConvUserId(elem.user_id);
+                    setTo_id(elem.user_id);
+                  }}
+                >
+                  <img
+                    className="rounded-full w-14 h-14 object-cover"
+                    src={elem.profileimage}
+                  />
+                  <p className="ms-2">
+                    {elem.firstname} {elem.lastname}
+                  </p>
                 </div>
-              );
+              </div>
+              )
+             })*/}
+            
             })
           ) : (
             <p>Start Chat</p>
@@ -183,12 +212,13 @@ const Msgs = () => {
         {/* ========= Right Side =================== */}
         {/* // ! here just a test form array above to test how it will appear >> we should use second function to get array with only one user */}
         <div className="w-3/6">
-          {chat[0]?.map((elem, i) => {
+          {userChat?.map((elem, i) => {
+            console.log("from userChat Map=======>",elem);
             return (
               <>
                 {openConver && convUserId === elem.to_id && (
                   <div>
-                    <dev key={elem.to_id}>
+                    <div key={elem.to_id}>
                       <div className="flex items-center  bg-white h-12 ps-2 cursor-pointer">
                         <img
                           className="rounded-full w-10 h-10 object-cover"
@@ -198,7 +228,7 @@ const Msgs = () => {
                           {elem.firstname} {elem.lastname}
                         </p>
                       </div>
-                    </dev>
+                    </div>
                     <div className="flex justify-end pt-3">
                       <p className=" bg-gray-800 text-white w-fit rounded p-2 ">
                         {elem.message}
@@ -223,7 +253,7 @@ const Msgs = () => {
           <button
             className="bg-black text-white w-28 h-10 rounded rounded-l-none"
             onClick={() => {
-              sendMsg()
+              sendMsg();
               sendMessage();
             }}
           >
