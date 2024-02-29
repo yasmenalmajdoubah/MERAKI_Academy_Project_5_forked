@@ -43,19 +43,22 @@ const PorfilePosts = () => {
   });
 
   // =====================================
-  useEffect(() => {
+  const getPosts=()=>{
     axios
-      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
-        headers: {
-          Authorization: `Bearer ${state.token}`,
-        },
-      })
-      .then((result) => {
-        dispatch(allPost(result.data.posts));
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+      headers: {
+        Authorization: `Bearer ${state.token}`,
+      },
+    })
+    .then((result) => {
+      dispatch(allPost(result.data.posts));
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  }
+  useEffect(() => {
+   getPosts()
   }, []);
 
   /* ===================================================== */
@@ -110,6 +113,7 @@ const PorfilePosts = () => {
       })
       .then((result) => {
         console.log("delete sucssses");
+        getPosts()
       })
       .catch((err) => {
         console.log(err);
@@ -128,6 +132,7 @@ const PorfilePosts = () => {
       })
       .then((result) => {
         console.log("update sucsses");
+        getPosts()
       })
       .catch((err) => { console.log(err)});
       setDeleteupdate(false)
