@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 
 import "./style.css";
 
@@ -17,7 +18,8 @@ const Message = ({socket}) => {
         };
       });
 
-
+      const { id } = useParams();
+setTo(id)
 
     useEffect(() => {
         // add a an event listener on message events
