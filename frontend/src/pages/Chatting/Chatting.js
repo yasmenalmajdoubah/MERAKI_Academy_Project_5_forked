@@ -1,3 +1,4 @@
+/*
 import React from "react";
 import { useState, UseEffect, useEffect } from "react";
 import { UseSelector, useDispatch, useSelector } from "react-redux";
@@ -45,3 +46,4 @@ const Chatting = () => {
 };
 
 export default Chatting;
+*/
