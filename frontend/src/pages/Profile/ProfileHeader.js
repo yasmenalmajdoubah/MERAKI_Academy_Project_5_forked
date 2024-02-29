@@ -121,29 +121,7 @@ export const ProfileHeader = () => {
 
   return (
     <div className="">
-      {myFollow && (
-        <div
-          className="modal show"
-          style={{ display: "block", position: "initial" }}
-        >
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal title</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <p>Modal body text goes here.</p>
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setMyFollow(false)}>
-                Close
-              </Button>
-              <Button variant="primary">Save changes</Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </div>
-      )}{" "}
+      
       <img
         class=" w-48 w- h-48 bg-slate-200 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={userInfo.profileimage}
@@ -199,6 +177,37 @@ export const ProfileHeader = () => {
                 {" "}
                 {follow.length} follow
               </button>
+              {console.log('follow', follow)}
+              {myFollow&&(
+                <div id="myModal" className="modal2">
+                <div className="modal-content2 ml-10 w-">
+                  <span
+                    className="close2"
+                    onClick={() => {
+                      setMyFollow(false);
+                    }}
+                  >
+                    &times;
+                  </span>
+                  <p className=" text-2xl border-b-2">
+                    follow
+                  </p>
+
+                  <div className="">
+                    {follow.map((fol,i) => {
+                      return(
+                        <div className=" my-2 border-b-2 flex">
+                          <img src={fol.profileimage} className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2 mr-2" />
+                          <p className="mt-2">{fol.firstname} {fol.lastname}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+
+                  
+                </div>
+              </div>
+              )}
               <button className=" text-white text-lg">25 folowers</button>
 </div>
             )}
