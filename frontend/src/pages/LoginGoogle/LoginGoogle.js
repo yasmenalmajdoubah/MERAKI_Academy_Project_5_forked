@@ -151,9 +151,12 @@ const LoginGoogle = () => {
           );
           console.log("dataaa", credentialResponsedecode);
           setEmail(credentialResponsedecode.email);
+          console.log('credentialResponsedecode.email',credentialResponsedecode.email )
           setPassword(credentialResponsedecode.azp);
           setFirstName(credentialResponsedecode.given_name);
+          console.log('credentialResponsedecode.given_name', credentialResponsedecode.given_name)
           setLastName(credentialResponsedecode.family_name);
+          console.log('credentialResponsedecode.family_name', credentialResponsedecode.family_name)
           setProfileImage(credentialResponsedecode.picture);
           addNewUserGoogle();
          {!info&&login()} 
