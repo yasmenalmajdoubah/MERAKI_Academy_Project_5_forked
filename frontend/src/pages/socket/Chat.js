@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import socketInt from "./socketInt";
 import Message from "./Message";
+import { useParams } from "react-router";
+
 import { useSelector } from "react-redux";
 import "./style.css";
 const Chat = () => {
@@ -15,11 +17,20 @@ const Chat = () => {
           
     
         };
+
       });
+
+
+
+      const { id } = useParams();
+      console.log('id------', id)
     //socket connection
     ///connect
     useEffect(() => {
-      // socketInt({user_id,token})
+
+
+
+      //socketInt({userId})
         
       // add a an event listener on message events
       socket?.on("connect", () => {
@@ -42,13 +53,13 @@ const Chat = () => {
 
      
     <div className="c">
-      <h1> Hello, World!</h1>
+      <h1>Press Down To Start Conversation</h1>
       
      
-      <button onClick={()=>{
+      <img src="https://media.tenor.com/9DDAH7lIg0sAAAAM/typing-message.gif" onClick={()=>{
 setSocket(socketInt({userId}))
-      }}>connect</button>
- {isConnected&& <Message socket={socket} />}
+      }}/>
+ {isConnected&& <Message socket={socket} toId={id}/>}
     </div>
      
     );
