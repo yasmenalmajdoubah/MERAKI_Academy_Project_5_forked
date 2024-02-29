@@ -1,153 +1,155 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import axios from "axios";
 
 import "./style.css";
 
 import { useSelector } from "react-redux";
 
-const Message = ({socket}) => {
-    const [messages, setMessages] = useState("");
-    const [to, setTo] = useState('');
-    const [allMessage, setAllMessage] = useState([]);
-    const { userId } = useSelector((state) => {
-        return {
-         
-          userId: state.log.userId,
-          
-    
-        };
+const Message = ({ socket, toId }) => {
+  const [messages, setMessages] = useState("");
+  const [allMessage, setAllMessage] = useState([]);
+  const [to, setTo] = useState({});
+  const [from, setFrom] = useState({});
+
+  const { userId, token } = useSelector((state) => {
+    return {
+      userId: state.log.userId,
+      token: state.log.token,
+    };
+  });
+
+  console.log("token", token);
+  const getUser = () => {
+    axios
+      .get(`http://localhost:5000/users/search_1/${toId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        console.log("result", result.data.result);
+        setTo(result.data.result);
+        console.log("to", to);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+  };
+  const getfrom = () => {
+    axios
+      .get(`http://localhost:5000/users/search_1/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        console.log("result", result.data.result);
+        setFrom(result.data.result);
+        console.log("from", from);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  useEffect(() => {
+    getfrom();
+    getUser();
+    // add a an event listener on message events
+    socket.on("message", reciveData);
+    // remove all listeners on clean up
+    return () => socket.off("message", reciveData);
+  }, [allMessage]);
 
-
-    useEffect(() => {
-        // add a an event listener on message events
-        socket.on("message", reciveData);
-        // remove all listeners on clean up
-        return () => socket.off("message",reciveData);
-      }, [allMessage]);
-      const sendMessage = () => {
-        // emit a `message` event with the value of the message
-        socket.emit("message", {to,from:userId,messages});
-      };
-      const reciveData =(data) => {
-        console.log(data)
-      setAllMessage((prev)=>([...prev, data]) );
-      console.log(allMessage)
-    }
+  const sendMessage = () => {
+    // emit a `message` event with the value of the message
+    socket.emit("message", { to: toId, from: userId, messages });
+  };
+  const reciveData = (data) => {
+    console.log(data);
+    setAllMessage((prev) => [...prev, data]);
+    console.log(allMessage);
+  };
   return (
-    
-  <>
-  <div class="container bootstrap snippets bootdey">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="portlet portlet-default">
-                <div class="portlet-heading">
-                    <div class="portlet-title">
-                        <h4><i class="fa fa-circle text-green"></i> Jane Smith</h4>
-                    </div>
-                    <div class="portlet-widgets">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-white dropdown-toggle btn-xs" data-toggle="dropdown">
-                                <i class="fa fa-circle text-green"></i> Status
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#"><i class="fa fa-circle text-green"></i> Online</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-circle text-orange"></i> Away</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-circle text-red"></i> Offline</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <span class="divider"></span>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#chat"><i class="fa fa-chevron-down"></i></a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="chat" class="panel-collapse collapse in">
-                    <div>
-                    <div class="portlet-body chat-widget" >
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p class="text-center text-muted small">January 1, 2014 at 12:23 PM</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""/>
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Jane Smith
-                                            <span class="small pull-right">12:23 PM</span>
-                                        </h4>
-                                        <p>Hi, I wanted to make sure you got the latest product report. Did Roddy get it to you?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""/>
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">John Smith
-                                            <span class="small pull-right">12:28 PM</span>
-                                        </h4>
-                                        <p>Yeah I did. Everything looks good.</p>
-                                        <p>Did you have an update on purchase order #302?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-circle img-chat" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""/>
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Jane Smith
-                                            <span class="small pull-right">12:39 PM</span>
-                                        </h4>
-                                        <p>No not yet, the transaction hasn't cleared yet. I will let you know as soon as everything goes through. Any idea where you want to get lunch today?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                    </div>
-                    </div>
-                    <div class="portlet-footer">
-                        <form role="form">
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Enter message..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-default pull-right">Send</button>
-                                <div class="clearfix"></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <>
+      <div className="bg-gray-100">
+        <div className="container mx-auto p-4">
+          <div className="bg-white rounded-lg shadow-md">
+            <div className="px-6 py-4">
+              <h2 className="text-xl font-semibold">Start Converstion</h2>
             </div>
+
+            {allMessage?.map((message, i) => {
+              console.log(message);
+              return (
+                <>
+                  <div className="p-4">
+                    <div className="flex flex-col space-y-4">
+                      {message.from === userId ? (
+                        <div className="flex items-end">
+                          <div className="flex-shrink-0">
+                            <img
+                              className="h-8 w-8 rounded-full object-cover"
+                              src={from.profileimage}
+                              alt="pic"
+                            />
+                          </div>
+                          <div className="ml-3 bg-blue-100 text-blue-800 py-2 px-4 rounded-md">
+                            <p className="text-sm">{message.messages}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-start justify-end">
+                          <div className="mr-3 bg-gray-100 text-gray-800 py-2 px-4 rounded-md">
+                            <p className="text-sm">{message.messages}</p>
+                          </div>
+                          <div className="flex-shrink-0">
+                            <img
+                              className="h-8 w-8 rounded-full object-cover"
+                              src={to.profileimage}
+                              alt="pic"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+
+            <div className="p-4 bg-gray-200">
+              <div className="flex">
+                <input
+                id="send"
+                  type="text"
+                  placeholder="write here ...."
+                  className="flex-1 appearance-none border border-gray-300 rounded-md py-2 px-4 bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  onChange={(e) => {
+                    setMessages(e.target.value);
+                  }}
+                />
+                <button
+                  className="ml-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md"
+                  onClick={() => {
+                    sendMessage();
+                    document.getElementById("send").value=""
+
+                  }}
+                >
+                  SEND
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-       
-    </div>
-</div>                
-  </>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default Message
-
-
+export default Message;
 
 /*
 <div>
