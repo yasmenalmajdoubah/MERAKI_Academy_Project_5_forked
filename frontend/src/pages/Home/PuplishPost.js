@@ -5,20 +5,25 @@ import { MdOutlinePhotoCamera } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import axios from "axios";
 import CircleLoader from "../../components/Extra/CircleLoader";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { TfiCommentAlt } from "react-icons/tfi";
+import { useNavigate } from "react-router-dom";
 const PuplishPost = () => {
   const [modal, setModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [allFields, setAllFields] = useState([]);
   const [field_id, setField_id] = useState("");
   const [post, setPost] = useState("");
+  const [myHomePosts, setMyHomePosts] = useState([]);
 
   /* ========================================================== */
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const state = useSelector((state) => {
     return {
       token: state.log.token,
+      userId: state.log.userId,
     };
   });
 
@@ -49,7 +54,7 @@ const PuplishPost = () => {
 
   /* ==================================================== */
 
-  useEffect(() => {
+  const getAllFields = () => {
     axios
       .get("http://localhost:5000/roles/fields")
       .then((result) => {
@@ -58,10 +63,9 @@ const PuplishPost = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   /* ================================================================ */
-
   const createPost = () => {
     axios
       .post(
@@ -79,11 +83,33 @@ const PuplishPost = () => {
       )
       .then((result) => {
         console.log(result.data);
+        getMyPosts();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  /* ========================================================= */
+
+  const getMyPosts = () => {
+    axios
+      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        setMyHomePosts(result.data.posts);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  useEffect(() => {
+    getMyPosts();
+  }, []);
 
   /* ========================================================= */
 
@@ -95,10 +121,12 @@ const PuplishPost = () => {
         style={{ width: "650px" }}
         onClick={() => {
           setModal(true);
+          getAllFields();
         }}
       >
         <div className="flex-none">
           <textarea
+            id="sharePost"
             rows="1"
             className="p-5 mt-1 w-full cursor-pointer"
             style={{ outline: "none", resize: "none" }}
@@ -187,6 +215,7 @@ const PuplishPost = () => {
                   onClick={() => {
                     createPost();
                     setModal(false);
+                    document.getElementById("sharePost").value = "";
                   }}
                 >
                   Publish Now
@@ -263,6 +292,84 @@ const PuplishPost = () => {
           </div>
         </>
       )}
+      {/* ------------------------- My posts ----------------------------------- */}
+      <div className="mt-6">
+        {myHomePosts?.map((post, index) => {
+          return (
+            <div key={post.post_id}>
+              <div
+                className=" container mt-3 relative"
+                style={{ width: "650px" }}
+              >
+                <div className="bg-white rounded-lg shadow p-4">
+                  <div className="flex items-center">
+                    <img
+                      src={post.profileimage}
+                      alt="Profile Picture"
+                      className="w-12 h-12 rounded-full cursor-pointer object-cover"
+                      onClick={() => {
+                        navigate(`/profile`);
+                      }}
+                    />
+                    <div className="ml-2">
+                      <p
+                        className="font-semibold cursor-pointer"
+                        onClick={() => {
+                          navigate(`/profile`);
+                        }}
+                      >
+                        {post.firstname} {post.lastname}
+                      </p>
+                      <p className="text-gray-500 text-xs">
+                        {" "}
+                        Posted{" "}
+                        {post.created_at
+                          .split("T")
+                          .shift()
+                          .split("-")
+                          .reverse()
+                          .join("-")}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <p>{post.body}</p>
+                    {post.image && (
+                      <img
+                        src={post.image}
+                        alt="Post Image"
+                        className="mt-4 object-cover"
+                      />
+                    )}
+                  </div>
+
+                  <div className="items-center mt-4 pt-2 border-t-2">
+                    <div className="flex justify-around">
+                      <div className="flex items-center cursor-pointer">
+                        <div className="mt-1 me-1">
+                          {" "}
+                          <FaRegHeart />
+                        </div>
+                        <div>Interested</div>
+                      </div>
+
+                      {/* ======*******===== */}
+
+                      <div className="flex items-center cursor-pointer">
+                        <div className="me-1 mt-1">
+                          <TfiCommentAlt />
+                        </div>
+                        <div>Reviews</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      {/* -------------------------------------------------------------------------- */}
     </div>
   );
 };
