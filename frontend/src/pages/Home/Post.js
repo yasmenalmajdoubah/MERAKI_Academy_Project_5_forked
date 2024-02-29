@@ -304,6 +304,9 @@ export const Post = () => {
                                 className="mt-2 ms-2 mb-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                 onClick={() => {
                                   if (comment) createComment(post.post_id);
+                                  document.getElementById(
+                                    "comment-textarea"
+                                  ).value = "";
                                 }}
                               >
                                 Add Comment
