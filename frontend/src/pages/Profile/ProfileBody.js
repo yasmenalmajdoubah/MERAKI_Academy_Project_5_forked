@@ -118,7 +118,7 @@ export const ProfileBody = () => {
                 navigate("/settings");
               }}
             >
-              <IoAddCircle size={50} />
+              <IoAddCircle size={40} />
               <p className="">Add Experience</p>
             </div>
           </div>

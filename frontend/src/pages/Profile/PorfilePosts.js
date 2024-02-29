@@ -185,7 +185,9 @@ const PorfilePosts = () => {
                     <div
                       class="  h-8  rounded-3xl flex items-center p-2 ms-2 mt-3 me-3 cursor-pointer"
                       onClick={() => {
-                        setDeleteupdate(true);
+                       {deleteupdate?setDeleteupdate(false):setDeleteupdate(true)} ;
+                        setPostId(post.post_id);
+
                       }}
                     >
                       <svg
@@ -202,7 +204,7 @@ const PorfilePosts = () => {
                       </svg>
                     </div>
                   </div>
-                  {deleteupdate && (
+                  {(deleteupdate && postId === post.post_id )&&(
                     <div>
                       <IoMdArrowDropup
                         size={10}
@@ -223,7 +225,7 @@ const PorfilePosts = () => {
                             delete post
                           </p>
                         </div>
-                        {deletePost && (
+                        {deletePost &&  (
                           <div id="myModal" className="modal2">
                             <div className="modal-content2 ml-10 w-">
                               <span
