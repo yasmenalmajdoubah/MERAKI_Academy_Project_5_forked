@@ -34,6 +34,7 @@ export const Post = () => {
       postURL: state.posts.postURL,
       posts: state.posts.posts,
       userLikes: state.posts.userLikes,
+      userInfo:state.profile.userInfo
     };
   });
 
@@ -183,6 +184,7 @@ export const Post = () => {
                   className="bg-white rounded-lg shadow p-4"
                   style={{ width: "650px" }}
                 >
+                  <div className=" flex justify-between">
                   <div className="flex items-center">
                     <img
                       src={post.profileimage}
@@ -211,7 +213,14 @@ export const Post = () => {
                           .reverse()
                           .join("-")}
                       </p>
+                    
                     </div>
+                  </div>
+                  
+                  {post.user_id===state.userInfo.user_id&& (
+                    <div class="  h-8  rounded-3xl flex items-center p-2 ms-2 mt-3 me-3 cursor-pointer"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg></div>
+                  )}
+                  
                   </div>
                   <div className="mt-4">
                     <p>{post.body}</p>
