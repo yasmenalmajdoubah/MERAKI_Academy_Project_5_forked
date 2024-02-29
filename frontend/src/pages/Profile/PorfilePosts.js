@@ -12,6 +12,9 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import PostLoader from "../../components/PostsLoader/PostLoader";
+import { IoMdArrowDropup } from "react-icons/io";
+import { TiDelete } from "react-icons/ti";
+import { RxUpdate } from "react-icons/rx";
 
 // ========================================================
 const PorfilePosts = () => {
@@ -22,7 +25,12 @@ const PorfilePosts = () => {
   const [commentWind, setCommentWind] = useState(false);
   const [interested, setInterested] = useState(false);
   const [noPosts, setNoPosts] = useState(false);
-
+  const [deleteupdate, setDeleteupdate] = useState(false);
+  const [postId, setPostId] = useState();
+  const [deletePost, setDeletePost] = useState(false);
+  const [updatePost, setUpdatePost] = useState(false)
+  const [postBody, setPostBody] = useState("")
+  const [postChange, setPostChange] = useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => {
@@ -93,6 +101,39 @@ const PorfilePosts = () => {
       console.log(error);
     }
   };
+  const DaletePost = (id) => {
+    axios
+      .delete(`http://localhost:5000/posts/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        console.log("delete sucssses");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      setDeleteupdate(false)
+      setDeletePost(false)
+  };
+  const UpdatePost = (id) => {
+    axios
+      .put(`http://localhost:5000/posts/update/${id}`,{
+        body : postChange
+      }, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        console.log("update sucsses");
+      })
+      .catch((err) => { console.log(err)});
+      setDeleteupdate(false)
+      setUpdatePost(false)
+
+  };
   /* ================================================= */
   return (
     <div className="rounded-2xl mt-5 ml-3 " id="postProfile">
@@ -100,43 +141,164 @@ const PorfilePosts = () => {
         state.posts?.map((post, index) => {
           return (
             <div key={post.post_id} className="  ">
-              <div className=" container mt-3 relative"
-              style={{ width: "750px" }}>
-                <div
-                  className="bg-white rounded-2xl shadow p-4"
-                >
-                  <div className="flex items-center">
-                    <img
-                      src={post.profileimage}
-                      alt="Profile Picture"
-                      className="w-12 h-12 rounded-full cursor-pointer object-cover"
-                      onClick={() => {
-                        navigate(`/friend/${post.user_id}`);
-                      }}
-                    />
-                    <div className="ml-2">
-                      <p
-                        className="font-semibold cursor-pointer"
+              <div
+                className=" container mt-3 relative"
+                style={{ width: "750px" }}
+              >
+                <div className="bg-white rounded-2xl shadow p-4">
+                  <div className=" flex justify-between">
+                    <div className="flex items-center">
+                      <img
+                        src={post.profileimage}
+                        alt="Profile Picture"
+                        className="w-12 h-12 rounded-full cursor-pointer object-cover"
                         onClick={() => {
                           navigate(`/friend/${post.user_id}`);
                         }}
+                      />
+                      <div className="ml-2">
+                        <p
+                          className="font-semibold cursor-pointer"
+                          onClick={() => {
+                            navigate(`/friend/${post.user_id}`);
+                          }}
+                        >
+                          {post.firstname} {post.lastname}
+                        </p>
+                        <p className="text-gray-500 text-xs">
+                          {" "}
+                          Posted{" "}
+                          {post.created_at
+                            .split("T")
+                            .shift()
+                            .split("-")
+                            .reverse()
+                            .join("-")}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="  h-8  rounded-3xl flex items-center p-2 ms-2 mt-3 me-3 cursor-pointer"
+                      onClick={() => {
+                        setDeleteupdate(true);
+                      }}
+                    >
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 20 20"
+                        aria-hidden="true"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        {post.firstname} {post.lastname}
-                      </p>
-                      <p className="text-gray-500 text-xs">
-                        {" "}
-                        Posted{" "}
-                        {post.created_at
-                          .split("T")
-                          .shift()
-                          .split("-")
-                          .reverse()
-                          .join("-")}
-                      </p>
+                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                      </svg>
                     </div>
                   </div>
+                  {deleteupdate && (
+                    <div>
+                      <IoMdArrowDropup
+                        size={10}
+                        color="white"
+                        className="absolute top-11 right-3"
+                      />
+
+                      <div className="absolute z-10 bg-white w-44 h-24 top-14 right-3 rounded-md shadow-2xl">
+                        <div className="flex ">
+                          <TiDelete className=" mt-3 ml-2" />
+                          <p
+                            className="text-black font-mono ps-2 pt-2 h-10 border-b cursor-pointer"
+                            onClick={() => {
+                              setPostId(post.post_id);
+                              setDeletePost(true);
+                            }}
+                          >
+                            delete post
+                          </p>
+                        </div>
+                        {deletePost && (
+                          <div id="myModal" className="modal2">
+                            <div className="modal-content2 ml-10 w-">
+                              <span
+                                className="close2"
+                                onClick={() => {
+                                  setDeletePost(false);
+                                }}
+                              >
+                                &times;
+                              </span>
+                              <p className=" text-2xl border-b-2">
+                                delete post
+                              </p>
+
+                              <div className="mb-3 mt-3">
+                                <p>
+                                  if you delete post you can't return it again
+                                </p>
+                              </div>
+
+                              <div className=" bg-black text-white w-20 rounded-lg pl-3 h-8 pt-1 " onClick={()=>{
+                              DaletePost(postId)
+                              }}>
+                                <button>delete</button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        <div className="flex ">
+                          <RxUpdate className=" mt-3 ml-2" />
+                          <p
+                            className="text-black font-mono ps-2 pt-2 h-10 border-b cursor-pointer"
+                            onClick={() => {
+                              setPostId(post.post_id);
+                              setPostBody(post.body)
+                              setUpdatePost(true)
+                            }}
+                          >
+                            update post
+                          </p>
+                        </div>
+                        {updatePost&&(
+                          <div id="myModal" className="modal2">
+                          <div className="modal-content2 ml-10 w-">
+                            <span
+                              className="close2"
+                              onClick={() => {
+                                setUpdatePost(false);
+                              }}
+                            >
+                              &times;
+                            </span>
+                            <p className=" text-2xl border-b-2">
+                              Update post
+                            </p>
+
+                            <div className="mb-3 mt-3">
+                            <textarea defaultValue={postBody} onChange={(e)=>{
+                             setPostChange(e.target.value)
+                            }}></textarea>
+                            </div>
+
+                            <div className=" bg-black text-white w-20 rounded-lg pl-3 h-8 pt-1 " onClick={()=>{
+                            UpdatePost(postId)
+                            }}>
+                              <button>update</button>
+                            </div>
+                          </div>
+                        </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   <div className="mt-4">
-                    <p>{post.body}</p>
+                    {false ? (
+                      <input type="text" defaultValue={post.body} />
+                    ) : (
+                      <p>{post.body}</p>
+                    )}
+
                     {post.image && (
                       <img
                         src={post.image}

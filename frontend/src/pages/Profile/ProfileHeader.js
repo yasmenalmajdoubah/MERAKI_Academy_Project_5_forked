@@ -61,7 +61,7 @@ export const ProfileHeader = () => {
   };
 
   /* ==================================================== */
-  const getUser = () => {
+ /*  const getUser = () => {
     axios
       .get(`http://localhost:5000/users/search_1/${userId}`, {
         headers: {
@@ -74,7 +74,7 @@ export const ProfileHeader = () => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }; */
   const getfollows = () => {
     axios
       .get(`http://localhost:5000/users/follows/${userId}`, {
@@ -91,8 +91,8 @@ export const ProfileHeader = () => {
       });
   };
   useEffect(() => {
-    getUser();
-    getfollows();
+/*     getUser();
+ */    getfollows();
   }, []);
   /* =================================================== */
   const updateImages = (req, res) => {
