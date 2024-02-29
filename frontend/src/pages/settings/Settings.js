@@ -55,7 +55,7 @@ const Settings = () => {
       <div className="bg-white h-screen space-y-8">
         <p className="text-2xl pt-2 ps-4 font-bold">Settings</p>
 
-        <div>
+        <div className="border-4">
           <div className="flex items-center justify-center">
             {/* *** left Side *** */}
             <div className=" flex-col text-center justify-center w-1/5 space-y-5">
