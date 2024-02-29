@@ -330,7 +330,7 @@ const createNewInstitutionUser = (req, res) => {
     .then((result) => {
       res.status(201).json({
         success: true,
-        message: `Created successfully`,
+        message: `Experience Added successfully`,
         result: result.rows,
       });
     })
