@@ -95,7 +95,7 @@ export const Post = () => {
   };
 
   /* =============================== */
-/*   const getlikes = async (post_id) => {
+  /*   const getlikes = async (post_id) => {
     try {
       const result = await axios.get(
         `http://localhost:5000/posts/getLikes/${post_id}`,
@@ -120,7 +120,7 @@ export const Post = () => {
 
   /* ============================================== */
 
-/*   const like = async (post_id) => {
+  /*   const like = async (post_id) => {
     try {
       const result = await axios.post(
         `http://localhost:5000/posts/addLike`,
@@ -143,7 +143,7 @@ export const Post = () => {
   }; */
 
   /* ============================================== */
-/* 
+  /* 
   const unlike = async (like_id) => {
     try {
       const result = await axios.post(
@@ -170,7 +170,7 @@ export const Post = () => {
   // ================================
 
   return (
-    <div className="bg-zinc-200 mt-5">
+    <div className="bg-zinc-200">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
