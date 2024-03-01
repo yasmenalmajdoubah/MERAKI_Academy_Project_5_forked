@@ -15,7 +15,16 @@ function Home() {
   // ========================================
   return (
     <>
-      {state.userInfo.role_id === 1 ? (
+      {state.userInfo.role_id === 2 ? (
+        <div className="flex flex-row justify-center space-x-10 mt-5 bg-zinc-200">
+          <div className="">
+            <HomeSide />
+          </div>
+          <div className="">
+            <HomeMain />
+          </div>{" "}
+        </div>
+      ) : (
         <div className="flex flex-row justify-around mt-5 bg-zinc-200">
           <div className="">
             <HomeSide />
@@ -26,15 +35,6 @@ function Home() {
           <div className="">
             <HomeRight />
           </div>
-        </div>
-      ) : (
-        <div className="flex flex-row justify-center space-x-10 mt-5 bg-zinc-200">
-          <div className="">
-            <HomeSide />
-          </div>
-          <div className="">
-            <HomeMain />
-          </div>{" "}
         </div>
       )}
     </>
