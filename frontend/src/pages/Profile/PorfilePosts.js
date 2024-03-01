@@ -28,9 +28,9 @@ const PorfilePosts = () => {
   const [deleteupdate, setDeleteupdate] = useState(false);
   const [postId, setPostId] = useState();
   const [deletePost, setDeletePost] = useState(false);
-  const [updatePost, setUpdatePost] = useState(false)
-  const [postBody, setPostBody] = useState("")
-  const [postChange, setPostChange] = useState("")
+  const [updatePost, setUpdatePost] = useState(false);
+  const [postBody, setPostBody] = useState("");
+  const [postChange, setPostChange] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => {
@@ -43,22 +43,22 @@ const PorfilePosts = () => {
   });
 
   // =====================================
-  const getPosts=()=>{
+  const getPosts = () => {
     axios
-    .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
-      headers: {
-        Authorization: `Bearer ${state.token}`,
-      },
-    })
-    .then((result) => {
-      dispatch(allPost(result.data.posts));
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-  }
+      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
+      .then((result) => {
+        dispatch(allPost(result.data.posts));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   useEffect(() => {
-   getPosts()
+    getPosts();
   }, []);
 
   /* ===================================================== */
@@ -113,31 +113,36 @@ const PorfilePosts = () => {
       })
       .then((result) => {
         console.log("delete sucssses");
-        getPosts()
+        getPosts();
       })
       .catch((err) => {
         console.log(err);
       });
-      setDeleteupdate(false)
-      setDeletePost(false)
+    setDeleteupdate(false);
+    setDeletePost(false);
   };
   const UpdatePost = (id) => {
     axios
-      .put(`http://localhost:5000/posts/update/${id}`,{
-        body : postChange
-      }, {
-        headers: {
-          Authorization: `Bearer ${state.token}`,
+      .put(
+        `http://localhost:5000/posts/update/${id}`,
+        {
+          body: postChange,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      )
       .then((result) => {
         console.log("update sucsses");
-        getPosts()
+        getPosts();
       })
-      .catch((err) => { console.log(err)});
-      setDeleteupdate(false)
-      setUpdatePost(false)
-
+      .catch((err) => {
+        console.log(err);
+      });
+    setDeleteupdate(false);
+    setUpdatePost(false);
   };
   /* ================================================= */
   return (
@@ -185,9 +190,12 @@ const PorfilePosts = () => {
                     <div
                       class="  h-8  rounded-3xl flex items-center p-2 ms-2 mt-3 me-3 cursor-pointer"
                       onClick={() => {
-                       {deleteupdate?setDeleteupdate(false):setDeleteupdate(true)} ;
+                        {
+                          deleteupdate
+                            ? setDeleteupdate(false)
+                            : setDeleteupdate(true);
+                        }
                         setPostId(post.post_id);
-
                       }}
                     >
                       <svg
@@ -204,7 +212,7 @@ const PorfilePosts = () => {
                       </svg>
                     </div>
                   </div>
-                  {(deleteupdate && postId === post.post_id )&&(
+                  {deleteupdate && postId === post.post_id && (
                     <div>
                       <IoMdArrowDropup
                         size={10}
@@ -212,7 +220,7 @@ const PorfilePosts = () => {
                         className="absolute top-11 right-3"
                       />
 
-                      <div className="absolute z-10 bg-white w-44 h-24 top-14 right-3 rounded-md shadow-2xl">
+                      <div className="absolute z-10 bg-gray-300 w-44 h-24 top-12 right-8 rounded-md shadow-2xl">
                         <div className="flex ">
                           <TiDelete className=" mt-3 ml-2" />
                           <p
@@ -222,10 +230,10 @@ const PorfilePosts = () => {
                               setDeletePost(true);
                             }}
                           >
-                            delete post
+                            Delete Post
                           </p>
                         </div>
-                        {deletePost &&  (
+                        {deletePost && (
                           <div id="myModal" className="modal2">
                             <div className="modal-content2 ml-10 w-">
                               <span
@@ -236,20 +244,23 @@ const PorfilePosts = () => {
                               >
                                 &times;
                               </span>
-                              <p className=" text-2xl border-b-2">
-                                delete post
+                              <p className=" text-2xl border-b-2 pb-2">
+                                Delete Post
                               </p>
 
                               <div className="mb-3 mt-3">
-                                <p>
-                                  if you delete post you can't return it again
+                                <p className="text-red-600">
+                                  If you delete post you can't return it again.
                                 </p>
                               </div>
 
-                              <div className=" bg-black text-white w-20 rounded-lg pl-3 h-8 pt-1 " onClick={()=>{
-                              DaletePost(postId)
-                              }}>
-                                <button>delete</button>
+                              <div
+                                className=" bg-black text-white w-20 rounded-md pl-3 h-8 pt-1 "
+                                onClick={() => {
+                                  DaletePost(postId);
+                                }}
+                              >
+                                <button>Delete</button>
                               </div>
                             </div>
                           </div>
@@ -260,41 +271,48 @@ const PorfilePosts = () => {
                             className="text-black font-mono ps-2 pt-2 h-10 border-b cursor-pointer"
                             onClick={() => {
                               setPostId(post.post_id);
-                              setPostBody(post.body)
-                              setUpdatePost(true)
+                              setPostBody(post.body);
+                              setUpdatePost(true);
                             }}
                           >
-                            update post
+                            Update Post
                           </p>
                         </div>
-                        {updatePost&&(
+                        {updatePost && (
                           <div id="myModal" className="modal2">
-                          <div className="modal-content2 ml-10 w-">
-                            <span
-                              className="close2"
-                              onClick={() => {
-                                setUpdatePost(false);
-                              }}
-                            >
-                              &times;
-                            </span>
-                            <p className=" text-2xl border-b-2">
-                              Update post
-                            </p>
+                            <div className="modal-content2 ml-10 w-">
+                              <span
+                                className="close2"
+                                onClick={() => {
+                                  setUpdatePost(false);
+                                }}
+                              >
+                                &times;
+                              </span>
+                              <p className=" text-2xl border-b-2 pb-2">
+                                Update Post
+                              </p>
 
-                            <div className="mb-3 mt-3">
-                            <textarea defaultValue={postBody} onChange={(e)=>{
-                             setPostChange(e.target.value)
-                            }}></textarea>
-                            </div>
+                              <div className="mb-3 mt-3">
+                                <textarea
+                                  defaultValue={postBody}
+                                  className="w-full border-2 p-2"
+                                  onChange={(e) => {
+                                    setPostChange(e.target.value);
+                                  }}
+                                ></textarea>
+                              </div>
 
-                            <div className=" bg-black text-white w-20 rounded-lg pl-3 h-8 pt-1 " onClick={()=>{
-                            UpdatePost(postId)
-                            }}>
-                              <button>update</button>
+                              <div
+                                className=" bg-black text-white w-20 rounded-md pl-3 h-8 pt-1 "
+                                onClick={() => {
+                                  UpdatePost(postId);
+                                }}
+                              >
+                                <button>Update</button>
+                              </div>
                             </div>
                           </div>
-                        </div>
                         )}
                       </div>
                     </div>

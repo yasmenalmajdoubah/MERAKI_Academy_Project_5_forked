@@ -45,11 +45,11 @@ export const VisitedHeader = () => {
 
   }
   const followOrUnFollow = (innerText) => {
-    if (innerText === "follow") {
-      document.getElementById("buttonFollow").innerHTML = "unfollow";
+    if (innerText === "Follow") {
+      document.getElementById("buttonFollow").innerHTML = "Unfollow";
       Follow();
     } else {
-      document.getElementById("buttonFollow").innerHTML = "follow";
+      document.getElementById("buttonFollow").innerHTML = "Follow";
       unFollow();
     }
   };
@@ -174,26 +174,18 @@ export const VisitedHeader = () => {
                   )}
                   <div className="mr-10 mt-11 mb-5">
                     <button
-                      className="bg-black rounded-lg shadow-md w-40 h-10 text-white"
+                      className="bg-black rounded-md shadow-md w-40 h-10 text-white"
                       id="buttonFollow"
                       onClick={function (e) {
                         followOrUnFollow(e.target.innerText);
                       }}
                     >
+
                       
                       {visitUserInfo.role_id === 2 ? folloow[1] : folloow[0]}{" "}
+
                     </button>
-                    {/*        
-                    <Button
-                      variant="primary"
-                      id="buttonFollow"
-                      className=" font-bold w-40 bg-blue-600 rounded-lg h-10 "
-                      onClick={function (e) {
-                        followOrUnFollow(e.target.innerText);
-                      }}
-                    >
-                      {visitUserInfo.role_id === 2 ? "intrest" : "follow"}
-                    </Button> */}
+                    
                   </div>
                 </div>
               </div>
@@ -205,7 +197,7 @@ export const VisitedHeader = () => {
             {visitUserInfo.role_id === 1 && (
               <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
                 <button className="text-white text-lg">
-                  <a href="#posts"> {posts.length} posts</a>
+                  <a href="#posts"> {posts.length} Posts</a>
                 </button>
                 {myFollow&&(
                 <div id="myModal" className="modal2">
@@ -242,12 +234,14 @@ export const VisitedHeader = () => {
                     onClick={() => setMyFollow(true)}
                   >
                     {" "}
+
                     {followVisit.length} follow
+
                   </button>
                   
                 
 
-                <button className=" text-white text-lg">25 folowers</button>
+                <button className=" text-white text-lg">25 Folowers</button>
               </div>
             )}
 
@@ -280,7 +274,7 @@ export const VisitedHeader = () => {
           <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
             <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
               <button>
-                <a href="#interests">interests</a>
+                <a href="#interests">Interests</a>
               </button>
             </div>
             <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
