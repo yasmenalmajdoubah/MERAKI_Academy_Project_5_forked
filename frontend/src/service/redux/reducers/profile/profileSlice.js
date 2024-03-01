@@ -8,7 +8,8 @@ const profileSlice = createSlice({
     follow:[] ,
     experience: [],
     workNow:{},
-    institution:[]
+    institution:[],
+    followVisit:[]
   },
 
   reducers: {
@@ -20,6 +21,9 @@ const profileSlice = createSlice({
     },
     setFollow:(state,action) =>{
       state.follow=action.payload
+    },
+    setFollowVisit:(state,action) =>{
+      state.followVisit=action.payload
     },
     AddFollow:(state,action)=>{
     state.follow.push(action.payload)
@@ -42,6 +46,6 @@ const profileSlice = createSlice({
  
 });
 
-export const { setUserInfo,setFollow,AddFollow,setExperience,setWorkNow,setInstitutionFollow,setVisitUserInfo,setAllField } = profileSlice.actions;
+export const { setUserInfo,setFollow,AddFollow,setExperience,setWorkNow,setInstitutionFollow,setVisitUserInfo,setAllField,setFollowVisit } = profileSlice.actions;
 
 export default profileSlice.reducer;
