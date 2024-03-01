@@ -132,7 +132,7 @@ const NavBar = () => {
           <NavLink className="text-white" to="/profile">
             Profile
           </NavLink>
-          {state.userInfo.role_id === 1 && (
+          {state.userInfo.role_id !== 2 && (
             <NavLink className="text-white" to="/jobs">
               Jobs
             </NavLink>
