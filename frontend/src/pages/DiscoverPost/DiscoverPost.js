@@ -37,7 +37,7 @@ const Global = () => {
       postURL: state.posts.postURL,
       posts: state.posts.posts,
       userLikes: state.posts.userLikes,
-      userId: state.post.userId,
+      userId: state.log.userId,
     };
   });
 
