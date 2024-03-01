@@ -44,13 +44,14 @@ const Chat = () => {
       <Message socket={socket} toId={id} />
     ) : (
       <>
-        <h1>Press Down To Start Conversation</h1>
+      <div className="flex items-center justify-center h-screen"><p className="text-2xl font-semibold">Press Here To Start Conversation   </p><br/>
         <img
           src="https://media.tenor.com/9DDAH7lIg0sAAAAM/typing-message.gif"
           onClick={() => {
             setSocket(socketInt({ userId }));
           }}
-        />{" "}
+        />{" "}</div>
+        
       </>
     )}
   </div>
