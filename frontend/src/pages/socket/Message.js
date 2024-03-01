@@ -122,7 +122,7 @@ const Message = ({ socket, toId }) => {
             <div className="p-4 bg-gray-200">
               <div className="flex">
                 <input
-                id="send"
+                  id="send"
                   type="text"
                   placeholder="write here ...."
                   className="flex-1 appearance-none border border-gray-300 rounded-md py-2 px-4 bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500"
@@ -134,8 +134,7 @@ const Message = ({ socket, toId }) => {
                   className="ml-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md"
                   onClick={() => {
                     sendMessage();
-                    document.getElementById("send").value=""
-
+                    document.getElementById("send").value = "";
                   }}
                 >
                   SEND
