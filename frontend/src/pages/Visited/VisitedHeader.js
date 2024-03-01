@@ -17,33 +17,31 @@ import Modal from "react-bootstrap/Modal";
 export const VisitedHeader = () => {
   const navigate = useNavigate();
   const [myFollow, setMyFollow] = useState(false);
-  const [folloow, setFolloow] = useState(["follow","intrest"])
-  
+  const [folloow, setFolloow] = useState(["follow", "intrest"]);
+
   const dispatch = useDispatch();
   const { id } = useParams();
   /* ================================= */
-  const { token, follow, posts, workNow, visitUserInfo,followVisit } = useSelector(
-    (state) => {
+  const { token, follow, posts, workNow, visitUserInfo, followVisit } =
+    useSelector((state) => {
       return {
         token: state.log.token,
         follow: state.profile.follow,
         posts: state.posts.posts,
         workNow: state.profile.workNow,
         visitUserInfo: state.profile.visitUserInfo,
-        followVisit: state.profile.followVisit
+        followVisit: state.profile.followVisit,
       };
-    }
-  );
+    });
 
   /* ==================================== */
-  const followOrUn=()=>{
-    follow.map((fol,i)=>{
-      if (visitUserInfo.user_id===fol.user_id) {
-        setFolloow(["un Follow","uninterested"])
+  const followOrUn = () => {
+    follow.map((fol, i) => {
+      if (visitUserInfo.user_id === fol.user_id) {
+        setFolloow(["un Follow", "uninterested"]);
       }
-    })
-
-  }
+    });
+  };
   const followOrUnFollow = (innerText) => {
     if (innerText === "Follow") {
       document.getElementById("buttonFollow").innerHTML = "Unfollow";
@@ -124,13 +122,12 @@ export const VisitedHeader = () => {
   useEffect(() => {
     getUser();
     getfollows();
-    followOrUn()
+    followOrUn();
   }, []);
 
   /* ======================================= */
   return (
     <div className=" ">
-      
       <img
         class=" w-48 w- h-48  rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={visitUserInfo.profileimage}
@@ -180,12 +177,8 @@ export const VisitedHeader = () => {
                         followOrUnFollow(e.target.innerText);
                       }}
                     >
-
-                      
                       {visitUserInfo.role_id === 2 ? folloow[1] : folloow[0]}{" "}
-
                     </button>
-                    
                   </div>
                 </div>
               </div>
@@ -199,47 +192,44 @@ export const VisitedHeader = () => {
                 <button className="text-white text-lg">
                   <a href="#posts"> {posts.length} Posts</a>
                 </button>
-                {myFollow&&(
-                <div id="myModal" className="modal2">
-                <div className="modal-content2 ml-10 w-">
-                  <span
-                    className="close2"
-                    onClick={() => {
-                      setMyFollow(false);
-                    }}
-                  >
-                    &times;
-                  </span>
-                  <p className=" text-2xl border-b-2">
-                    follow
-                  </p>
+                {myFollow && (
+                  <div id="myModal" className="modal2">
+                    <div className="modal-content2 ml-10 w-">
+                      <span
+                        className="close2"
+                        onClick={() => {
+                          setMyFollow(false);
+                        }}
+                      >
+                        &times;
+                      </span>
+                      <p className=" text-2xl border-b-2">Follow</p>
 
-                  <div className="">
-                    {followVisit.map((fol,i) => {
-                      return(
-                        <div className=" my-2 border-b-2 flex">
-                          <img src={fol.profileimage} className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2 mr-2" />
-                          <p className="mt-2">{fol.firstname} {fol.lastname}</p>
-                        </div>
-                      )
-                    })}
+                      <div className="">
+                        {followVisit.map((fol, i) => {
+                          return (
+                            <div className=" my-2 border-b-2 flex">
+                              <img
+                                src={fol.profileimage}
+                                className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2 mr-2"
+                              />
+                              <p className="mt-2">
+                                {fol.firstname} {fol.lastname}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-
-                  
-                </div>
-              </div>
-              )}
-                  <button
-                    className="text-white text-lg"
-                    onClick={() => setMyFollow(true)}
-                  >
-                    {" "}
-
-                    {followVisit.length} follow
-
-                  </button>
-                  
-                
+                )}
+                <button
+                  className="text-white text-lg"
+                  onClick={() => setMyFollow(true)}
+                >
+                  {" "}
+                  {followVisit.length} Follow
+                </button>
 
                 <button className=" text-white text-lg">25 Folowers</button>
               </div>

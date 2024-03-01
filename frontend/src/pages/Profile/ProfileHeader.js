@@ -169,14 +169,14 @@ export const ProfileHeader = () => {
               <div className=" flex flex-row justify-around h-12 pl-6 rounded-b bg-black">
 
  <button className="text-white text-lg">
-                <a href="#postProfile"> {posts.length} posts</a>
+                <a href="#postProfile"> {posts.length} Posts</a>
               </button>
               <button
                 className="text-white text-lg"
                 onClick={() => setMyFollow(true)}
               >
                 {" "}
-                {follow.length} follow
+                {follow.length} Follow
               </button>
               {console.log('follow', follow)}
               {myFollow&&(
@@ -191,7 +191,7 @@ export const ProfileHeader = () => {
                     &times;
                   </span>
                   <p className=" text-2xl border-b-2">
-                    follow
+                    Follow
                   </p>
 
                   <div className="">
@@ -209,7 +209,7 @@ export const ProfileHeader = () => {
                 </div>
               </div>
               )}
-              <button className=" text-white text-lg">25 folowers</button>
+              <button className=" text-white text-lg">25 Folowers</button>
 </div>
 
                
