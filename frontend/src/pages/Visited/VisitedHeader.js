@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setUserInfo,
+  setFollowVisit,
   setFollow,
   AddFollow,
   setVisitUserInfo,
@@ -16,10 +17,12 @@ import Modal from "react-bootstrap/Modal";
 export const VisitedHeader = () => {
   const navigate = useNavigate();
   const [myFollow, setMyFollow] = useState(false);
+  const [folloow, setFolloow] = useState(["follow","intrest"])
+  
   const dispatch = useDispatch();
   const { id } = useParams();
   /* ================================= */
-  const { token, follow, posts, workNow, visitUserInfo } = useSelector(
+  const { token, follow, posts, workNow, visitUserInfo,followVisit } = useSelector(
     (state) => {
       return {
         token: state.log.token,
@@ -27,11 +30,20 @@ export const VisitedHeader = () => {
         posts: state.posts.posts,
         workNow: state.profile.workNow,
         visitUserInfo: state.profile.visitUserInfo,
+        followVisit: state.profile.followVisit
       };
     }
   );
 
   /* ==================================== */
+  const followOrUn=()=>{
+    follow.map((fol,i)=>{
+      if (visitUserInfo.user_id===fol.user_id) {
+        setFolloow(["un Follow","uninterested"])
+      }
+    })
+
+  }
   const followOrUnFollow = (innerText) => {
     if (innerText === "Follow") {
       document.getElementById("buttonFollow").innerHTML = "Unfollow";
@@ -101,7 +113,7 @@ export const VisitedHeader = () => {
         },
       })
       .then((result) => {
-        dispatch(setFollow(result.data.result));
+        dispatch(setFollowVisit(result.data.result));
       })
       .catch((err) => {
         console.log("err from use effect function getfollows", err);
@@ -112,6 +124,7 @@ export const VisitedHeader = () => {
   useEffect(() => {
     getUser();
     getfollows();
+    followOrUn()
   }, []);
 
   /* ======================================= */
@@ -167,19 +180,12 @@ export const VisitedHeader = () => {
                         followOrUnFollow(e.target.innerText);
                       }}
                     >
-                      {visitUserInfo.role_id === 2 ? "Intrest" : "Follow"}{" "}
+
+                      
+                      {visitUserInfo.role_id === 2 ? folloow[1] : folloow[0]}{" "}
+
                     </button>
-                    {/*        
-                    <Button
-                      variant="primary"
-                      id="buttonFollow"
-                      className=" font-bold w-40 bg-blue-600 rounded-lg h-10 "
-                      onClick={function (e) {
-                        followOrUnFollow(e.target.innerText);
-                      }}
-                    >
-                      {visitUserInfo.role_id === 2 ? "intrest" : "follow"}
-                    </Button> */}
+                    
                   </div>
                 </div>
               </div>
@@ -209,7 +215,7 @@ export const VisitedHeader = () => {
                   </p>
 
                   <div className="">
-                    {follow.map((fol,i) => {
+                    {followVisit.map((fol,i) => {
                       return(
                         <div className=" my-2 border-b-2 flex">
                           <img src={fol.profileimage} className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2 mr-2" />
@@ -228,7 +234,9 @@ export const VisitedHeader = () => {
                     onClick={() => setMyFollow(true)}
                   >
                     {" "}
-                    {follow.length} Follow
+
+                    {followVisit.length} follow
+
                   </button>
                   
                 
