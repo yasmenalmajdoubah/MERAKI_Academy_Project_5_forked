@@ -40,15 +40,19 @@ const Chat = () => {
 
   return (
     <div className="c">
-      <h1>Press Down To Start Conversation</h1>
-
-      <img
-        src="https://media.tenor.com/9DDAH7lIg0sAAAAM/typing-message.gif"
-        onClick={() => {
-          setSocket(socketInt({ userId }));
-        }}
-      />
-      {isConnected && <Message socket={socket} toId={id} />}
+      {isConnected ? (
+        <Message socket={socket} toId={id} />
+      ) : (
+        <>
+          <h1>Press Down To Start Conversation</h1>
+          <img
+            src="https://media.tenor.com/9DDAH7lIg0sAAAAM/typing-message.gif"
+            onClick={() => {
+              setSocket(socketInt({ userId }));
+            }}
+          />{" "}
+        </>
+      )}
     </div>
   );
 };
