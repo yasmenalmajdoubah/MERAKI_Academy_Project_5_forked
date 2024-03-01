@@ -32,13 +32,13 @@ const HelpCenter = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 for="email"
               >
-                Your Email
+                Title of Problem
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="email"
                 type="email"
-                placeholder="Email"
+                placeholder="Tell us about it"
               />
             </div>
             <div className="mb-6">
@@ -46,7 +46,7 @@ const HelpCenter = () => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 for="issue"
               >
-                Enter Your Problem
+                Description of Your Problem
               </label>
               <textarea
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
