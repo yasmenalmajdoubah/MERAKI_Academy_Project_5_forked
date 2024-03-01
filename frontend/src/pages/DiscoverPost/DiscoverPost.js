@@ -220,9 +220,9 @@ const Global = () => {
           {state.userId === 42 ? (
             <img src={pic} />
           ) : state.userId === 48 ? (
-            <img src={pic_3} />
-          ) : (
             <img src={pic_2} />
+          ) : (
+            <img src={pic_3} />
           )}
         </div>
       </div>
