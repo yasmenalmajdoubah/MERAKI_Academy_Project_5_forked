@@ -17,7 +17,7 @@ import Modal from "react-bootstrap/Modal";
 export const VisitedHeader = () => {
   const navigate = useNavigate();
   const [myFollow, setMyFollow] = useState(false);
-  const [folloow, setFolloow] = useState(["follow", "intrest"]);
+  const [folloow, setFolloow] = useState(["Follow", "Intrest"]);
 
   const dispatch = useDispatch();
   const { id } = useParams();
