@@ -164,10 +164,10 @@ export const Post = () => {
       console.log(error);
     }
   };
-
+ */
   setTimeout(() => {
     setNoPosts(true);
-  }, 3000); */
+  }, 3000);
   // ================================
 
   return (
