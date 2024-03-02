@@ -77,7 +77,7 @@ Now app ready to use
 ## 🎈 Usage <a name="usage"></a>
 - you must register first
  or by google
- <img width="900px" height="900px" src=" C:\Users\YASMIN\Desktop\readme\reg.png" alt="Project logo">
+ <img width="900px" height="900px" src="./frontend/src/assest/reg" alt="Project logo">
 2-login
 using your email or by google
 <img width="900px" height="900px" src=" D:\MERAKI_Academy\projects\MERAKI_Academy_Project_5_forked\frontend\src\assest\log.png" alt="Project logo">
