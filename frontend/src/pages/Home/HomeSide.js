@@ -58,7 +58,8 @@ const HomeSide = () => {
   }, []); */
 
   /* ======================================= */
-  useEffect(() => {
+
+  const getAllFields = () => {
     axios
       .get("http://localhost:5000/roles/fields")
       .then((result) => {
@@ -67,7 +68,7 @@ const HomeSide = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
   /* ============================================ */
 
@@ -110,6 +111,7 @@ const HomeSide = () => {
               className="bg-black text-white w-full h-12 shadow-lg rounded font-medium text-xl"
               onClick={() => {
                 setModal(true);
+                getAllFields();
               }}
             >
               Share New Job

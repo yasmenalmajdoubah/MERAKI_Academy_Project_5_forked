@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setUserInfo,
+  setFollowVisit,
   setFollow,
   AddFollow,
   setVisitUserInfo,
@@ -16,28 +17,37 @@ import Modal from "react-bootstrap/Modal";
 export const VisitedHeader = () => {
   const navigate = useNavigate();
   const [myFollow, setMyFollow] = useState(false);
+  const [folloow, setFolloow] = useState(["Follow", "Intrest"]);
+
   const dispatch = useDispatch();
   const { id } = useParams();
   /* ================================= */
-  const { token, follow, posts, workNow, visitUserInfo } = useSelector(
-    (state) => {
+  const { token, follow, posts, workNow, visitUserInfo, followVisit } =
+    useSelector((state) => {
       return {
         token: state.log.token,
         follow: state.profile.follow,
         posts: state.posts.posts,
         workNow: state.profile.workNow,
         visitUserInfo: state.profile.visitUserInfo,
+        followVisit: state.profile.followVisit,
       };
-    }
-  );
+    });
 
   /* ==================================== */
+  const followOrUn = () => {
+    follow.map((fol, i) => {
+      if (visitUserInfo.user_id === fol.user_id) {
+        setFolloow(["un Follow", "uninterested"]);
+      }
+    });
+  };
   const followOrUnFollow = (innerText) => {
-    if (innerText === "follow") {
-      document.getElementById("buttonFollow").innerHTML = "unfollow";
+    if (innerText === "Follow") {
+      document.getElementById("buttonFollow").innerHTML = "Unfollow";
       Follow();
     } else {
-      document.getElementById("buttonFollow").innerHTML = "follow";
+      document.getElementById("buttonFollow").innerHTML = "Follow";
       unFollow();
     }
   };
@@ -101,7 +111,7 @@ export const VisitedHeader = () => {
         },
       })
       .then((result) => {
-        dispatch(setFollow(result.data.result));
+        dispatch(setFollowVisit(result.data.result));
       })
       .catch((err) => {
         console.log("err from use effect function getfollows", err);
@@ -112,34 +122,12 @@ export const VisitedHeader = () => {
   useEffect(() => {
     getUser();
     getfollows();
+    followOrUn();
   }, []);
 
   /* ======================================= */
   return (
     <div className=" ">
-      {myFollow && (
-        <div
-          className="modal show"
-          style={{ display: "block", position: "initial" }}
-        >
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal title</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <p>Modal body text goes here.</p>
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setMyFollow(false)}>
-                Close
-              </Button>
-              <Button variant="primary">Save changes</Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </div>
-      )}{" "}
       <img
         class=" w-48 w- h-48  rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={visitUserInfo.profileimage}
@@ -183,25 +171,14 @@ export const VisitedHeader = () => {
                   )}
                   <div className="mr-10 mt-11 mb-5">
                     <button
-                      className="bg-black rounded-lg shadow-md w-40 h-10 text-white"
+                      className="bg-black rounded-md shadow-md w-40 h-10 text-white"
                       id="buttonFollow"
                       onClick={function (e) {
                         followOrUnFollow(e.target.innerText);
                       }}
                     >
-                      {visitUserInfo.role_id === 2 ? "intrest" : "follow"}{" "}
+                      {visitUserInfo.role_id === 2 ? folloow[1] : folloow[0]}{" "}
                     </button>
-                    {/*        
-                    <Button
-                      variant="primary"
-                      id="buttonFollow"
-                      className=" font-bold w-40 bg-blue-600 rounded-lg h-10 "
-                      onClick={function (e) {
-                        followOrUnFollow(e.target.innerText);
-                      }}
-                    >
-                      {visitUserInfo.role_id === 2 ? "intrest" : "follow"}
-                    </Button> */}
                   </div>
                 </div>
               </div>
@@ -213,19 +190,48 @@ export const VisitedHeader = () => {
             {visitUserInfo.role_id === 1 && (
               <div className=" flex flex-row justify-around h-12 pl-6 rounded-b-xl bg-black">
                 <button className="text-white text-lg">
-                  <a href="#posts"> {posts.length} posts</a>
+                  <a href="#posts"> {posts.length} Posts</a>
                 </button>
-                {visitUserInfo.role_id === 1 && (
-                  <button
-                    className="text-white text-lg"
-                    onClick={() => setMyFollow(true)}
-                  >
-                    {" "}
-                    {follow.length} follow
-                  </button>
-                )}
+                {myFollow && (
+                  <div id="myModal" className="modal2">
+                    <div className="modal-content2 ml-10 w-">
+                      <span
+                        className="close2"
+                        onClick={() => {
+                          setMyFollow(false);
+                        }}
+                      >
+                        &times;
+                      </span>
+                      <p className=" text-2xl border-b-2">Follow</p>
 
-                <button className=" text-white text-lg">25 folowers</button>
+                      <div className="">
+                        {followVisit.map((fol, i) => {
+                          return (
+                            <div className=" my-2 border-b-2 flex">
+                              <img
+                                src={fol.profileimage}
+                                className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2 mr-2"
+                              />
+                              <p className="mt-2">
+                                {fol.firstname} {fol.lastname}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <button
+                  className="text-white text-lg"
+                  onClick={() => setMyFollow(true)}
+                >
+                  {" "}
+                  {followVisit.length} Follow
+                </button>
+
+                <button className=" text-white text-lg">25 Folowers</button>
               </div>
             )}
 
@@ -258,7 +264,7 @@ export const VisitedHeader = () => {
           <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
             <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
               <button>
-                <a href="#interests">interests</a>
+                <a href="#interests">Interests</a>
               </button>
             </div>
             <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">

@@ -6,6 +6,7 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { TbHelpHexagon } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
+
 import axios from "axios";
 import "./NavBar.css";
 
@@ -131,11 +132,11 @@ const NavBar = () => {
           <NavLink className="text-white" to="/profile">
             Profile
           </NavLink>
-          {state.userInfo.role_id === 1 && (
-            <NavLink className="text-white" to="/jobs">
-              Jobs
-            </NavLink>
-          )}
+
+          <NavLink className="text-white" to="/jobs">
+            Jobs
+          </NavLink>
+
           <NavLink className="text-white" to="/global">
             Community
           </NavLink>

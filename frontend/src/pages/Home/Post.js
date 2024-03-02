@@ -34,6 +34,7 @@ export const Post = () => {
       postURL: state.posts.postURL,
       posts: state.posts.posts,
       userLikes: state.posts.userLikes,
+      userInfo:state.profile.userInfo
     };
   });
 
@@ -95,7 +96,7 @@ export const Post = () => {
   };
 
   /* =============================== */
-  const getlikes = async (post_id) => {
+  /*   const getlikes = async (post_id) => {
     try {
       const result = await axios.get(
         `http://localhost:5000/posts/getLikes/${post_id}`,
@@ -116,11 +117,11 @@ export const Post = () => {
       }
       setMessage("Error happened while Get Data, please try again");
     }
-  };
+  }; */
 
   /* ============================================== */
 
-  const like = async (post_id) => {
+  /*   const like = async (post_id) => {
     try {
       const result = await axios.post(
         `http://localhost:5000/posts/addLike`,
@@ -140,10 +141,10 @@ export const Post = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
   /* ============================================== */
-
+  /* 
   const unlike = async (like_id) => {
     try {
       const result = await axios.post(
@@ -166,11 +167,11 @@ export const Post = () => {
 
   setTimeout(() => {
     setNoPosts(true);
-  }, 3000);
+  }, 3000); */
   // ================================
 
   return (
-    <div className="bg-zinc-200 mt-5">
+    <div className="bg-zinc-200">
       {state.posts.length !== 0 ? (
         state.posts?.map((post, index) => {
           return (
@@ -183,6 +184,7 @@ export const Post = () => {
                   className="bg-white rounded-lg shadow p-4"
                   style={{ width: "650px" }}
                 >
+                  <div className=" flex justify-between">
                   <div className="flex items-center">
                     <img
                       src={post.profileimage}
@@ -211,7 +213,14 @@ export const Post = () => {
                           .reverse()
                           .join("-")}
                       </p>
+                    
                     </div>
+                  </div>
+                  
+                  {post.user_id===state.userInfo.user_id&& (
+                    <div class="  h-8  rounded-3xl flex items-center p-2 ms-2 mt-3 me-3 cursor-pointer"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg></div>
+                  )}
+                  
                   </div>
                   <div className="mt-4">
                     <p>{post.body}</p>
@@ -226,11 +235,28 @@ export const Post = () => {
 
                   <div className="items-center mt-4 pt-2 border-t-2">
                     <div className="flex justify-around">
-                      <div className="flex items-center cursor-pointe">
-                        <div className="mt-1 me-1" onClick={() => {}}>
-                          {" "}
-                          <FaHeart />
-                        </div>
+                      <div
+                        className="flex items-center cursor-pointer"
+                        onClick={() => {
+                          {
+                            interested
+                              ? setInterested(false)
+                              : setInterested(true);
+                            setPost_id(post.post_id);
+                          }
+                        }}
+                      >
+                        {interested && post_id === post.post_id ? (
+                          <div className="mt-1 me-1" onClick={() => {}}>
+                            {" "}
+                            <FaHeart />
+                          </div>
+                        ) : (
+                          <div className="mt-1 me-1" onClick={() => {}}>
+                            {" "}
+                            <FaRegHeart />
+                          </div>
+                        )}
                         <div>Interested</div>
                       </div>
 

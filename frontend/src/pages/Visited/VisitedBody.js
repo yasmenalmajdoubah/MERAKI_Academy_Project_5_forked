@@ -48,7 +48,7 @@ export const VisitedBody = () => {
             <div>
               <div className="text-xl font-medium text-black" id="AboutVisit">
                 About
-              </div >
+              </div>
               <p className="text-slate-500">{visitUserInfo.about}</p>
             </div>
           </div>

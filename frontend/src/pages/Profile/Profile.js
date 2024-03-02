@@ -9,6 +9,7 @@ import ProfileJobs from "./ProfileJobs";
 import { useSelector } from "react-redux";
 
 
+
 const Profile = () => {
   const { userInfo } = useSelector((state) => {
     return {
@@ -21,6 +22,7 @@ const Profile = () => {
         <ProfileHeader />
       </div>
       <div className="  flex flex-col justify-between mt-6 ">
+        
         <div className=" ml-12 w-10/12 pr-24">
           {" "}
           

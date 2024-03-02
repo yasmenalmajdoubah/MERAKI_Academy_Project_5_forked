@@ -61,7 +61,7 @@ export const ProfileHeader = () => {
   };
 
   /* ==================================================== */
-  const getUser = () => {
+ /*  const getUser = () => {
     axios
       .get(`http://localhost:5000/users/search_1/${userId}`, {
         headers: {
@@ -74,7 +74,7 @@ export const ProfileHeader = () => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }; */
   const getfollows = () => {
     axios
       .get(`http://localhost:5000/users/follows/${userId}`, {
@@ -91,8 +91,8 @@ export const ProfileHeader = () => {
       });
   };
   useEffect(() => {
-    getUser();
-    getfollows();
+/*     getUser();
+ */    getfollows();
   }, []);
   /* =================================================== */
   const updateImages = (req, res) => {
@@ -121,29 +121,7 @@ export const ProfileHeader = () => {
 
   return (
     <div className="">
-      {myFollow && (
-        <div
-          className="modal show"
-          style={{ display: "block", position: "initial" }}
-        >
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal title</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <p>Modal body text goes here.</p>
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setMyFollow(false)}>
-                Close
-              </Button>
-              <Button variant="primary">Save changes</Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </div>
-      )}{" "}
+      
       <img
         class=" w-48 w- h-48 bg-slate-200 rounded-full sm:mx-0 sm:shrink-0 profile object-cover"
         src={userInfo.profileimage}
@@ -187,76 +165,105 @@ export const ProfileHeader = () => {
                 <p>{userInfo.experience} </p>
               </div> */}
             </div>
-            {userInfo.role_id===1&&( 
+            {userInfo.role_id === 1 && (
               <div className=" flex flex-row justify-around h-12 pl-6 rounded-b bg-black">
+
  <button className="text-white text-lg">
-                <a href="#postProfile"> {posts.length} posts</a>
+                <a href="#postProfile"> {posts.length} Posts</a>
               </button>
               <button
                 className="text-white text-lg"
                 onClick={() => setMyFollow(true)}
               >
                 {" "}
-                {follow.length} follow
+                {follow.length} Follow
               </button>
-              <button className=" text-white text-lg">25 folowers</button>
+              {console.log('follow', follow)}
+              {myFollow&&(
+                <div id="myModal" className="modal2">
+                <div className="modal-content2 ml-10 w-">
+                  <span
+                    className="close2"
+                    onClick={() => {
+                      setMyFollow(false);
+                    }}
+                  >
+                    &times;
+                  </span>
+                  <p className=" text-2xl border-b-2">
+                    Follow
+                  </p>
+
+                  <div className="">
+                    {follow.map((fol,i) => {
+                      return(
+                        <div className=" my-2 border-b-2 flex">
+                          <img src={fol.profileimage} className="rounded-full w-12 h-12 cursor-pointer object-cover border-white border-2 mr-2" />
+                          <p className="mt-2">{fol.firstname} {fol.lastname}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+
+                  
+                </div>
+              </div>
+              )}
+              <button className=" text-white text-lg">25 Folowers</button>
 </div>
+
+               
+
             )}
-            
-             
 
-              
-
-             
-              
-            
             {/* </div> */}
           </div>
         </div>
         {userInfo.role_id === 2 ? (
-                <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
-                <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
-                  <button>
-                    <a href="#jobsProfile">Jobs</a>
-                  </button>
-                </div>
-                <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-                  <button>
-                    {" "}
-                    <a href="#postProfile">Posts </a>
-                  </button>
-                </div>
-                <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-                  <button>Interested</button>
-                </div>
-                <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
-                  <button>
-                    <a href="#AboutProfile">About</a>
-                  </button>
-                </div>
-              </div>
-               ): <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
-               <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
-                 <button>
-                   <a href="#interests">interests</a>
-                 </button>
-               </div>
-               <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-                 <button>
-                   {" "}
-                   <a href="#Experience">Experience </a>
-                 </button>
-               </div>
-               <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
-                 <button>Education</button>
-               </div>
-               <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
-                 <button>
-                   <a href="#Skills">Skills</a>
-                 </button>
-               </div>
-             </div>}
-       
+          <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
+            <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#jobsProfile">Jobs</a>
+              </button>
+            </div>
+            <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>
+                {" "}
+                <a href="#postProfile">Posts </a>
+              </button>
+            </div>
+            <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>Interested</button>
+            </div>
+            <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#AboutProfile">About</a>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className=" flex flex-col ml-3  mt-10 w-48 rounded-lg shadow-2xl mr-16	">
+            <div className=" pt-8 pb-9 h-1/4 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#interests">Interests</a>
+              </button>
+            </div>
+            <div className=" pt-8  h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>
+                {" "}
+                <a href="#Experience">Experience </a>
+              </button>
+            </div>
+            <div className=" pt-8 h-1/4 pb-9 pl-8 rounded-lg shadow-md  ">
+              <button>Education</button>
+            </div>
+            <div className=" pt-9 h-1/4 pb-9 pl-8 rounded-lg shadow-md ">
+              <button>
+                <a href="#Skills">Skills</a>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       {/* ====================== to show profile image =========================== */}
       {showPostImage && (
