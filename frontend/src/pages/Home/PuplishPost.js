@@ -56,7 +56,7 @@ const PuplishPost = () => {
 
   const getAllFields = () => {
     axios
-      .get("http://localhost:5000/roles/fields")
+      .get("https://workedin.onrender.com/roles/fields")
       .then((result) => {
         setAllFields(result.data.Fields);
       })
@@ -69,7 +69,7 @@ const PuplishPost = () => {
   const createPost = () => {
     axios
       .post(
-        "http://localhost:5000/posts/create",
+        "https://workedin.onrender.com/posts/create",
         {
           body: post,
           image: postImage,
@@ -94,7 +94,7 @@ const PuplishPost = () => {
 
   const getMyPosts = () => {
     axios
-      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+      .get(`https://workedin.onrender.com/posts/search_1?user=${state.userId}`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },

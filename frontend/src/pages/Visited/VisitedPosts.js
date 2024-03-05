@@ -36,7 +36,7 @@ export const VisitedPosts = () => {
   useEffect(() => {
 
     axios
-      .get(`http://localhost:5000/posts/search_1?user=${id}`, {
+      .get(`https://workedin.onrender.com/posts/search_1?user=${id}`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
@@ -64,7 +64,7 @@ export const VisitedPosts = () => {
   const getCommentsByPost = async (post_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/comments/comment/${post_id}`
+        `https://workedin.onrender.com/comments/comment/${post_id}`
       );
       if (result.data.success) {
         const comments = result.data.comments;
@@ -81,7 +81,7 @@ export const VisitedPosts = () => {
   const createComment = async (post_id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/comments/comment/${post_id}`,
+        `https://workedin.onrender.com/comments/comment/${post_id}`,
         {
           comment,
         },

@@ -41,7 +41,7 @@ const VisitedJobs = () => {
       };
       useEffect(() => {    
         axios
-      .get(`http://localhost:5000/jobs/${id}`, {
+      .get(`https://workedin.onrender.com/jobs/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

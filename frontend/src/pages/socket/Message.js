@@ -22,7 +22,7 @@ const Message = ({ socket, toId }) => {
   console.log("token", token);
   const getUser = () => {
     axios
-      .get(`http://localhost:5000/users/search_1/${toId}`, {
+      .get(`https://workedin.onrender.com/users/search_1/${toId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,7 +38,7 @@ const Message = ({ socket, toId }) => {
   };
   const getfrom = () => {
     axios
-      .get(`http://localhost:5000/users/search_1/${userId}`, {
+      .get(`https://workedin.onrender.com/users/search_1/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -32,7 +32,7 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:5000/users/login", {
+      const result = await axios.post("https://workedin.onrender.com/users/login", {
         email,
         password,
       });
@@ -41,7 +41,7 @@ const Login = () => {
           setLoginLoader(false);
           dispatch(setLogin(result.data.token));
           dispatch(setUserId(result.data.user_id));
-          dispatch(setPostURL("http://localhost:5000/posts/search_2"));
+          dispatch(setPostURL("https://workedin.onrender.com/posts/search_2"));
         }
       } else throw Error;
     } catch (error) {

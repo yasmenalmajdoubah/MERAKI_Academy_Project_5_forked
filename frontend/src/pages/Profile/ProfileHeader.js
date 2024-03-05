@@ -63,7 +63,7 @@ export const ProfileHeader = () => {
   /* ==================================================== */
  /*  const getUser = () => {
     axios
-      .get(`http://localhost:5000/users/search_1/${userId}`, {
+      .get(`https://workedin.onrender.com/users/search_1/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,7 +77,7 @@ export const ProfileHeader = () => {
   }; */
   const getfollows = () => {
     axios
-      .get(`http://localhost:5000/users/follows/${userId}`, {
+      .get(`https://workedin.onrender.com/users/follows/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -98,7 +98,7 @@ export const ProfileHeader = () => {
   const updateImages = (req, res) => {
     axios
       .put(
-        "http://localhost:5000/users/update/user",
+        "https://workedin.onrender.com/users/update/user",
         {
           profileImage,
           coverImage,

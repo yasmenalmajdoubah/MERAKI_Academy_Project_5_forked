@@ -31,7 +31,7 @@ const HomeSide = () => {
   // ======================================
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/search_1/${userId}`)
+      .get(`https://workedin.onrender.com/users/search_1/${userId}`)
       .then((result) => {
         dispatch(setUserInfo(result.data.result));
       })
@@ -44,7 +44,7 @@ const HomeSide = () => {
 
   /*   useEffect(() => {
     axios
-      .get("http://localhost:5000/posts/allLikedPosts/user", {
+      .get("https://workedin.onrender.com/posts/allLikedPosts/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ const HomeSide = () => {
 
   const getAllFields = () => {
     axios
-      .get("http://localhost:5000/roles/fields")
+      .get("https://workedin.onrender.com/roles/fields")
       .then((result) => {
         setAllFields(result.data.Fields);
       })
@@ -75,7 +75,7 @@ const HomeSide = () => {
   const createJob = () => {
     axios
       .post(
-        "http://localhost:5000/jobs/create",
+        "https://workedin.onrender.com/jobs/create",
         {
           title,
           discription,

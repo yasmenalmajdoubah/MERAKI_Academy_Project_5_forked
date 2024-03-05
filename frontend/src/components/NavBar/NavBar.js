@@ -29,7 +29,7 @@ const NavBar = () => {
   // ======== search function ===================
   const userSearch = () => {
     axios
-      .put("http://localhost:5000/users/search", {
+      .put("https://workedin.onrender.com/users/search", {
         searchInput,
       })
       .then((result) => {

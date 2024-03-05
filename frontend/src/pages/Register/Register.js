@@ -59,7 +59,7 @@ const Register = () => {
   /* ============================================================= */
   const addNewUser = async () => {
     try {
-      const result = await axios.post("http://localhost:5000/users/register", {
+      const result = await axios.post("https://workedin.onrender.com/users/register", {
         firstName,
         lastName,
         jobName,
@@ -91,7 +91,7 @@ const Register = () => {
   /* ================================================================== */
   const getAllFields = async (e) => {
     try {
-      const result = await axios.get("http://localhost:5000/roles/fields");
+      const result = await axios.get("https://workedin.onrender.com/roles/fields");
       if (result.data.success) {
         setAllFields(result.data.Fields);
       } else throw Error;

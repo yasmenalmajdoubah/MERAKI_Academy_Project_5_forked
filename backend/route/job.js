@@ -11,19 +11,19 @@ const {
 
 const authentication = require("../middlewares/authentication");
 
-// http://localhost:5000/jobs/create
+// https://workedin.onrender.com/jobs/create
 jobsRouter.post("/create", authentication, createNewJob);
 
-// http://localhost:5000/jobs/:institution_user_id
+// https://workedin.onrender.com/jobs/:institution_user_id
 jobsRouter.get("/:institution_user_id", getJobsByInstitustionId);
 
-// http://localhost:5000/jobs/
+// https://workedin.onrender.com/jobs/
 jobsRouter.get("/", authentication, getAllJobsbyField);
 
-// http://localhost:5000/jobs/job_user
+// https://workedin.onrender.com/jobs/job_user
 jobsRouter.post("/job_user", authentication, createNewJobUser);
 
-// http://localhost:5000/jobs/allUsers/:job_id
+// https://workedin.onrender.com/jobs/allUsers/:job_id
 jobsRouter.get("/allUsers/:job_id", getAllUsersOfJobId);
 
 module.exports = jobsRouter;

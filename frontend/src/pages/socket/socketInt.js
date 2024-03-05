@@ -7,7 +7,7 @@ import  io  from "socket.io-client";
 const socketInt =({ user_id })=>{
   //console.log("from socket int ",token);
   return(
-    io("http://localhost:5000/",{
+    io("https://workedin.onrender.com/",{
     //headers
     extraHeaders:{
       user_id 

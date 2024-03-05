@@ -41,7 +41,7 @@ const LoginGoogle = () => {
   const updateUser = (req, res) => {
     axios
       .put(
-        "http://localhost:5000/users/update/user",
+        "https://workedin.onrender.com/users/update/user",
         {
           phoneNumber,
           country,
@@ -68,7 +68,7 @@ const LoginGoogle = () => {
 
   const getAllFields = async (e) => {
     try {
-      const result = await axios.get("http://localhost:5000/roles/fields");
+      const result = await axios.get("https://workedin.onrender.com/roles/fields");
       if (result.data.success) {
         setAllFields(result.data.Fields);
       } else throw Error;
@@ -87,7 +87,7 @@ const LoginGoogle = () => {
   const login = async () => {
    
     try {
-      const result = await axios.post("http://localhost:5000/users/login", {
+      const result = await axios.post("https://workedin.onrender.com/users/login", {
         email,
         password,
       });
@@ -110,7 +110,7 @@ const LoginGoogle = () => {
 
   const addNewUserGoogle = async () => {
     try {
-      const result = await axios.post("http://localhost:5000/users/register", {
+      const result = await axios.post("https://workedin.onrender.com/users/register", {
         firstName,
         lastName,
         jobName,

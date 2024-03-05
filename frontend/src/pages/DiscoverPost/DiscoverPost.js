@@ -44,7 +44,7 @@ const Global = () => {
   // ====================================================================
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/posts/search_2`, {
+      .get(`https://workedin.onrender.com/posts/search_2`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
@@ -61,7 +61,7 @@ const Global = () => {
   const getCommentsByPost = async (post_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/comments/comment/${post_id}`
+        `https://workedin.onrender.com/comments/comment/${post_id}`
       );
       if (result.data.success) {
         const comments = result.data.comments;

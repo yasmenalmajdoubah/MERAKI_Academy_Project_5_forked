@@ -24,7 +24,7 @@ export const ProfileBody = () => {
   );
   const getexperience = () => {
     axios
-      .get(`http://localhost:5000/users/experience/${userId}`, {
+      .get(`https://workedin.onrender.com/users/experience/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
