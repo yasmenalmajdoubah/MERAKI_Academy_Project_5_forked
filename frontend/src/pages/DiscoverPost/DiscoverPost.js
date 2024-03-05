@@ -17,6 +17,7 @@ import { TfiCommentAlt } from "react-icons/tfi";
 import PostLoader from "../../components/PostsLoader/PostLoader";
 const pic = require("../../assest/Screenshot_1.png");
 const pic_2 = require("../../assest/3.png");
+const pic_3 = require("../../assest/w3_1.png");
 
 const Global = () => {
   const [comment, setComment] = useState(""); //
@@ -36,6 +37,7 @@ const Global = () => {
       postURL: state.posts.postURL,
       posts: state.posts.posts,
       userLikes: state.posts.userLikes,
+      userId: state.log.userId,
     };
   });
 
@@ -215,7 +217,13 @@ const Global = () => {
       <div>
         <div className="mt-5 border-2  p-2 pt-0 border-gray-400">
           <p className="flex justify-center text-sm">Ads</p>
-          {false ? <img src={pic} /> : <img src={pic_2} />}
+          {state.userId === 42 ? (
+            <img src={pic} />
+          ) : state.userId === 48 ? (
+            <img src={pic_2} />
+          ) : (
+            <img src={pic_3} />
+          )}
         </div>
       </div>
     </div>
