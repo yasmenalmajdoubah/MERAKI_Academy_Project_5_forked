@@ -16,7 +16,7 @@ const DiscoverFreind = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/search_2/field`, {
+      .get(`https://workedin.onrender.com/users/search_2/field`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },

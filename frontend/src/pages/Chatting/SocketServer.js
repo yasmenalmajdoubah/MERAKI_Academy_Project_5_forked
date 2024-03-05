@@ -2,7 +2,7 @@ import io from "socket.io-client";
 
 const SocketServer = (id) => {
   console.log("from server", id);
-  return io("http://localhost:5000/", {
+  return io("https://workedin.onrender.com/", {
     //headers
     extraHeaders: {
       user_id: id,

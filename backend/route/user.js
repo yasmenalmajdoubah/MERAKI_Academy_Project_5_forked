@@ -18,40 +18,40 @@ const {
 
 const authentication = require("../middlewares/authentication");
 
-// http://localhost:5000/users/search
+// https://workedin.onrender.com/users/search
 usersRouter.put("/search", userSearch);
 
-// http://localhost:5000/users/update/user
+// https://workedin.onrender.com/users/update/user
 usersRouter.put("/update/user", authentication, updateUserInfo);
 
-// http://localhost:5000/users/register
+// https://workedin.onrender.com/users/register
 usersRouter.post("/register", register);
 
-// http://localhost:5000/users/login
+// https://workedin.onrender.com/users/login
 usersRouter.post("/login", login);
 
-// http://localhost:5000/users/follows
+// https://workedin.onrender.com/users/follows
 usersRouter.post("/follows", authentication, createNewFollow);
 
-// http://localhost:5000/users/search_2/field
+// https://workedin.onrender.com/users/search_2/field
 usersRouter.get("/search_2/field", authentication, getAllUsersByField);
 
-// http://localhost:5000/users/search_1/5
+// https://workedin.onrender.com/users/search_1/5
 usersRouter.get("/search_1/:id", getUserById);
 
-// http://localhost:5000/users/follows/1
+// https://workedin.onrender.com/users/follows/1
 usersRouter.get("/follows/:id", getAllFollowersByUserId);
 
-// http://localhost:5000/users/follows/1
+// https://workedin.onrender.com/users/follows/1
 usersRouter.delete("/follows/:followed_user_id", authentication, unFollow);
 
-// http://localhost:5000/users/institustion/1
+// https://workedin.onrender.com/users/institustion/1
 usersRouter.get("/institustion/:id", getUsersByInstitustion);
 
-// http://localhost:5000/users/institution_user
+// https://workedin.onrender.com/users/institution_user
 usersRouter.post("/institution_user", authentication, createNewInstitutionUser);
 
-// http://localhost:5000/users/experience/:user_id
+// https://workedin.onrender.com/users/experience/:user_id
 usersRouter.get("/experience/:user_id", authentication, getUserExperiences);
 
 module.exports = usersRouter;

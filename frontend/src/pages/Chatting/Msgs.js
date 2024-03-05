@@ -29,14 +29,14 @@ const Msgs = ({ socket }) => {
 
     };
   });
-  // const socket=io("http://localhost:5000/",{extraHeaders:{
+  // const socket=io("https://workedin.onrender.com/",{extraHeaders:{
   //   user_id:userId
   // }})
   // console.log(socket, "11111111111");
   /* ========================================================================== */
   const getAllMsgs = () => {
     axios
-      .get("http://localhost:5000/chat/messages/all", {
+      .get("https://workedin.onrender.com/chat/messages/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,7 +55,7 @@ const Msgs = ({ socket }) => {
   const sendMsg = async () => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/chat/create`,
+        `https://workedin.onrender.com/chat/create`,
         {
           message,
           to_id,
@@ -81,7 +81,7 @@ const Msgs = ({ socket }) => {
   const allMsgById = async (to_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/chat/messages/user/${to_id}`
+        `https://workedin.onrender.com/chat/messages/user/${to_id}`
       );
       if (result.data.success) {
         const chat = result.data.message;
@@ -97,7 +97,7 @@ const Msgs = ({ socket }) => {
 
   /* ========================================================================== */
   useEffect(() => {
-    //   const socket=io("http://localhost:5000/",{extraHeaders:{
+    //   const socket=io("https://workedin.onrender.com/",{extraHeaders:{
     //   user_id:userId
     // }})
     getAllMsgs();
@@ -129,7 +129,7 @@ const Msgs = ({ socket }) => {
   //   ]
   // );
   const sendMessage = () => {
-    // const socket=io("http://localhost:5000/",{extraHeaders:{
+    // const socket=io("https://workedin.onrender.com/",{extraHeaders:{
     //   user_id:userId
     // }})
     // emit a `message` event with the value of the message

@@ -45,7 +45,7 @@ const PorfilePosts = () => {
   // =====================================
   const getPosts = () => {
     axios
-      .get(`http://localhost:5000/posts/search_1?user=${state.userId}`, {
+      .get(`https://workedin.onrender.com/posts/search_1?user=${state.userId}`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
@@ -67,7 +67,7 @@ const PorfilePosts = () => {
   const getCommentsByPost = async (post_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/comments/comment/${post_id}`
+        `https://workedin.onrender.com/comments/comment/${post_id}`
       );
       if (result.data.success) {
         const comments = result.data.comments;
@@ -85,7 +85,7 @@ const PorfilePosts = () => {
   const createComment = async (post_id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/comments/comment/${post_id}`,
+        `https://workedin.onrender.com/comments/comment/${post_id}`,
         {
           comment,
         },
@@ -106,7 +106,7 @@ const PorfilePosts = () => {
   };
   const DaletePost = (id) => {
     axios
-      .delete(`http://localhost:5000/posts/delete/${id}`, {
+      .delete(`https://workedin.onrender.com/posts/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
@@ -124,7 +124,7 @@ const PorfilePosts = () => {
   const UpdatePost = (id) => {
     axios
       .put(
-        `http://localhost:5000/posts/update/${id}`,
+        `https://workedin.onrender.com/posts/update/${id}`,
         {
           body: postChange,
         },

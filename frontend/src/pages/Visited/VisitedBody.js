@@ -23,7 +23,7 @@ export const VisitedBody = () => {
     });
   const getexperience = () => {
     axios
-      .get(`http://localhost:5000/users/experience/${id}`, {
+      .get(`https://workedin.onrender.com/users/experience/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

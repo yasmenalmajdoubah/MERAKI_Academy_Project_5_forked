@@ -16,7 +16,7 @@ const ProfileJobs = () => {
       });
       useEffect(() => {    
         axios
-      .get(`http://localhost:5000/jobs/${userId}`, {
+      .get(`https://workedin.onrender.com/jobs/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

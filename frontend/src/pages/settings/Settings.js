@@ -27,7 +27,7 @@ const Settings = () => {
   const addExperience = () => {
     axios
       .post(
-        "http://localhost:5000/users/institution_user",
+        "https://workedin.onrender.com/users/institution_user",
         {
           workDiscription,
           InstitutionName,

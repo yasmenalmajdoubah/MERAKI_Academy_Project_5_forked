@@ -55,7 +55,7 @@ export const VisitedHeader = () => {
   /* ==================================== */
   const unFollow = () => {
     axios
-      .delete(`http://localhost:5000/users/follows/${id}`, {
+      .delete(`https://workedin.onrender.com/users/follows/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,7 +70,7 @@ export const VisitedHeader = () => {
   const Follow = () => {
     axios
       .post(
-        `http://localhost:5000/users/follows`,
+        `https://workedin.onrender.com/users/follows`,
         { followed_user_id: id },
         {
           headers: {
@@ -89,7 +89,7 @@ export const VisitedHeader = () => {
   /* ======================================= */
   const getUser = () => {
     axios
-      .get(`http://localhost:5000/users/search_1/${id}`, {
+      .get(`https://workedin.onrender.com/users/search_1/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -105,7 +105,7 @@ export const VisitedHeader = () => {
   /* ======================================== */
   const getfollows = () => {
     axios
-      .get(`http://localhost:5000/users/follows/${id}`, {
+      .get(`https://workedin.onrender.com/users/follows/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

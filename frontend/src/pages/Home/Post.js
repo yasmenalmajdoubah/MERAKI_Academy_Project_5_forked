@@ -41,7 +41,7 @@ export const Post = () => {
   // ===============================
   useEffect(() => {
     axios
-      .get("http://localhost:5000/posts/followsPosts", {
+      .get("https://workedin.onrender.com/posts/followsPosts", {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
@@ -58,7 +58,7 @@ export const Post = () => {
   const getCommentsByPost = async (post_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/comments/comment/${post_id}`
+        `https://workedin.onrender.com/comments/comment/${post_id}`
       );
       if (result.data.success) {
         const comments = result.data.comments;
@@ -75,7 +75,7 @@ export const Post = () => {
   const createComment = async (post_id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/comments/comment/${post_id}`,
+        `https://workedin.onrender.com/comments/comment/${post_id}`,
         {
           comment,
         },
@@ -99,7 +99,7 @@ export const Post = () => {
   /*   const getlikes = async (post_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:5000/posts/getLikes/${post_id}`,
+        `https://workedin.onrender.com/posts/getLikes/${post_id}`,
         {
           headers: {
             Authorization: `Bearer ${state.token}`,
@@ -124,7 +124,7 @@ export const Post = () => {
   /*   const like = async (post_id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/posts/addLike`,
+        `https://workedin.onrender.com/posts/addLike`,
         {
           post_id,
         },
@@ -148,7 +148,7 @@ export const Post = () => {
   const unlike = async (like_id) => {
     try {
       const result = await axios.post(
-        `http://localhost:5000/posts/removeLike/${like_id}`,
+        `https://workedin.onrender.com/posts/removeLike/${like_id}`,
 
         {
           headers: {
